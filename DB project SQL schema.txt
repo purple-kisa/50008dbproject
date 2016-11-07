@@ -1,0 +1,120 @@
+book table 
+
+```mySQL
+CREATE TABLE book(
+  ISBN INTEGER, 
+  title VARCHAR(100), 
+  authors VARCHAR(100), 
+  publisher VARCHAR(100), 
+  year_pub INTEGER, 
+  copies INTEGER, 
+  price REAL, 
+  format VARCHAR(9) CHECK(format="hardcopy" OR format="softcopy"), 
+  subject VARCHAR(50), 
+  PRIMARY KEY(ISBN) 
+)
+```
+
+customer table 
+
+```mysql
+CREATE TABLE customer(
+  name VARCHAR(100), 
+  user VARCHAR(20), 
+  password VARCHAR(20), 
+  card_no VARCHAR(16), 
+  address VARCHAR(100), 
+  phone_no INTEGER, 
+  PRIMARY KEY(user)
+)
+```
+
+keyword table 
+
+```mysql
+CREATE TABLE keyword(
+  tag VARCHAR(100), 
+  PRIMARY KEY(tag)
+)
+```
+
+invoice table 
+
+```mysql
+CREATE TABLE invoice(
+  number INTEGER, 
+  date DATE, 
+  status VARCHAR(50),
+  PRIMARY KEY(number)
+)
+```
+
+tag relation 
+
+```mysql
+CREATE TABLE tag(
+  ISBN INTEGER, 
+  tag VARCHAR(100), 
+  PRIMARY KEY (ISBN, tag) 
+  FOREIGN KEY (ISBN) REFERENCES book 
+  FOREIGN KEY (tag) REFERENCES keyword
+)
+```
+
+order relation 
+
+```mysql
+CREATE TABLE order(
+  number INTEGER, 
+  user VARCHAR(20), 
+  PRIMARY KEY(user, number), 
+  FOREIGN KEY (user) REFERENCES customer, 
+  FOREIGN KEY (number) REFERENCES invoice 
+)
+```
+
+content relation 
+
+```mysql
+CREATE TABLE content(
+  number INTEGER, 
+  ISBN INTEGER, 
+  copies INTEGER, 
+  PRIMARY KEY (number, ISBN), 
+  FOREIGN KEY (number) REFERENCES invoice, 
+  FOREIGN KEY (ISBN) REFERENCES book
+)
+```
+
+
+
+feedback relation 
+
+```mysql
+CREATE TABLE feedback(
+  ISBN INTEGER, 
+  user VARCHAR(20), 
+  comment TEXT, 
+  date DATE, 
+  score INTEGER,
+  PRIMARY KEY (ISBN, user),
+  FOREIGN KEY (ISBN) REFERENCES book, 
+  FOREIGN KEY (user) REFERENCES customer
+)
+```
+
+rating relation 
+
+```mysql
+CREATE TABLE rating(
+  ISBN INTEGER, 
+  user_feedback VARCHAR(20), 
+  user_rate VARCHAR(20), 
+  rate INTEGER, 
+  PRIMARY KEY((ISBN, user_feedback), user_rate), 
+  FOREIGN KEY (ISBN) REFERENCES book, 
+  FOREIGN KEY (user_feedback) REFERENCES customer, 
+  FOREIGN KEY (user_rate) REFERENCES customer
+)
+```
+
