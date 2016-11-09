@@ -9,6 +9,7 @@ CREATE TABLE book(
   year_pub INTEGER, 
   copies INTEGER, 
   price REAL, 
+  tag VARCHAR(50),
   format VARCHAR(9) CHECK(format="hardcopy" OR format="softcopy"), 
   subject VARCHAR(50), 
   PRIMARY KEY(ISBN) 
@@ -29,15 +30,6 @@ CREATE TABLE customer(
 )
 ```
 
-keyword table 
-
-```mysql
-CREATE TABLE keyword(
-  tag VARCHAR(100), 
-  PRIMARY KEY(tag)
-)
-```
-
 invoice table 
 
 ```mysql
@@ -45,19 +37,9 @@ CREATE TABLE invoice(
   number INTEGER, 
   date DATE, 
   status VARCHAR(50),
-  PRIMARY KEY(number)
-)
-```
-
-tag relation 
-
-```mysql
-CREATE TABLE tag(
-  ISBN INTEGER, 
-  tag VARCHAR(100), 
-  PRIMARY KEY (ISBN, tag) 
-  FOREIGN KEY (ISBN) REFERENCES book 
-  FOREIGN KEY (tag) REFERENCES keyword
+  user VARCHAR(20) NOT NULL, 
+  PRIMARY KEY(number),
+  FOREIGN KEY (user) REFERENCES customer
 )
 ```
 
@@ -112,8 +94,7 @@ CREATE TABLE rating(
   user_rate VARCHAR(20), 
   rate INTEGER, 
   PRIMARY KEY((ISBN, user_feedback), user_rate), 
-  FOREIGN KEY (ISBN) REFERENCES book, 
-  FOREIGN KEY (user_feedback) REFERENCES customer, 
+  FOREIGN KEY (ISBN, user_feedback) REFERENCES feedback, 
   FOREIGN KEY (user_rate) REFERENCES customer
 )
 ```
