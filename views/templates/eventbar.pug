@@ -1,0 +1,46 @@
+// Navbar + Splash
+script(src="/js/custom.js")
+div#navbar-full
+    div#navbar
+        nav.navbar.navbar-ct-black.navbar-transparent.navbar-fixed-top(role="navigation")
+            div.container-fluid
+                div.navbar-header
+                    button.navbar-toggle(type="button"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href="/") AF16
+
+                // Collect the nav links, forms, and other content for toggling
+                div.collapse.navbar-collapse#bs-example-navbar-collapse-1
+                    ul.nav.navbar-nav
+                        li.active: a(href="#") Link
+                        li.dropdown
+                            a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") Dropdown 
+                                span.caret
+                            ul.dropdown-menu
+                                li: a(href="#") Action
+                                li: a(href="#") Another action
+                                li: a(href="#") Something
+                                li: a(href="#") Another action
+                                li: a(href="#") Something
+                                li.divider(role="separator")
+                                li: a(href="#") Separated link
+                        li: a.hidden-xs(href="javascript:void(0);" data-toggle="search"): i.fa.fa-search
+                    
+                    form.navbar-form.navbar-left.navbar-search-form(role="search")
+                        div.form-group
+                            input(type="text" value="" class="form-control" placeholder="Search...")
+
+                    ul.nav.navbar-nav.navbar-right
+                        li:  a(href="#") Another Link
+                        li: button.btn.btn-round.btn-default(href="#") A Round Button
+
+
+
+    div.blurred-container
+        div.img-src(style=`background-image: url(${splash}); position: relative`)
+        div.cover.black(data-color="black")
+
+        

@@ -1,0 +1,48 @@
+.gridder{
+    margin:0px;
+    padding:0px;
+    list-style-type:none;
+    font-size:0
+    }
+.gridder-list,.gridder-show{
+    font-size:16px;
+    width:16.66%;
+    }
+    
+.gridder-list{
+    display:inline-block;
+    vertical-align:top
+}
+
+.gridder-show{
+    display:block;
+    float:left;
+    width:100%;
+    position:relative
+}
+
+.gridder-content{
+    display:none
+    }
+
+
+
+.gridder-list:nth-child(n){
+    display: inline-block;
+    margin-bottom:0px;
+    margin-right:0px;
+    overflow: hidden;
+    width:16.6666666%;
+    max-height:300px;
+    }
+
+.gridder-list > .booth {
+    object-fit: none; /* Do not scale the image */
+    object-position: center; /* Center the image within the element */
+}
+/*    
+.gridder-list:nth-of-type(6n){
+    margin-right:0;
+    margin-bottom:0;
+}*/
+
