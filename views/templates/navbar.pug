@@ -25,8 +25,41 @@ div#navbar-full
 						
 
                     ul.nav.navbar-nav.navbar-right
-                        li: a.navbar(href="") REGISTER
-                        li: a.navbar(href="") SIGN IN 
+                        li.dropdown
+                            a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") REGISTER
+                                span.caret#register_popup 
+                            ul.dropdown-menu 
+                                li Full Name: 
+                                    input(type="text" name="name")
+                                    br 
+                                li Username: 
+                                    input(type="text" name="username")
+                                    br
+                                li Password: 
+                                    input(type="text" name="pw")
+                                    br
+                                li Card No: 
+                                    input(type="text" name="cardno") 
+                                    br
+                                li Address: 
+                                    input(type="text" name="address")
+                                    br
+                                li Phone No: 
+                                    input(type="text" name="phoneno") 
+                                    br
+                                    br
+                                li: input(type="submit" value="Register")
+                        li.dropdown
+                            a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") SIGN IN
+                                span.caret#sign_in_popup 
+                            ul.dropdown-menu
+                                li Username: 
+                                    input(type="text" name="user_signin")
+                                    br
+                                li Password: 
+                                    input(type="text" name="pw_signin") 
+                                    br
+                                li: input(type="submit" value="Sign In")
                         li: button.btn: a(href=""): img(src="img/icon_cart.png" width="36px" height="36px")
                         li: button.btn: a(href="/account"): img(src="img/icon_account.png" width="36px" height="36px")
 script(src="/js/navBarTransparency.js")

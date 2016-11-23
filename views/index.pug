@@ -1,90 +1,13 @@
 extends ./templates/layout.pug
 
-block splash
-    include ./templates/splashblur.pug
 block content
+    img(src=`${splash.base}` width="100%")
+
     div.posts-main
         div.posts-container#books
             h1(style="text-align:center;") Available Books
             div#grid
                 div#posts
-                    div.post
-                        a(href="/workshop/silkscreening"): img(src="/img/mainpage/WS_Silkscreening.jpg")
-                        br
-                        br
-                        strong Silkscreening
-                        br
-                        small Conducted by SUTDio
-                    div.post
-                        a(href="/workshop/crocheting"): img(src="/img/mainpage/WS_Crocheting.jpg")
-                        br
-                        br
-                        strong Crocheting
-                        br
-                        small Conducted by Anupama
-                    div.post
-                        a(href="/workshop/bacteriapainting"): img(src="/img/mainpage/WS_BacteriaPainting.jpg")
-                        br
-                        br
-                        strong Bacteria Painting
-                        br
-                        small Conducted by GNomes
-                    div.post
-                        a(href="/workshop/spokenwordandpoetry"): img(src="/img/mainpage/WS_SpokenWord.jpg")
-                        br
-                        br
-                        strong Spoken Word and Poetry
-                        br
-                        small Conducted by Stella Loo
-                    div.post
-                        a(href="/workshop/hennapainting"): img(src="/img/mainpage/WS_Henna.jpg")
-                        br
-                        br
-                        strong Henna Painting
-                        br
-                        small Conducted by Namaste
-                    div.post
-                        a(href="/workshop/rangoliart"): img(src="/img/mainpage/WS_Rangoli.jpg")
-                        br 
-                        br
-                        strong Rangoli Art
-                        br
-                        small Conducted by Namaste
-                    div.post
-                        a(href="/workshop/bollywoodjazz"): img(src="/img/mainpage/WS_Bollywood.jpg")
-                        br 
-                        br
-                        strong Bollywood Jazz
-                        br
-                        small Conducted by Taal
-                    div.post
-                        a(href="/workshop/introductiontocontemporarydance"): img(src="/img/mainpage/WS_Contemp.jpg")
-                        br 
-                        br
-                        strong Introduction to Contemporary Dance
-                        br
-                        small Conducted by Fluence
-                    div.post
-                        a(href="/workshop/waacking"): img(src="/img/mainpage/WS_Waacking.jpg")
-                        br 
-                        br
-                        strong Waacking
-                        br
-                        small Conducted by Xiang Yi (R16 Waacking Singapore Top 8) 
-                    div.post
-                        a(href="/workshop/batikpainting"): img(src="/img/mainpage/WS_BatikPainting.jpg")
-                        br 
-                        br
-                        strong Batik Painting
-                        br
-                        small Conducted by PADI Indonesian Cultural Club
-                    div.post
-                        a(href="/workshop/saman"): img(src="/img/mainpage/WS_Saman.jpg")
-                        br 
-                        br
-                        strong Saman Dance
-                        br
-                        small Conducted by PADI Indonesian Cultural Club
                     div.post
                         a(href="/workshop/doodling"): img(src="/img/mainpage/WS_Doodling.jpg")
                         br 
@@ -96,8 +19,6 @@ block content
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
     script(src="js/masonry.js")
-    //- script(src="js/gsdk-checkbox.js")
-    //- script(src="js/gsdk-radio.js")
-    //- script(src="js/gsdk-bootstrapswitch.js")
     script(src="js/get-shit-done.js")
+    script(src="js/index.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js")      
