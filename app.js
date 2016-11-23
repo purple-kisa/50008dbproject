@@ -31,8 +31,8 @@ app.get('/account', function (req, res) {
 });
 
 app.get('/cart', function(req, res) {
-  res.render('cart.pug', {title:'Cart', "splash":{"base":"img/test.png", "cover":"img/cover_4_blur.jpg"}})
-}
+  res.render('cart.pug', {title:'Cart', "splash":{"base":"img/test2.png", "cover":"img/cover_4_blur.jpg"}})
+});
 
 app.listen(3000, function() {
     console.log("Listening at port 3000");
