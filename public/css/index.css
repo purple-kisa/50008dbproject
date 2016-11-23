@@ -1441,7 +1441,7 @@ img.support {
     .navbar-nav > li > .dropdown-menu, .dropdown-menu{
         display: block;
         margin: 0;
-        padding: 0;
+        padding: 10px;
         z-index: 9000;
         position: absolute;
         -webkit-border-radius: 10px;

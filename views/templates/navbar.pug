@@ -12,54 +12,49 @@ div#navbar-full
                         span.icon-bar
                     a.navbar-brand(href="/") BOOK LINK
 
-                // Collect the nav links, forms, and other content for toggling
-                div.collapse.navbar-collapse#bs-example-navbar-collapse-1
-                    ul.nav.navbar-nav
-                        li.dropdown
-                            a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") Menu
-                                span.caret
-                            ul.dropdown-menu
-                                li: a(href="/#about") About
-                                li.divider(role="separator")
-                                
-						
-
+                div.collapse.navbar-collapse#bs-example-navbar-collapse-1           
                     ul.nav.navbar-nav.navbar-right
                         li.dropdown
                             a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") REGISTER
                                 span.caret#register_popup 
                             ul.dropdown-menu 
-                                li Full Name: 
-                                    input(type="text" name="name")
-                                    br 
-                                li Username: 
-                                    input(type="text" name="username")
-                                    br
-                                li Password: 
-                                    input(type="text" name="pw")
-                                    br
-                                li Card No: 
-                                    input(type="text" name="cardno") 
-                                    br
-                                li Address: 
-                                    input(type="text" name="address")
-                                    br
-                                li Phone No: 
-                                    input(type="text" name="phoneno") 
-                                    br
-                                    br
-                                li: input(type="submit" value="Register")
+                                form
+                                    li: b Personal Details
+                                    li Full Name: 
+                                        input(type="text" name="name")
+                                        br 
+                                    li Username: 
+                                        input(type="text" name="username")
+                                        br
+                                    li Password: 
+                                        input(type="text" name="pw")
+                                        br
+                                    li.divider(role="separator") 
+                                    li: b Billing Details
+                                    li Card No: 
+                                        input(type="text" name="cardno") 
+                                        br
+                                    li Address: 
+                                        input(type="text" name="address")
+                                        br
+                                    li Phone No: 
+                                        input(type="text" name="phoneno") 
+                                        br
+                                        br
+                                    li: input(type="submit" value="Register")
                         li.dropdown
                             a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") SIGN IN
                                 span.caret#sign_in_popup 
                             ul.dropdown-menu
-                                li Username: 
-                                    input(type="text" name="user_signin")
-                                    br
-                                li Password: 
-                                    input(type="text" name="pw_signin") 
-                                    br
-                                li: input(type="submit" value="Sign In")
+                                form
+                                    li Username: 
+                                        input(type="text" name="user_signin")
+                                        br
+                                    li Password: 
+                                        input(type="text" name="pw_signin") 
+                                        br
+                                        br
+                                    li: input(type="submit" value="Sign In")
                         li: button.btn: a(href=""): img(src="img/icon_cart.png" width="36px" height="36px")
                         li: button.btn: a(href="/account"): img(src="img/icon_account.png" width="36px" height="36px")
 script(src="/js/navBarTransparency.js")

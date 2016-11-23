@@ -1,8 +1,9 @@
 extends ./templates/layout.pug
 
-block content
-    img(src=`${splash.base}` width="100%")
+block splash 
+    include ./templates/splashblur.pug
 
+block content
     div.posts-main
         div.posts-container#books
             h1(style="text-align:center;") Available Books
