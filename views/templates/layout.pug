@@ -9,9 +9,8 @@ html(lang="en")
     body
         block navbar
             include ./navbar.pug
-        if splash
-            block splash
-                include ./splash.pug
+        block splash
+            include ./splash.pug
         block content
         block footer
             include ./footer.pug

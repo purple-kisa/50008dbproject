@@ -34,6 +34,10 @@ app.get('/cart', function(req, res) {
   res.render('cart.pug', {title:'Cart', "splash":{"base":"img/test2.png", "cover":"img/cover_4_blur.jpg"}})
 });
 
+app.get('/book/:booktitle', function(req,res){
+  res.render('book.pug',  {title: "Get Book Title from MySQL", splash:"/img/test3.png", booktitle: req.params.booktitle})
+});
+
 app.listen(3000, function() {
     console.log("Listening at port 3000");
 });
