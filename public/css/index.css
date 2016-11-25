@@ -1554,3 +1554,32 @@ Can this be done with Masonry options? */
     padding-right: 15px;
   }
 }
+
+.ProfilePic {
+    width:196px;
+    height:196px;
+    margin: auto;
+    border-radius:50%
+}
+
+.ProfilePicDiv {
+    height:256px;
+    text-align: center;
+    padding-top: 48px;
+}
+
+.ProfileDiv {
+    height:256px;
+    text-align: center;
+}
+
+.ProfileDiv2 {
+    margin-left: 48px;
+    margin-right: 48px;
+}
+
+.ProfileHeader {
+    margin-top: 48px;
+    margin-bottom: 48px;
+    text-decoration: underline;
+}

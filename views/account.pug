@@ -5,7 +5,49 @@ block splash
 
 block content 
     div.posts-main
-        p meowww
+        div(class = "col-sm-4 ProfilePicDiv")
+            img.ProfilePic(src="img/test3.png" alt="Profile Picture")
+        div(class = "col-sm-4 ProfileDiv")
+            h2.ProfileHeader Hello, User
+            p Username: Username
+            p Phone: Phone
+        div(class = "col-sm-4 ProfileDiv")
+            h2.ProfileHeader Billing Details
+            p Address: Address
+            p Card No: Card No
+
+        div(class="panel-group col-sm-10" style="width:100%; margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapseHistory") Your History
+            div(id="collapseHistory" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
+
+        div(class="panel-group col-sm-6" style="margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapseYourFeedback") Your Feedback
+            div(id="collapseYourFeedback" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
+        
+        div(class="panel-group col-sm-6" style="margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapseFeedbackRanked") Feedbacks you ranked
+            div(id="collapseFeedbackRanked" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
