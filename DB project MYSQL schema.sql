@@ -3,20 +3,20 @@ CREATE DATABASE online_bookstore;
 USE online_bookstore;
 
 CREATE TABLE customer(
-  name VARCHAR(100), 
+  name VARCHAR(100) NOT NULL, 
   user VARCHAR(20), 
-  password VARCHAR(20), 
-  card_no VARCHAR(16), 
-  address VARCHAR(100), 
-  phone_no INTEGER, 
+  password VARCHAR(20) NOT NULL, 
+  card_no VARCHAR(16) NOT NULL, 
+  address VARCHAR(100) NOT NULL, 
+  phone_no INTEGER NOT NULL, 
   PRIMARY KEY(user)
 );
 
 
 CREATE TABLE book(
   ISBN VARCHAR(10), 
-  title VARCHAR(100), 
-  authors VARCHAR(100), 
+  title VARCHAR(100) NOT NULL, 
+  authors VARCHAR(100) NOT NULL, 
   publisher VARCHAR(100), 
   year_pub INTEGER, 
   copies INTEGER, 
