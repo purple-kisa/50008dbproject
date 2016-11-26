@@ -14,7 +14,7 @@ CREATE TABLE customer(
 
 
 CREATE TABLE book(
-  ISBN INTEGER, 
+  ISBN VARCHAR(10), 
   title VARCHAR(100), 
   authors VARCHAR(100), 
   publisher VARCHAR(100), 
@@ -48,7 +48,7 @@ CREATE TABLE book_order(
 
 CREATE TABLE content(
   number INTEGER, 
-  ISBN INTEGER, 
+  ISBN VARCHAR(10), 
   copies INTEGER, 
   PRIMARY KEY (number, ISBN), 
   FOREIGN KEY (number) REFERENCES invoice(number), 
@@ -56,7 +56,7 @@ CREATE TABLE content(
 );
 
 CREATE TABLE feedback(
-  ISBN INTEGER, 
+  ISBN VARCHAR(10), 
   user VARCHAR(20), 
   comment TEXT, 
   date DATE, 
@@ -67,7 +67,7 @@ CREATE TABLE feedback(
 );
 
 CREATE TABLE rating(
-  ISBN INTEGER, 
+  ISBN VARCHAR(10), 
   user_feedback VARCHAR(20), 
   user_rate VARCHAR(20), 
   rate INTEGER, 
