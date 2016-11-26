@@ -1,8 +1,15 @@
 extends ./templates/layout.pug
 
 block content 
-    div.posts-main
-        p Book Title is #{booktitle}
+    div.main
+        div.container-fluid
+            div.col-sm-10
+                p Book Title is #{booktitle}
+                h3 Give a review!
+                textarea(rows="4" cols="50" width="100%" id="review_text")
+                br
+                input(type="submit" value="Submit Review")
+                h3 Feedback
 
 block scripts
     script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
