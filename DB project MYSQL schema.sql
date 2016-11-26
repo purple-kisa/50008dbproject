@@ -24,6 +24,7 @@ CREATE TABLE book(
   tag VARCHAR(50),
   format VARCHAR(9) CHECK(format="hardcopy" OR format="softcopy"), 
   subject VARCHAR(50), 
+  image VARCHAR(100) DEFAULT "http://placekitten.com/400/500",
   PRIMARY KEY(ISBN) 
 );
 
