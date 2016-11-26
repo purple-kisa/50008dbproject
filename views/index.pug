@@ -5,7 +5,7 @@ block splash
 
 mixin books(data) 
     div.post
-        a(href="/book/meow"): img(src= "http://placekitten.com/400/500")
+        a(href="/book/"+data.ISBN): img(src= data.image)
         br
         br
         strong #{data.title}

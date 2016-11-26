@@ -35,7 +35,7 @@ exports.query_database_all = function(table,callback){
 exports.query_books = function(table,callback){
     state.pool.getConnection(function(err,connection){
         // console.log('Connected as id ' + connection.threadId);
-        connection.query('select authors,title,image from ??', [table] ,function(err,rows){
+        connection.query('select authors,title,image,ISBN from ??', [table] ,function(err,rows){
             connection.release();
             // console.log("Connection released from pool");
             if(!err) {
