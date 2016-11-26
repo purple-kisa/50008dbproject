@@ -15,8 +15,8 @@ CREATE TABLE customer(
 
 CREATE TABLE book(
   ISBN VARCHAR(10), 
-  title VARCHAR(100) NOT NULL, 
-  authors VARCHAR(100) NOT NULL, 
+  title VARCHAR(200) NOT NULL, 
+  authors VARCHAR(100), 
   publisher VARCHAR(100), 
   year_pub INTEGER, 
   copies INTEGER, 
