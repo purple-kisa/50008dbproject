@@ -21,30 +21,30 @@ div#navbar-full
                             a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") REGISTER
                                 span.caret#register_popup 
                             ul.dropdown-menu 
-                                form
-                                    li: b Personal Details
-                                    li Full Name: 
-                                        input(type="text" name="name")
-                                        br 
-                                    li Username: 
-                                        input(type="text" name="username")
-                                        br
-                                    li Password: 
-                                        input(type="text" name="pw")
-                                        br
-                                    li.divider(role="separator") 
-                                    li: b Billing Details
-                                    li Card No: 
-                                        input(type="text" name="cardno") 
-                                        br
-                                    li Address: 
-                                        input(type="text" name="address")
-                                        br
-                                    li Phone No: 
-                                        input(type="text" name="phoneno") 
-                                        br
-                                        br
-                                    li: input(type="submit" value="Register")
+                                //form
+                                li: b Personal Details
+                                li Full Name: 
+                                    input(type="text" name="name" id="reg_name")
+                                    br 
+                                li Username: 
+                                    input(type="text" name="username")
+                                    br
+                                li Password: 
+                                    input(type="text" name="pw")
+                                    br
+                                li.divider(role="separator") 
+                                li: b Billing Details
+                                li Card No: 
+                                    input(type="text" name="cardno") 
+                                    br
+                                li Address: 
+                                    input(type="text" name="address")
+                                    br
+                                li Phone No: 
+                                    input(type="text" name="phoneno") 
+                                    br
+                                    br
+                                li: input(type="submit" value="Register" onClick="submitDetails()")
                         li.dropdown
                             a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") SIGN IN
                                 span.caret#sign_in_popup 
