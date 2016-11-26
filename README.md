@@ -6,6 +6,10 @@ Instructions
 
 Cd to the working directory of ../50008dbproject
 
+MySQL Sample Database load:
+Run "DB project MYSQL schema.sql"
+Run "bookstore_books.sql"
+
 Run the follow commands prior to starting node.js
 - 'npm install' 
 - 'npm install mysql'
