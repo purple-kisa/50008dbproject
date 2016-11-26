@@ -4,8 +4,137 @@ block splash
     include ./templates/splashblur.pug
 
 block content 
-    div.posts-main
-        p meowww
+    div.mainTop
+        div(class = "col-sm-4 ProfilePicDiv")
+            img.ProfilePic(src="img/test2.png" alt="Admin Picture")
+        div(class = "col-sm-4 ProfileDiv")
+            h2.DbHeader Hello, Admin
+            <!-- Trigger/Open The Modal -->
+            button#AddBookBtn.DbButton Add New Book
+              
+    div.mainMiddle
+        div.col-sm-12(style="text-align:center;")
+            h2.DbHeader Orders
+        div.col-sm-6(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                p details
+                p details
+                p details
+                p details
+            div.col-sm-6(style="text-align:center;")
+                button.order ordered
+        div.col-sm-6(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                p details
+                p details
+                p details
+                p details
+            div.col-sm-6(style="text-align:center")
+                button.order ordered
+        div.col-sm-6(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                p details
+                p details
+                p details
+                p details
+            div.col-sm-6(style="text-align:center;")
+                button.order ordered
+        div.col-sm-6(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                p details
+                p details
+                p details
+                p details
+            div.col-sm-6(style="text-align:center;")
+                button.order ordered
+
+    div.mainMiddle
+        div.col-sm-6(style="text-align:center;")
+            h2.DbHeader Statistics
+        div#StatisticsFilter.col-sm-6(style="display:inline-flex;top:2em;")
+            p Show
+            select(name="cars")
+                option(value="Top5") Top 5
+                option(value="Top10") Top 10
+                option(value="Top15") Top 15
+                option(value="Top20") Top 20
+            p entries
+
+    div.mainBottom
+        div(class="panel-group col-sm-4" style="margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapsePopularBooks") Most Popular Books
+            div(id="collapsePopularBooks" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
+
+        div(class="panel-group col-sm-4" style="margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapsePopularAuthors") Most Popular Authors
+            div(id="collapsePopularAuthors" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
+        
+        div(class="panel-group col-sm-4" style="margin-bottom:15px;")
+          div(class="panel panel-default")
+            div.panel-heading
+              h4.panel-title
+                a(data-toggle="collapse" href="#collapsePopularPublishers") Most Popular Publishers
+            div(id="collapsePopularPublishers" class="panel-collapse collapse")
+              ul.list-group
+                li.list-group-item One
+                li.list-group-item Two
+                li.list-group-item Three
+
+    <!-- The Modal -->
+    div(id="NewBookModal" class="modal")
+
+      <!-- Modal content -->
+      div.modal-content
+        span.close x
+        form#NewBookForm(method='POST')
+            br
+            br
+            div(class="form-group col-sm-6")
+                label(for='ISBN') ISBN:
+                input#ISBN.form-control(type='text', placeholder='ISBN' name='ISBN')
+            div(class="form-group col-sm-6")
+                label(for='Title') Title:
+                input#Title.form-control(type='text', placeholder='Title' name='Title')
+            div(class="form-group col-sm-6")
+                label(for='authors') Authors:
+                input#authors.form-control(type='text', placeholder='Authors' name='authors')
+            div(class="form-group col-sm-6")
+                label(for='tag') Tag:
+                input#tag.form-control(type='text', placeholder='Tags' name='tag')
+            div(class="form-group col-sm-6")
+                label(for='publisher') Publisher:
+                input#publisher.form-control(type='text', placeholder='Publisher' name='publisher')
+            div(class="form-group col-sm-6")
+                label(for='year_pub') Year of Publication:
+                input#year_pub.form-control(type='text', placeholder='Year of Publication' name='year_pub')
+            div(class="form-group col-sm-6")
+                label(for='email') Copies:
+                input#email.form-control(type='number', placeholder='copies to be added' name='copies')
+            div(class="form-group col-sm-6")
+                label(for='favoriteBook') Price:
+                input#price.form-control(type='text', placeholder='price' name='price')
+            div(class="form-group col-sm-6")
+                label(for='format') Format:
+                input#format.form-control(type='text', placeholder='hardcopy or softcopy' name='format')
+            div(class="form-group col-sm-6")
+                label(for='subject') Subject:
+                input#subject.form-control(type='text', placeholder='subject' name='subject')
+            div(class="form-group col-sm-12" style="text-align:center;")
+                button.btn.btn-primary(type='submit' style="padding-left:60px;padding-right:60px;") Add Book
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
@@ -13,3 +142,4 @@ block scripts
     script(src="js/get-shit-done.js")
     script(src="js/index.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 
+    script(src="js/admin.js")
