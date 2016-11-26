@@ -10,12 +10,25 @@ app.use(express.static('public'));
 app.set('view engine', 'pug'); 
 
 app.get('/', function (req, res) {
-    res.render('index.pug', {title:'Book Link', "splash": {"base": "http://placekitten.com/1920/1280", "cover": "img/cover_4_blur.jpg"}});
+    db.connect();
+    
+    var query_result; 
+
+    db.query_books('book',function(result){
+        console.log(result)
+        query_result = result;
+        console.log(query_result)
+
+        res.render('index.pug', {title:'Book Link', "splash": {"base": "http://placekitten.com/1920/1280", "cover": "img/cover_4_blur.jpg"}, data: query_result});
+
+    });
+
+    console.log("query result is " + query_result);
+
 
     //DB Examples
     //This function is called in app.js which is the main entry point to the website
-  	 db.connect();
-    // E.g Retrieving user database
+  	// E.g Retrieving user database
   	// db.query_database_all('customer',function(result){
    //  	console.log(result[0])
   	// });
@@ -24,9 +37,6 @@ app.get('/', function (req, res) {
   	 // db.registration('customer',post,function(result){
     // 	 	console.log(result)
   	 // });
-     db.query_books('book',function(result){
-        console.log(result)
-      });
 });
 
 app.get('/account', function (req, res) {

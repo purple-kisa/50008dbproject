@@ -3,19 +3,30 @@ extends ./templates/layout.pug
 block splash 
     include ./templates/splashblur.pug
 
+mixin books(data) 
+    div.post
+        a(href="/book/meow"): img(src= "http://placekitten.com/400/500")
+        br
+        br
+        strong #{data.title}
+        br 
+        small #{data.authors}
+
 block content
     div.posts-main
         div.posts-container#books
             h1(style="text-align:center;") Available Books
             div#grid
                 div#posts
-                    div.post
-                        a(href="/book/doodling"): img(src="/img/mainpage/WS_Doodling.jpg")
-                        br 
-                        br
-                        strong Title
-                        br
-                        small Author
+                    //- div.post
+                    //-     a(href="/book/doodling"): img(src="/img/mainpage/WS_Doodling.jpg")
+                    //-     br 
+                    //-     br
+                    //-     strong Title
+                    //-     br
+                    //-     small Author
+                    each val, index in data 
+                        +books(val)
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
