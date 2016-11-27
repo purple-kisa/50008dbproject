@@ -78,4 +78,19 @@ exports.order = function(table,data,callback){
   });
 }
 
-
+// query account with condition
+exports.query_account = function(table,user,callback){
+    state.pool.getConnection(function(err,connection){
+        // console.log('Connected as id ' + connection.threadId);
+        connection.query('select * from ?? where user = ?', [table,user] ,function(err,rows){
+            connection.release();
+            // console.log("Connection released from pool");
+            if(!err) {
+                return callback(rows);
+            }
+            else{
+               return callback("Error :" + err.code);
+            }           
+        });
+  });
+}

@@ -39,16 +39,27 @@ app.get('/', function (req, res) {
   	 // });
 });
 
-app.get('/account', function (req, res) {
-    res.render('account.pug', {title:'Your Account', "splash": {"base": "img/test.png", "cover": "img/cover_4_blur.jpg"}});
+app.get('/account/:user', function (req, res) {
+    var user = req.params.user;
+    db.connect();
+    
+    var query_result; 
+
+    db.query_account('customer',user,function(result){
+        query_result = result[0];
+        console.log(query_result)
+
+        res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result});
+
+    });
 });
 
 app.get('/admin', function(req,res) {
-    res.render('admin.pug', {title:"Admin Account", "splash": {"base": "img/test.png", "cover": "img/cover_4_blur.jpg"}})
+    res.render('admin.pug', {title:"Admin Account", "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}})
 }),
 
 app.get('/cart', function(req, res) {
-  res.render('cart.pug', {title:'Cart', "splash":{"base":"img/test2.png", "cover":"img/cover_4_blur.jpg"}})
+  res.render('cart.pug', {title:'Cart', "splash":{"base":"/img/test2.png", "cover":"/img/cover_4_blur.jpg"}})
 });
 
 app.get('/book/:booktitle', function(req,res){

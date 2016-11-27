@@ -6,15 +6,15 @@ block splash
 block content 
     div.main
         div(class = "col-sm-4 ProfilePicDiv")
-            img.ProfilePic(src="img/test3.png" alt="Profile Picture")
+            img.ProfilePic(src="/img/test3.png" alt="Profile Picture")
         div(class = "col-sm-4 ProfileDiv")
-            h2.DbHeader Hello, User
-            p Username: Username
-            p Phone: Phone
+            h2.DbHeader Hello, #{data.name}
+            p Username: #{data.user}
+            p Phone: #{data.phone_no}
         div(class = "col-sm-4 ProfileDiv")
             h2.DbHeader Billing Details
-            p Address: Address
-            p Card No: Card No
+            p Address: #{data.address}
+            p Card No: #{data.card_no}
 
         div(class="panel-group col-sm-10" style="width:100%; margin-bottom:15px;")
           div(class="panel panel-default")
@@ -50,8 +50,8 @@ block content
                 li.list-group-item Three
 
 block scripts
-    script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
-    script(src="js/masonry.js")
-    script(src="js/get-shit-done.js")
-    script(src="js/index.js")
+    script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
+    script(src="/js/masonry.js")
+    script(src="/js/get-shit-done.js")
+    script(src="/js/index.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 
