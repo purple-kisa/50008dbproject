@@ -27,21 +27,21 @@ div#navbar-full
                                     input(type="text" name="name" id="reg_name")
                                     br 
                                 li Username: 
-                                    input(type="text" name="username")
+                                    input(type="text" name="username" id="user_name")
                                     br
                                 li Password: 
-                                    input(type="text" name="pw")
+                                    input(type="text" name="pw" id= "pass_word")
                                     br
                                 li.divider(role="separator") 
                                 li: b Billing Details
                                 li Card No: 
-                                    input(type="text" name="cardno") 
+                                    input(type="text" name="cardno" id ="card_no") 
                                     br
                                 li Address: 
-                                    input(type="text" name="address")
+                                    input(type="text" name="address" id = "add")
                                     br
                                 li Phone No: 
-                                    input(type="text" name="phoneno") 
+                                    input(type="text" name="phoneno" id = "phone_number") 
                                     br
                                     br
                                 li: input(type="submit" value="Register" onClick="submitDetails()")
@@ -63,5 +63,7 @@ div#navbar-full
                         li: button.btn: a(href="/admin"): img(src="/img/icon_admin.png" width="36px" height="36px")
                         li: button.btn: a(href="/newbook"): img(src="/img/icon_add.png" width="36px" height="36px")
 script(src="/js/navBarTransparency.js")
+script(src="/app.js")
+script(src="/js/index.js")
 
         
