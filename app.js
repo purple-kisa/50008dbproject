@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var db = require('./db')
+var db = require('./db');
 
 var app = express();
 
@@ -15,15 +15,29 @@ app.get('/', function (req, res) {
     var query_result; 
 
     db.query_books('book',function(result){
-        console.log(result)
+        // console.log(result)
         query_result = result;
-        console.log(query_result)
+        // console.log(query_result)
 
         res.render('index.pug', {title:'Book Link', "splash": {"base": "http://placekitten.com/1920/1280", "cover": "img/cover_4_blur.jpg"}, data: query_result});
 
     });
+});
+    // console.log("query result is " + query_result);    
 
-    console.log("query result is " + query_result);
+app.post('/', function(request,response){
+    var data = '';
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        post = JSON.parse(data)
+        console.log(post);
+        db.registration('customer',post,function(result){
+    	 	console.log(result)
+  	    });
+        response.writeHead(200, {'content-type': 'text/plain' });
+        response.end()
+    });
+})
 
     db.query_book('book','0321370139',function(result){
        console.log(result)
@@ -41,7 +55,6 @@ app.get('/', function (req, res) {
   	 // db.registration('customer',post,function(result){
     // 	 	console.log(result)
   	 // });
-});
 
 app.get('/account/:user', function (req, res) {
     var user = req.params.user;
