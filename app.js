@@ -22,6 +22,10 @@ app.get('/', function (req, res) {
         res.render('index.pug', {title:'Book Link', "splash": {"base": "http://placekitten.com/1920/1280", "cover": "img/cover_4_blur.jpg"}, data: query_result});
 
     });
+
+    db.query_book('book','0321370139',function(result){
+       console.log(result)
+    });
 });
     // console.log("query result is " + query_result);    
 
@@ -39,9 +43,7 @@ app.post('/', function(request,response){
     });
 })
 
-    db.query_book('book','0321370139',function(result){
-       console.log(result)
-     });
+
 
 
     //DB Examples
