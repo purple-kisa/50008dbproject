@@ -25,13 +25,17 @@ app.get('/', function (req, res) {
 
     console.log("query result is " + query_result);
 
+    db.query_book('book','0321370139',function(result){
+       console.log(result)
+     });
+
 
     //DB Examples
     //This function is called in app.js which is the main entry point to the website
   	// E.g Retrieving user database
-  	// db.query_database_all('customer',function(result){
-   //  	console.log(result[0])
-  	// });
+  	 // db.query_database_all('book',function(result){
+    //  	console.log(result)
+  	 // });
     // E.g Registering a new user
     //  var post  = {name: 'Shaun1', user: 'hazel1111123', password:'grasdalls' , card_no:'1', address:'Science Park', phone_no:99999999};
   	 // db.registration('customer',post,function(result){

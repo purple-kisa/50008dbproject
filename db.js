@@ -48,6 +48,22 @@ exports.query_books = function(table,callback){
   });
 }
 
+exports.query_book = function(table,ISBN,callback){
+    state.pool.getConnection(function(err,connection){
+        // console.log('Connected as id ' + connection.threadId);
+        connection.query('select * from ?? where ISBN=?', [table,ISBN] ,function(err,rows){
+            connection.release();
+            // console.log("Connection released from pool");
+            if(!err) {
+                return callback(rows);
+            }
+            else{
+               return callback("Error :" + err.code);
+            }           
+        });
+  });
+}
+
 //Q1
 exports.registration = function(table,data,callback){
     state.pool.getConnection(function(err,connection){ 
