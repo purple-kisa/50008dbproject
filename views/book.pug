@@ -11,7 +11,7 @@ block content
                             td
                                 h4 #{data.title}
                                 p Authors: #{data.authors}
-                                p ISBN: #{data.ISBN}
+                                p#isbn ISBN: #{data.ISBN}
                                 p Publisher: #{data.publisher}
                                 p Year Published: #{data.year_pub}
                                 p Available Copipes: #{data.copies}
@@ -19,6 +19,11 @@ block content
                                 p Format: #{data.format}
                                 p Subject: #{data.subject}
                                 p Tag: #{data.tag}
+                h3 Add to Cart: 
+                p Number of Copies: 
+                input(type="text" id="copies") 
+                br
+                button(class="w3-btn w3-dark-grey" onClick="addToCart()") Add to Cart
 
                 h3 Give a review!
                 textarea(rows="4" cols="50" width="100%" id="review_text")
@@ -35,10 +40,11 @@ block content
                     option(value="9") 9
                     option(value="10") 10                    
 
-                input(type="submit" value="Submit Review")
+                button(class="w3-btn w3-dark-grey" onClick="submitReview()") Submit Review
                 
 
                 h3 Feedback
+    div#user(style="display:none;") #{user}
 
 block scripts
     script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
