@@ -17,5 +17,12 @@ div(class= "w3-display-container w3-content w3-hide-small" style="max-width:1500
                 label Subject 
                 input#search_subject(class="w3-input w3-border" type="text" placeholder="Subject")                                
             div.w3-half
+                label Search By...
                 br
-                button(class="w3-btn w3-dark-grey") Search
+                select(class="w3-select" name="option")
+                    option(value=1) Year
+                    option(value=2) Average Feedback Score
+            div.w3-half
+                br
+                br
+                button(class="w3-btn w3-dark-grey" style="float: right;") Search
