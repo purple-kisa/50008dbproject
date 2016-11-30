@@ -9,8 +9,12 @@ html(lang="en")
     body
         block navbar
             include ./navbar.pug
-        block splash
-            include ./splash.pug
+        if search
+            block search
+                //- include ./search.pug
+        if splash
+            block splash
+                include ./splash.pug
         block content
         block footer
             include ./footer.pug

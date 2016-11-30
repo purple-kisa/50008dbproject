@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
         query_result = result;
         // console.log(query_result)
 
-        res.render('index.pug', {title:'Book Link', "splash": {"base": "http://placekitten.com/1920/1280", "cover": "img/cover_4_blur.jpg"}, data: query_result});
+        res.render('index.pug', {title:'Book Link', "search": {}, data: query_result});
 
     });
 
