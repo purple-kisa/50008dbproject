@@ -4,22 +4,40 @@ block content
     div.main
         div.container-fluid
             div.col-sm-10
-                img(src=data.image)
-                h2 #{data.title}
-                p Authors: #{data.authors}
-                p ISBN: #{data.ISBN}
-                p Publisher: #{data.publisher}
-                p Year Published: #{data.year_pub}
-                p Available Copipes: #{data.copies}
-                p Price: #{data.price}
-                p Format: #{data.format}
-                p Subject: #{data.subject}
-                p Tag: #{data.tag}
+                table 
+                    tbody
+                        tr
+                            td: img(src=data.image width="100%")
+                            td
+                                h4 #{data.title}
+                                p Authors: #{data.authors}
+                                p ISBN: #{data.ISBN}
+                                p Publisher: #{data.publisher}
+                                p Year Published: #{data.year_pub}
+                                p Available Copipes: #{data.copies}
+                                p Price: #{data.price}
+                                p Format: #{data.format}
+                                p Subject: #{data.subject}
+                                p Tag: #{data.tag}
 
                 h3 Give a review!
                 textarea(rows="4" cols="50" width="100%" id="review_text")
                 br
+                select#rating(style="display:block;")
+                    option(value="1") 1 
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="4") 4
+                    option(value="5") 5
+                    option(value="6") 6
+                    option(value="7") 7
+                    option(value="8") 8
+                    option(value="9") 9
+                    option(value="10") 10                    
+
                 input(type="submit" value="Submit Review")
+                
+
                 h3 Feedback
 
 block scripts
@@ -28,3 +46,6 @@ block scripts
     script(src="/js/get-shit-done.js")
     script(src="/js/index.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 
+    script(src="/js/jquery.barrating.min.js")
+    script(src="/js/book.js")
+    //- script(type="text/javascript") $('#rating').barrating({theme:'fontawesome-stars'});

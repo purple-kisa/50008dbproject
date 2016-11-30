@@ -155,12 +155,14 @@ app.get('/cart', function(req, res) {
 
 app.get('/book/:isbn', function(req,res){
     var isbn = req.params.isbn;
+    console.log(isbn)
     var query_result;
     db.connect();
     db.query_book('book',isbn,function(result){
       query_result = result[0];
-      console.log(query_result)
-      res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result})
+      if(query_result!=undefined) {
+          res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result})
+      }
     });    
 });
 
