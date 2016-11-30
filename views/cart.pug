@@ -6,10 +6,26 @@ block splash
 block content 
     div.posts-main
         h1(style="text-align:center;") Your Cart
+        div.w3-container
+            if cart
+                table(class="w3-table-all w3-hoverable")
+                    tr.w3-light-grey
+                        th Title 
+                        th ISBN 
+                        th Copies 
+                        th(style="float:right;") Delete?
+                    each order in cart
+                        tr(id=order.isbn) 
+                            td #{order.title}
+                            td #{order.isbn}
+                            td #{order.copies}
+                            td: span(onclick= "deleteRow(this,"+ order.isbn+")" class="w3-closebtn w3-margin-right w3-medium") &times;
+            else 
+                p You have nothing in your cart!
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
     script(src="js/masonry.js")
     script(src="js/get-shit-done.js")
-    script(src="js/index.js")
+    script(src="js/cart.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 

@@ -59,6 +59,7 @@ div#navbar-full
                                             br
                                         li: input(type="submit" value="Sign In" onClick="signIn()")
                         else
+                            li: a(href="/signOut/"+user) SIGN OUT 
                             li: button.btn: a(href="/cart"): img(src="/img/icon_cart.png" width="36px" height="36px")
                             li: button.btn: a(href="/account/"+user): img(src="/img/icon_account.png" width="36px" height="36px")
                             li: button.btn: a(href="/admin"): img(src="/img/icon_admin.png" width="36px" height="36px")

@@ -19,8 +19,8 @@ CREATE TABLE book(
   authors VARCHAR(100), 
   publisher VARCHAR(100), 
   year_pub INTEGER, 
-  copies INTEGER, 
-  price REAL, 
+  copies INTEGER CHECK (copies>=0), 
+  price REAL CHECK (price>=0), 
   tag VARCHAR(50),
   format VARCHAR(9) CHECK(format="hardcopy" OR format="softcopy"), 
   subject VARCHAR(50), 
@@ -31,7 +31,7 @@ CREATE TABLE book(
 
 CREATE TABLE invoice(
   number INTEGER AUTO_INCREMENT, 
-  date DATE, 
+  date DATE NOT NULL, 
   status VARCHAR(50),
   user VARCHAR(20) NOT NULL, 
   PRIMARY KEY(number),
@@ -49,7 +49,7 @@ CREATE TABLE book_order(
 CREATE TABLE content(
   number INTEGER, 
   ISBN VARCHAR(10), 
-  copies INTEGER, 
+  copies INTEGER CHECK (copies>0), 
   PRIMARY KEY (number, ISBN), 
   FOREIGN KEY (number) REFERENCES invoice(number), 
   FOREIGN KEY (ISBN) REFERENCES book(ISBN)
@@ -60,7 +60,7 @@ CREATE TABLE feedback(
   user VARCHAR(20), 
   comment TEXT, 
   date DATE, 
-  score INTEGER,
+  score INTEGER CHECK (score>0 AND score <=10),
   PRIMARY KEY (ISBN, user),
   FOREIGN KEY (ISBN) REFERENCES book(ISBN), 
   FOREIGN KEY (user) REFERENCES customer(user)
@@ -69,8 +69,8 @@ CREATE TABLE feedback(
 CREATE TABLE rating(
   ISBN VARCHAR(10), 
   user_feedback VARCHAR(20), 
-  user_rate VARCHAR(20), 
-  rate INTEGER, 
+  user_rate VARCHAR(20) CHECK (user_rate != user_feedback), 
+  rate INTEGER CHECK (rate>=0 AND rate<3), 
   PRIMARY KEY(ISBN, user_feedback, user_rate), 
   FOREIGN KEY (ISBN, user_feedback) REFERENCES feedback(ISBN, user), 
   FOREIGN KEY (user_rate) REFERENCES customer(user)
