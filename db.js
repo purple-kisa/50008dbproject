@@ -215,3 +215,78 @@ exports.new_book = function(data, callback){
         })
     })
 }
+
+
+
+
+//-----------------------------------------------------
+//-----  Q8: Book Browsing  ---------------------------
+//-----------------------------------------------------
+
+exports.book_browsing = function(post, callback){
+    state.pool.getConnection(function(err, connection){
+        var query = 'SELECT * FROM book WHERE '
+        for (var key in post) {
+          if (post[key].length!=0 & key!='sort') {
+            query = query + key + ' LIKE "%' + post[key] +'%" AND '
+          }
+        }
+        query = query.substr(0,query.length-4)
+        console.log(query)
+        connection.query(query, function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}
+
+exports.book_browsing_year = function(post, callback){
+    state.pool.getConnection(function(err, connection){
+        var query = 'SELECT * FROM book WHERE '
+        for (var key in post) {
+          if (post[key].length!=0 & key!='sort') {
+            query = query + key + ' LIKE "%' + post[key] +'%" AND '
+          }
+        }
+        query = query.substr(0,query.length-4)
+        query = query + ' ORDER BY year_pub DESC'
+        console.log(query)      
+        connection.query(query, function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}
+
+exports.book_browsing_avg_feedback = function(post, callback){
+    state.pool.getConnection(function(err, connection){
+        var query = 'SELECT * FROM book INNER JOIN(SELECT avg(score) average,ISBN FROM feedback GROUP BY ISBN)D ON D.ISBN = book.ISBN WHERE '
+        for (var key in post) {
+          if (post[key].length!=0 & key!='sort') {
+            query = query + key + ' LIKE "%' + post[key] +'%" AND '
+          }
+        }
+        query = query.substr(0,query.length-4)
+        query = query +  ' ORDER BY D.average DESC'
+        console.log(query)         
+        connection.query(query, function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}

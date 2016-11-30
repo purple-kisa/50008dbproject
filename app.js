@@ -38,6 +38,8 @@ app.get('/', function (req, res) {
     });
 
 
+
+
     //TODO: PROPER SIGN IN AND SIGN OUT 
     //IF PROPER SIGN IN: sess.user = <username> 
     //IF SIGN OUT:  
@@ -102,7 +104,7 @@ app.post('/register', function(request,response){
         response.writeHead(200, {'content-type': 'text/plain' });
         response.end()
     });
-})
+});
 
 app.post('/signIn', function(request,response){
     var data = '';
@@ -118,9 +120,38 @@ app.post('/signIn', function(request,response){
                 }
         response.writeHead(200, {'content-type': 'text/plain' });
         response.end()
+        });
     });
 });
-})
+
+app.post('/search', function(request,response){
+    var data = '';
+    sess=request.session;
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        post = JSON.parse(data)
+        if (post.sort == 0){
+            db.book_browsing(post,function(result){
+             console.log("Default Search")
+             console.log(result)
+            });
+        }
+        else if(post.sort == 1){
+            db.book_browsing_year(post,function(result){
+                console.log("Sort by year")
+                console.log(result)
+            });
+        }
+        else{
+            db.book_browsing_avg_feedback(post,function(result){
+                console.log("Sort by average feedback")
+                console.log(result)
+            });
+        }
+        response.writeHead(200, {'content-type': 'text/plain' });
+        response.end()
+    });
+});
 
 
     //DB Examples

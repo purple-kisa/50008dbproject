@@ -19,10 +19,11 @@ div(class= "w3-display-container w3-content w3-hide-small" style="max-width:1500
             div.w3-half
                 label Search By...
                 br
-                select(class="w3-select" name="option")
+                select(class="w3-select" name="option" id="sort")
+                    option(value=0) None
                     option(value=1) Year
                     option(value=2) Average Feedback Score
             div.w3-half
                 br
                 br
-                button(class="w3-btn w3-dark-grey" style="float: right;") Search
+                button(class="w3-btn w3-dark-grey" style="float: right;" onClick="search()") Search

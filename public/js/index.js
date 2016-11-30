@@ -42,3 +42,19 @@ function signIn() {
     });
 }
 
+function search() {
+	var input = {
+				title: $("input#search_title").val(), 
+				authors:$("input#search_author").val(), 
+				publisher: $("input#search_publisher").val(), 
+				subject:$("input#search_subject").val(),
+				sort: $("select#sort").val()
+				};
+	$.ajax('http://localhost:3000/search', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() { if ( callback ) callback(true); },
+        error  : function() { if ( callback ) callback(false); }
+    });
+}
