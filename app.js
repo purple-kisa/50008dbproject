@@ -23,9 +23,34 @@ app.get('/', function (req, res) {
 
     });
 
-    db.query_book('book','0321370139',function(result){
-       console.log(result)
-    });
+    // Q2
+    // var data_invoice = {date: '1026-01-01', status:'grasdalls' , user:'Sulfish'}
+    // var data  = [{ISBN: '0071635262', copies: '6'},
+    //             {ISBN: '0072392657', copies: '1'}];
+    // db.order('invoice', data_invoice, function(result){
+    //         console.log(result)
+    //         for (i = 0; i < data.length; i++){
+    //             var content_data = {date: data_invoice.date, user: data_invoice.user, ISBN: data[i].ISBN, copies: data[i].copies}
+    //             db.content('content', content_data, function(result1){
+    //             console.log(result1)
+    //             });
+    //         }
+    // });
+
+    //Q3
+    // db.query_account('customer',"Sulfish",function(result){
+    //     console.log(result)
+    // });
+    // db.query_order('Sulfish',function(result){
+    //     console.log(result)
+    // });
+    // db.query_feedback('Sulfish',function(result){
+    //     console.log(result)
+    // });
+    // db.query_rating('Sulfish',function(result){
+    //     console.log(result)
+    // });
+
 });
     // console.log("query result is " + query_result);    
 
