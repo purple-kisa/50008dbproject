@@ -29,9 +29,12 @@ app.get('/', function (req, res) {
         // console.log(result)
         query_result = result;
         // console.log(query_result)
-
-        res.render('index.pug', {title:'Book Link', "search": {}, data: query_result});
-
+        if (sess.user) {
+            console.log("here")
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user});
+        } else {
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result});
+        }
     });
 
 
@@ -86,6 +89,7 @@ app.get('/', function (req, res) {
 
 app.post('/register', function(request,response){
     var data = '';
+    sess=request.session;
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
         post = JSON.parse(data)
@@ -102,6 +106,7 @@ app.post('/register', function(request,response){
 
 app.post('/signIn', function(request,response){
     var data = '';
+    sess=request.session;
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
         post = JSON.parse(data)
