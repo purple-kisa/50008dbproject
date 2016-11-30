@@ -4,12 +4,12 @@ block content
     div.main
         div.container-fluid
             div.col-sm-10
+                h1#title #{data.title}
                 table 
                     tbody
                         tr
                             td: img(src=data.image width="100%")
                             td
-                                h4#title #{data.title}
                                 p Authors: #{data.authors}
                                 p#isbn ISBN: #{data.ISBN}
                                 p Publisher: #{data.publisher}
@@ -47,6 +47,9 @@ block content
                 
 
                 h3 Feedback
+                    each val in feedback_data
+                        p Feedback by #{val.user} on #{val.date}
+                        p #{val.comment}
     div#user(style="display:none;") #{user}
 
 block scripts

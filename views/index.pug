@@ -15,6 +15,7 @@ mixin books(data)
 block content
     div.posts-main
         div.posts-container#books
+
             h1(style="text-align:center;") Available Books
             div#grid
                 div#posts
@@ -25,8 +26,11 @@ block content
                     //-     strong Title
                     //-     br
                     //-     small Author
-                    each val, index in data 
-                        +books(val)
+                    if data
+                        each val, index in data 
+                            +books(val)
+                    else
+                        h2 There seems to be nothing here. Try searching again?
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")

@@ -217,7 +217,7 @@ exports.new_book = function(data, callback){
 }
 
 //-----------------------------------------------------
-//-----  Q6: Feedback Recording  --------------------------------
+//-----  Q6: Feedback Recording  ----------------------
 //-----------------------------------------------------
 
 exports.feedback_recording = function(data, callback){
@@ -234,10 +234,24 @@ exports.feedback_recording = function(data, callback){
     })
 }
 
-  var post = {ISBN: '0470533110', user:'bella' , comment:'Sulfish', date:'2016-11-26', score:10}
- db.feedback_recording(post,function(result){
-   console.log(result)
-  });
+//-----------------------------------------------------
+//-----  Q7: Usefulness rating  ----------------------
+//-----------------------------------------------------
+
+
+exports.feedback_retrival = function(ISBN, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT * FROM feedback WHERE ISBN = ?', [ISBN], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}
 
 
 //-----------------------------------------------------
@@ -311,3 +325,4 @@ exports.book_browsing_avg_feedback = function(post, callback){
         })
     })
 }
+

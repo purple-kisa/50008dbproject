@@ -23,17 +23,26 @@ app.get('/', function (req, res) {
 
     db.connect();
     
-    var query_result; 
+    var query_result;
+    console.log(typeof sess.query_result=== "undefined");
 
-    db.query_books('book',function(result){
-        // console.log(result)
-        query_result = result;
-        // console.log(query_result)
-        
-        res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart});
-    });
-
-
+    if (typeof sess.query_result==="undefined") {
+        console.log("in if clause");
+        db.query_books('book',function(result){
+            // console.log(result)
+            query_result = result;
+            // console.log(query_result)
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart});
+        });
+    } else {
+        query_result = sess.query_result;
+        console.log(query_result.length);
+        if(query_result.length!=0) {
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart});
+        } else {
+            res.render('index.pug', {title:'Book Link', "search": {}, user: sess.user, cart:sess.cart});
+        }
+    }
 
 
     //TODO: PROPER SIGN IN AND SIGN OUT 
@@ -123,6 +132,7 @@ app.post('/signIn', function(request,response){
             response.writeHead(400, {'content-type': 'text/plain' });
             response.end()
         }
+        });
     });
 });
 
@@ -132,26 +142,35 @@ app.post('/search', function(request,response){
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
         post = JSON.parse(data)
+        var result;
         if (post.sort == 0){
             db.book_browsing(post,function(result){
              console.log("Default Search")
              console.log(result)
+             sess.query_result = result;
+            response.redirect('/'); 
             });
         }
         else if(post.sort == 1){
             db.book_browsing_year(post,function(result){
                 console.log("Sort by year")
                 console.log(result)
+                sess.query_result = result;
+                response.redirect('/'); 
             });
         }
         else{
             db.book_browsing_avg_feedback(post,function(result){
                 console.log("Sort by average feedback")
                 console.log(result)
+                sess.query_result = result;
+                response.redirect('/'); 
             });
         }
-        response.writeHead(200, {'content-type': 'text/plain' });
-        response.end()
+        console.log(sess.query_result);
+        // response.redirect('/'); 
+        // response.writeHead(200, {'content-type': 'text/plain' });
+        // response.end()
     });
 });
 
@@ -195,7 +214,6 @@ app.post('/addToCart', function(req,res) {
         console.log("post");
         console.log(post);
         if (sess.cart!=undefined) {
-            console.log("sessssss");
             sess.cart.push(post);
         } else {
             sess.cart=[post]
@@ -233,7 +251,7 @@ app.get('/cart', function(req, res) {
   res.render('cart.pug', {title:'Cart', "splash":{"base":"/img/test2.png", "cover":"/img/cover_4_blur.jpg"}, user:sess.user, cart:sess.cart})
 });
 
-app.get('/signOut/:isbn', function(req,res){
+app.get('/signOut', function(req,res){
     req.session.destroy(function(err) { 
       if(err) { 
         console.log(err); 
@@ -252,9 +270,26 @@ app.get('/book/:isbn', function(req,res){
     db.query_book('book',isbn,function(result){
       query_result = result[0];
       if(query_result!=undefined) {
-              res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result, user: sess.user, cart:sess.cart})
+        db.feedback_retrival(isbn,function(result){
+            console.log(result)
+            res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result})
+        });  
       }
     });    
+});
+
+app.post('/submitReview', function(req,res){
+    var data ='';
+    sess=req.session;
+    req.addListener('data', function(chunk) { data += chunk; });
+    req.addListener('end', function() {
+        post = JSON.parse(data);
+        db.feedback_recording(post,function(result){
+            console.log(result)
+        });
+        res.writeHead(200, {'content-type': 'text/plain' });
+        res.end();
+    });
 });
 
 app.listen(3000, function() {

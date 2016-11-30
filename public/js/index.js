@@ -54,7 +54,9 @@ function search() {
         type: 'POST',
         data: JSON.stringify(input),
         contentType: 'text/json',
-        success: function() { if ( callback ) callback(true); },
+        success: function() {
+			window.location.reload();
+			if ( callback ) callback(true); },
         error  : function() { if ( callback ) callback(false); }
     });
 }

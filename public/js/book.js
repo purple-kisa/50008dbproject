@@ -21,8 +21,21 @@ function addToCart() {
 };
 
 function submitReview() {
+    var user_isbn = $("#isbn").text().split(" ")[1];
+    var user_name = $("#user").text();
     var review = $("#review_text").val();
-    var score = $("#rating").val();
-    var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').split(" ")[0];
-    console.log("review is " + review + ", score is " + score + ", and date is " + date);
+    var user_score = $("#rating").val();
+    var review_date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    var input = {ISBN: user_isbn, user: user_name, comment: review, date: review_date, score: user_score};
+    console.log(input);
+    $.ajax('http://localhost:3000/submitReview', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() {
+            window.location.reload();
+            if ( callback ) callback(true); 
+        },
+        error  : function() { if ( callback ) callback(false); }
+    });
 }
