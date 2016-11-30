@@ -216,7 +216,28 @@ exports.new_book = function(data, callback){
     })
 }
 
+//-----------------------------------------------------
+//-----  Q6: Feedback Recording  --------------------------------
+//-----------------------------------------------------
 
+exports.feedback_recording = function(data, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('INSERT INTO feedback SET ?', [data], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}
+
+  var post = {ISBN: '0470533110', user:'bella' , comment:'Sulfish', date:'2016-11-26', score:10}
+ db.feedback_recording(post,function(result){
+   console.log(result)
+  });
 
 
 //-----------------------------------------------------
