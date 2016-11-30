@@ -20,7 +20,8 @@
     "jquery": "^3.1.0",
     "pug": "^2.0.0-beta4",
     "serve-favicon": "^2.3.0",
-    "mysql": "*"
+    "mysql": "*",
+    "express-session":"*"
   },
   "devDependencies": {
     "nodemon": "^1.10.0",

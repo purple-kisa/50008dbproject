@@ -19,7 +19,7 @@ function submitDetails() {
 				phone_no:$("input#phone_number").val()
 				};
 	console.log(input)
-	$.ajax('http://localhost:3000/', {
+	$.ajax('http://localhost:3000/register', {
         type: 'POST',
         data: JSON.stringify(input),
         contentType: 'text/json',

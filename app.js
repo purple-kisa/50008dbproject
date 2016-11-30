@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var db = require('./db');
+var session = require('express-session')
 
 var app = express();
 
@@ -9,7 +10,17 @@ app.use(express.static('public'));
 //Set view engine
 app.set('view engine', 'pug'); 
 
+app.use(session({ secret: 'ilovesamssamsamssams' })); // session secret 
+var sess;
+
 app.get('/', function (req, res) {
+    sess= req.session; 
+    if (sess.user) { 
+        console.log("signed in as "+sess.user); 
+    } else { 
+        console.log("not signed in"); 
+    } 
+
     db.connect();
     
     var query_result; 
@@ -23,10 +34,25 @@ app.get('/', function (req, res) {
 
     });
 
+
+    //TODO: PROPER SIGN IN AND SIGN OUT 
+    //IF PROPER SIGN IN: sess.user = <username> 
+    //IF SIGN OUT:  
+    //app.get('/logout',function(req,res){ 
+    // req.session.destroy(function(err) { 
+    //   if(err) { 
+    //     console.log(err); 
+    //   } else { 
+    //     res.redirect('/'); 
+    //   } 
+    // }); 
+
     // Sign in
     // db.sign_in('purple_kisa','meow',function(result){
-    //     console.log(result)
-    // });
+    //     if result == "Success" {
+    //            sess.user = 'purple_kisa';
+    // }
+
 
     // Q2
     // var data_invoice = {date: '1026-01-01', status:'grasdalls' , user:'Sulfish'}
@@ -64,7 +90,7 @@ app.get('/', function (req, res) {
 });
     // console.log("query result is " + query_result);    
 
-app.post('/', function(request,response){
+app.post('/register', function(request,response){
     var data = '';
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
@@ -73,6 +99,8 @@ app.post('/', function(request,response){
         db.registration('customer',post,function(result){
     	 	console.log(result)
   	    });
+        //IF SUCCESSFUL REGISTER: 
+        sess.user=post.user; 
         response.writeHead(200, {'content-type': 'text/plain' });
         response.end()
     });
