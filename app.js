@@ -47,12 +47,6 @@ app.get('/', function (req, res) {
     //   } 
     // }); 
 
-    // Sign in
-    // db.sign_in('purple_kisa','meow',function(result){
-    //     if result == "Success" {
-    //            sess.user = 'purple_kisa';
-    // }
-
 
     // Q2
     // var data_invoice = {date: '1026-01-01', status:'grasdalls' , user:'Sulfish'}
@@ -83,10 +77,10 @@ app.get('/', function (req, res) {
     // });
 
     //Q4
-    var data = {ISBN: '1234567890', title: 'Shaun the Sheep', authors: 'Shaun C.', publisher: 'SUTD', year_pub: '2016', copies: '189', price: '1.00', tag: 'homo', format: 'hardcopy', subject: 'sexuality', image: 'http://placekitten.com/400/500'};
-    db.new_book(data, function(result){
-        console.log(result)
-    });
+    // var data = {ISBN: '1234567890', title: 'Shaun the Sheep', authors: 'Shaun C.', publisher: 'SUTD', year_pub: '2016', copies: '189', price: '1.00', tag: 'homo', format: 'hardcopy', subject: 'sexuality', image: 'http://placekitten.com/400/500'};
+    // db.new_book(data, function(result){
+    //     console.log(result)
+    // });
 });
     // console.log("query result is " + query_result);    
 
@@ -106,7 +100,22 @@ app.post('/register', function(request,response){
     });
 })
 
-
+app.post('/signIn', function(request,response){
+    var data = '';
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        post = JSON.parse(data)
+        console.log(post)
+        db.sign_in(post.user,post.password,function(result){
+            console.log(result)
+            if (result == "Success") {
+                    sess.user = post.user;
+                }
+        response.writeHead(200, {'content-type': 'text/plain' });
+        response.end()
+    });
+});
+})
 
 
     //DB Examples

@@ -51,13 +51,13 @@ div#navbar-full
                             ul.dropdown-menu
                                 form
                                     li Username: 
-                                        input(type="text" name="user_signin")
+                                        input(type="text" name="user_signin" id="username")
                                         br
                                     li Password: 
-                                        input(type="password" name="pw_signin") 
+                                        input(type="password" name="pw_signin" id="password") 
                                         br
                                         br
-                                    li: input(type="submit" value="Sign In")
+                                    li: input(type="submit" value="Sign In" onClick="signIn()")
                         li: button.btn: a(href="/cart"): img(src="/img/icon_cart.png" width="36px" height="36px")
                         li: button.btn: a(href="/account"): img(src="/img/icon_account.png" width="36px" height="36px")
                         li: button.btn: a(href="/admin"): img(src="/img/icon_admin.png" width="36px" height="36px")

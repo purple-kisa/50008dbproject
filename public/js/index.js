@@ -28,3 +28,17 @@ function submitDetails() {
     });
 }
 
+function signIn() {
+	var input = {
+				user: $("input#username").val(), 
+				password:$("input#password").val() 
+				};
+	$.ajax('http://localhost:3000/signIn', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() { if ( callback ) callback(true); },
+        error  : function() { if ( callback ) callback(false); }
+    });
+}
+
