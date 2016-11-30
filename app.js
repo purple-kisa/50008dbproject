@@ -81,8 +81,15 @@ app.get('/cart', function(req, res) {
   res.render('cart.pug', {title:'Cart', "splash":{"base":"/img/test2.png", "cover":"/img/cover_4_blur.jpg"}})
 });
 
-app.get('/book/:booktitle', function(req,res){
-  res.render('book.pug',  {title: "Get Book Title from MySQL", splash:"/img/test3.png", booktitle: req.params.booktitle})
+app.get('/book/:isbn', function(req,res){
+    var isbn = req.params.isbn;
+    var query_result;
+    db.connect();
+    db.query_book('book',isbn,function(result){
+      query_result = result[0];
+      console.log(query_result)
+      res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result})
+    });    
 });
 
 app.listen(3000, function() {

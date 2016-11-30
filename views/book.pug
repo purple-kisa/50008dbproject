@@ -4,7 +4,18 @@ block content
     div.main
         div.container-fluid
             div.col-sm-10
-                p Book Title is #{booktitle}
+                img(src=data.image)
+                h2 #{data.title}
+                p Authors: #{data.authors}
+                p ISBN: #{data.ISBN}
+                p Publisher: #{data.publisher}
+                p Year Published: #{data.year_pub}
+                p Available Copipes: #{data.copies}
+                p Price: #{data.price}
+                p Format: #{data.format}
+                p Subject: #{data.subject}
+                p Tag: #{data.tag}
+
                 h3 Give a review!
                 textarea(rows="4" cols="50" width="100%" id="review_text")
                 br
