@@ -145,7 +145,14 @@ app.get('/account/:user', function (req, res) {
         query_result = result[0];
         console.log(query_result)
 
-        res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result});
+        if (sess.user) {
+            console.log("here")
+            res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result, user: sess.user});
+        } else {
+            res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result});
+        }
+
+        // res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result});
 
     });
 });
@@ -166,7 +173,12 @@ app.get('/book/:isbn', function(req,res){
     db.query_book('book',isbn,function(result){
       query_result = result[0];
       if(query_result!=undefined) {
-          res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result})
+          if(sess.user) {
+              res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result, user: sess.user})
+          } else {
+              res.render('book.pug',  {title: query_result.title, splash:"/img/test3.png", data: query_result})              
+          }
+
       }
     });    
 });
