@@ -30,7 +30,7 @@ CREATE TABLE book(
 
 
 CREATE TABLE invoice(
-  number INTEGER, 
+  number INTEGER AUTO_INCREMENT, 
   date DATE, 
   status VARCHAR(50),
   user VARCHAR(20) NOT NULL, 
