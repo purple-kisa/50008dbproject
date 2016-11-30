@@ -32,6 +32,25 @@ exports.query_database_all = function(table,callback){
   });
 }
 
+exports.sign_in = function(user,password, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT COUNT(*) FROM customer WHERE BINARY user = ? AND BINARY password = ?', [user,password], function(err, rows){
+            connection.release();
+            if(!err){
+                if(rows[0]['COUNT(*)'] == 1){
+                  return callback("Success");
+                }
+                else{
+                  return callback("Wrong Username or Password");  
+                }
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        });
+    })
+}
+
 exports.query_books = function(table,callback){
     state.pool.getConnection(function(err,connection){
         // console.log('Connected as id ' + connection.threadId);
@@ -179,3 +198,20 @@ exports.query_rating = function(user, callback){
     })
 }
 
+//-----------------------------------------------------
+//-----  Q4: New Book  --------------------------------
+//-----------------------------------------------------
+
+exports.new_book = function(data, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('INSERT INTO `online_bookstore`.`book` (`ISBN`, `title`, `authors`, `publisher`, `year_pub`, `copies`, `price`, `tag`, `format`, `subject`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [data.ISBN, data.title, data.authors, data.publisher, data.year_pub, data.copies, data.price, data.tag, data.format, data.subject, data.image], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err.code);
+            }
+        })
+    })
+}

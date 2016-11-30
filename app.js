@@ -23,6 +23,11 @@ app.get('/', function (req, res) {
 
     });
 
+    // Sign in
+    // db.sign_in('purple_kisa','meow',function(result){
+    //     console.log(result)
+    // });
+
     // Q2
     // var data_invoice = {date: '1026-01-01', status:'grasdalls' , user:'Sulfish'}
     // var data  = [{ISBN: '0071635262', copies: '6'},
@@ -51,6 +56,11 @@ app.get('/', function (req, res) {
     //     console.log(result)
     // });
 
+    //Q4
+    var data = {ISBN: '1234567890', title: 'Shaun the Sheep', authors: 'Shaun C.', publisher: 'SUTD', year_pub: '2016', copies: '189', price: '1.00', tag: 'homo', format: 'hardcopy', subject: 'sexuality', image: 'http://placekitten.com/400/500'};
+    db.new_book(data, function(result){
+        console.log(result)
+    });
 });
     // console.log("query result is " + query_result);    
 
