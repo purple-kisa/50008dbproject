@@ -138,11 +138,12 @@ insert into book values('1591842158','The Ultimate Sales Machine: Turbocharge Yo
 insert into book values('0814470831','The Accidental Salesperson: How to Take Control of Your Sales Career and Earn the Respect and Income You Deserve','Chris Lytle','AMACOM','2000','204',48.57,'ryan_noob','softcopy','Computers',DEFAULT);
 insert into book values('0470533110','Mastering the Complex Sale: How to Compete and Win When the Stakes are High!','Jeff Thull','Wiley','2010','304',18.76,'Dogs','softcopy','Science',DEFAULT);
 
+insert into customer values("Mr. Link", "admin", "password", "", "", 99999999);
 insert into customer values("kisa", "purple_kisa", "meow", "378282246310005", "13 Lame Street", 93234322);
-insert into customer values("Shaun", "Sulfish", "password1", "4012888888881881", "13 Awesome Street", 92131019);
-insert into customer values("Ryan", "ryan_noob", "password2", "5105105105105100", "14 Lame Street", 93234322);
-insert into customer values("Jun Sheng", "bimaowangzi", "password3", "3530111333300000", "15 Lame Street", 89321109);
-insert into customer values("Samuel", "sabbath65", "password4", "30569309025904", "16 Lame Street", 92138282);
+insert into customer values("Shaun", "Sulfish", "password", "4012888888881881", "13 Awesome Street", 92131019);
+insert into customer values("Ryan", "ryan_noob", "password", "5105105105105100", "14 Lame Street", 93234322);
+insert into customer values("Jun Sheng", "bimaowangzi", "password", "3530111333300000", "15 Lame Street", 89321109);
+insert into customer values("Samuel", "sabbath65", "password", "30569309025904", "16 Lame Street", 92138282);
 insert into customer values("Jun Qi", "tjjsomethingq", "meow", "378282246310005", "17 Lame Street", 93234322);
 insert into customer values("Christabella", "bella", "meow", "5610591081018250", "18 Lame Street", 73278238);
 
