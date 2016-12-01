@@ -15,11 +15,11 @@ block content
                         th Copies 
                         th(style="float:right;") Delete?
                     each order in cart
-                        tr(id=order.isbn) 
+                        tr
                             td #{order.title}
                             td #{order.isbn}
                             td #{order.copies}
-                            td: span(onclick= "deleteRow(this,"+ order.isbn+")" class="w3-closebtn w3-margin-right w3-medium") &times;
+                            td: span(id=order.isbn onclick= 'deleteRow(this, this.id)' class="w3-closebtn w3-margin-right w3-medium") &times;
                 br
                 button(class="w3-btn w3-dark-grey" onClick="submitOrder()") Place Order
             else 

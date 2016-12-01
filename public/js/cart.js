@@ -4,10 +4,10 @@ function deleteRow(btndel, isbn) {
     } else {
         return false;
     }
+    console.log(isbn);
     var input = {
 				book_isbn: isbn
 				};
-	console.log(input)
 	$.ajax('http://localhost:3000/cart', {
         type: 'POST',
         data: JSON.stringify(input),
