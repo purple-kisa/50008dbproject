@@ -91,6 +91,28 @@ app.get('/', function (req, res) {
     // db.new_book(data, function(result){
     //     console.log(result)
     // });
+
+    //Q5
+    // var data5 = {ISBN: '1234567890', copies: 3}
+    // db.update_book_copies(data5, function(result5){
+    //     console.log(result5)
+    // })
+
+    //Q6
+    // var data6 = {ISBN: '1234567890', user: 'sabbath65', comment: 'ok', date: '2016-12-01', score: '2'}
+    // db.feedback_recording(data6, function(result6){
+    //     console.log(result6)
+    // })
+
+    //Q7
+    var data7_1 = {ISBN: '1234567890'}
+    db.feedback_retrival(data7_1, function(result7_1){
+        console.log(result7_1)
+    })
+    // var data7_2 = {ISBN: '193659420X', user_feedback: 'Sulfish', user_rate: 'sabbath65', rate: '5'}
+    // db.rating_recording(data7_2, function(result7_2){
+    //     console.log(result7_2)
+    // })
 });
     // console.log("query result is " + query_result);    
 

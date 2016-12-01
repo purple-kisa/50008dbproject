@@ -217,6 +217,24 @@ exports.new_book = function(data, callback){
 }
 
 //-----------------------------------------------------
+//-----  Q5: Arrival of more copies  ------------------
+//-----------------------------------------------------
+
+exports.update_book_copies = function(data, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(data.ISBN + " copies updated successfully");
+            }
+            else{
+                return callback("Error: " + err);
+            }
+        })
+    })
+}
+
+//-----------------------------------------------------
 //-----  Q6: Feedback Recording  ----------------------
 //-----------------------------------------------------
 
@@ -225,7 +243,7 @@ exports.feedback_recording = function(data, callback){
         connection.query('INSERT INTO feedback SET ?', [data], function(err, rows){
             connection.release();
             if(!err){
-                return callback(rows);
+                return callback("Feedback submitted successfully");
             }
             else{
                 return callback("Error: " + err.code);
@@ -239,9 +257,9 @@ exports.feedback_recording = function(data, callback){
 //-----------------------------------------------------
 
 
-exports.feedback_retrival = function(ISBN, callback){
+exports.feedback_retrival = function(data, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT * FROM feedback WHERE ISBN = ?', [ISBN], function(err, rows){
+        connection.query('SELECT * FROM feedback WHERE ISBN = ?', [data], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
@@ -253,6 +271,21 @@ exports.feedback_retrival = function(ISBN, callback){
     })
 }
 
+exports.rating_recording = function(data, callback){
+    if (data.user_feedback != data.user_rate){
+        state.pool.getConnection(function(err, connection){
+            connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
+                connection.release();
+                if(!err){
+                    return callback("Rating submitted successfully")
+                }
+                else{
+                    return callback("Error: " + err)
+                }
+            })
+        })
+    }
+}
 
 //-----------------------------------------------------
 //-----  Q8: Book Browsing  ---------------------------

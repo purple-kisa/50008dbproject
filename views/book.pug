@@ -14,7 +14,7 @@ block content
                                 p#isbn ISBN: #{data.ISBN}
                                 p Publisher: #{data.publisher}
                                 p Year Published: #{data.year_pub}
-                                p Available Copies: #{data.copies}
+                                p#avail_copies Available Copies: #{data.copies}
                                 p Price: #{data.price}
                                 p Format: #{data.format}
                                 p Subject: #{data.subject}
@@ -25,6 +25,10 @@ block content
                     input(type="text" id="copies") 
                     br
                     button(class="w3-btn w3-dark-grey" onClick="addToCart()") Add to Cart
+
+                    h4#added(style="display:none;") Successfully Added to Cart!:)
+                    h4#not_enough_copies(style="display:none;") Not enough copies available :(     
+                    h4#enter_number(style="display:none;") Please enter a valid numeric!                 
 
                     h3 Give a review!
                     textarea(rows="4" cols="50" width="100%" id="review_text")
@@ -55,7 +59,9 @@ block content
                             img(src="/img/icon_account.png" class="w3-left w3-circle w3-margin-right" style="width:60px")
                             span(class="w3-large"): b Feedback by #{val.user}
                             br
-                            span(class="w3-large") #{val.date}
+                            span(class="w3-small"): i #{val.date}
+                            br
+                            span(class="w3-large") #{val.score} 
                             br
                             span(class="w3-large") #{val.comment}
 
