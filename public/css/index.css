@@ -1656,6 +1656,11 @@ Can this be done with Masonry options? */
     z-index: 1;
 }
 
+#updateCopiesDiv div input{
+    position: relative;
+    z-index: 1;
+}
+
 #StatisticsFilter p {
     margin-left: 5px;
     margin-right: 5px; 

@@ -234,6 +234,30 @@ app.post('/addBook', function(request,response){
     });
 });
 
+app.put('/updateBookCount', function(request,response){
+    var data = '';
+    sess=request.session;
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        post = JSON.parse(data)
+        db.update_book_copies(post,function(result){
+            console.log(result);
+            sess.query_result = result;
+            if (result.substring(0,5) !== 'Error') {
+              console.log("Book copies added");
+              response.writeHead(200, {'content-type': 'text/plain' });
+              response.write(result);
+              response.end('\n');
+            } else {
+              response.writeHead(400, {'content-type': 'text/plain' });
+              response.write(result);
+              response.end('\n');
+            }
+            
+        });
+    });
+});
+
 
     //DB Examples
     //This function is called in app.js which is the main entry point to the website

@@ -18,6 +18,19 @@ block content
             h2.DbHeader Hello, Admin
             <!-- Trigger/Open The Modal -->
             button#AddBookBtn.DbButton Add New Book
+
+    div.mainMiddle
+        div.col-sm-12(style="text-align:center;")
+            h2.DbHeader Update Book Counts
+        div#updateCopiesDiv.col-sm-12(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                label(for='ISBNUpdateCount') ISBN:
+                input#ISBNUpdateCount.form-control(type='text', placeholder='ISBN to update count' name='ISBNUpdateCount')
+            div.col-sm-6(style="text-align:center;")
+                label(for='copiesToAdd') Number of copies to be added:
+                input#copiesToAdd.form-control(type='text', placeholder='Number of copies to add' name='copiesToAdd')    
+            div(class="form-group col-sm-12" style="text-align:center;")
+                button.btn.btn-primary(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="updateBookCount()") Update Book Copies
               
     div.mainMiddle
         div.col-sm-12(style="text-align:center;")

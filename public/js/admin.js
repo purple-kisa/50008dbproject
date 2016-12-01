@@ -62,3 +62,24 @@ function addBook() {
         	window.alert(error.responseText) }
     });
 };
+
+// When the user clicks on the Update Book Copies button
+function updateBookCount() {
+	var input = {
+				ISBN: $("input#ISBNUpdateCount").val(), 
+				copies:$("input#copiesToAdd").val()
+				};
+
+	$.ajax('http://localhost:3000/updateBookCount', {
+        type: 'PUT',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function(data) {
+        	console.log(data); 
+        	window.alert(data);
+        	window.location.reload(); },
+        error  : function(error) { 
+        	console.log(error);
+        	window.alert(error.responseText); }
+    });
+};
