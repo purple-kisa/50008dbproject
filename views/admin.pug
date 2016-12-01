@@ -1,13 +1,20 @@
 extends ./templates/layout.pug
 
-block splash 
-    include ./templates/splashblur.pug
+mixin orders(data) 
+    div.col-sm-6(style="text-align:center;")
+        div.col-sm-6(style="text-align:center;")
+            p User
+            p Title
+            p ISBN
+            p Copies 
+        div.col-sm-6(style="text-align:center;")
+            button.order ordered
 
 block content 
     div.mainTop
-        div(class = "col-sm-4 ProfilePicDiv")
+        div(class = "col-sm-6 ProfilePicDiv")
             img.ProfilePic(src="img/test2.png" alt="Admin Picture")
-        div(class = "col-sm-4 ProfileDiv")
+        div(class = "col-sm-6 ProfileDiv")
             h2.DbHeader Hello, Admin
             <!-- Trigger/Open The Modal -->
             button#AddBookBtn.DbButton Add New Book
@@ -15,38 +22,11 @@ block content
     div.mainMiddle
         div.col-sm-12(style="text-align:center;")
             h2.DbHeader Orders
-        div.col-sm-6(style="text-align:center;")
-            div.col-sm-6(style="text-align:center;")
-                p details
-                p details
-                p details
-                p details
-            div.col-sm-6(style="text-align:center;")
-                button.order ordered
-        div.col-sm-6(style="text-align:center;")
-            div.col-sm-6(style="text-align:center;")
-                p details
-                p details
-                p details
-                p details
-            div.col-sm-6(style="text-align:center")
-                button.order ordered
-        div.col-sm-6(style="text-align:center;")
-            div.col-sm-6(style="text-align:center;")
-                p details
-                p details
-                p details
-                p details
-            div.col-sm-6(style="text-align:center;")
-                button.order ordered
-        div.col-sm-6(style="text-align:center;")
-            div.col-sm-6(style="text-align:center;")
-                p details
-                p details
-                p details
-                p details
-            div.col-sm-6(style="text-align:center;")
-                button.order ordered
+        if data
+            each val, index in data 
+                +orders(val)
+        else
+            h2 There seems to be no orders.
 
     div.mainMiddle
         div.col-sm-6(style="text-align:center;")

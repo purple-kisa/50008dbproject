@@ -197,12 +197,12 @@ app.get('/account/:user', function (req, res) {
     query_result = result[0];
     console.log(query_result)
     
-    res.render('account.pug', {title:'Your Account', "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, data: query_result, user: sess.user, cart:sess.cart});
+    res.render('account.pug', {title:'Your Account', data: query_result, user: sess.user, cart:sess.cart});
     });
 });
 
 app.get('/admin', function(req,res) {
-    res.render('admin.pug', {title:"Admin Account", "splash": {"base": "/img/test.png", "cover": "/img/cover_4_blur.jpg"}, user:sess.user, cart:sess.cart})
+    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart})
 });
 
 app.post('/addToCart', function(req,res) {
