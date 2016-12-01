@@ -47,9 +47,18 @@ block content
                 
 
                 h3 Feedback
+                    ul(class="w3-ul w3-card-4")
                     each val in feedback_data
-                        p Feedback by #{val.user} on #{val.date}
-                        p #{val.comment}
+                        li(class="w3-padding-16" style="list-style-type:none;")
+                            span(onclick="plusOne()" class="w3-closebtn w3-padding w3-margin-right w3-medium") + 
+                            span(onclick="minusOne()" class="w3-closebtn w3-padding w3-margin-right w3-medium") - 
+                            img(src="/img/icon_account.png" class="w3-left w3-circle w3-margin-right" style="width:60px")
+                            span(class="w3-large"): b Feedback by #{val.user}
+                            br
+                            span(class="w3-large") #{val.date}
+                            br
+                            span(class="w3-large") #{val.comment}
+
     div#user(style="display:none;") #{user}
 
 block scripts

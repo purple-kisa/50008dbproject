@@ -39,3 +39,11 @@ function submitReview() {
         error  : function() { if ( callback ) callback(false); }
     });
 }
+
+function plusOne() {
+    console.log("plus one");
+}
+
+function minusOne() {
+    console.log("minus one");
+}
