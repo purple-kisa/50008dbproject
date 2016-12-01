@@ -174,6 +174,29 @@ app.post('/search', function(request,response){
     });
 });
 
+app.post('/addBook', function(request,response){
+    var data = '';
+    sess=request.session;
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        post = JSON.parse(data)
+        db.new_book(post,function(result){
+            console.log(result);
+            sess.query_result = result;
+            if (typeof result !== 'string') {
+              console.log("Book is added.");
+              response.writeHead(200, {'content-type': 'text/plain' });
+              response.end()
+            } else {
+              response.writeHead(400, {'content-type': 'text/plain' });
+              response.write(result);
+              response.end('\n');
+            }
+            
+        });
+    });
+});
+
 
     //DB Examples
     //This function is called in app.js which is the main entry point to the website
@@ -202,7 +225,17 @@ app.get('/account/:user', function (req, res) {
 });
 
 app.get('/admin', function(req,res) {
-    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart})
+
+    // random data for testing
+    var data = {
+      name: 'Jun Sheng',
+      user: 'bimaowangzi',
+      password: 'password3',
+      card_no: '3530111333300000',
+      address: '15 Lame Street',
+      phone_no: 89321109 };
+
+    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data})
 });
 
 app.post('/addToCart', function(req,res) {

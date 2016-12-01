@@ -29,7 +29,36 @@ var OrderButtons = document.getElementsByClassName("order");
 for (var i = 0;i < OrderButtons.length;i++){
 	var orderBtn = OrderButtons[i];
 	orderBtn.onclick=function(){
-		this.innerHTML = "Delivered"
+		this.innerHTML = "Delivered";
 		this.className = "delivered";
 	};
 }
+
+// When the user clicks on the Add book button, Add book into database 
+function addBook() {
+	var input = {
+				ISBN: $("input#ISBN").val(), 
+				title:$("input#Title").val(), 
+				authors: $("input#authors").val(), 
+				publisher:$("input#publisher").val(), 
+				year_pub: $("input#year_pub").val(), 
+				copies:$("input#copies").val(), 
+				price: $("input#price").val(), 
+				tag:$("input#tag").val(), 
+				format: $("input#format").val(), 
+				subject:$("input#subject").val(), 
+				image: $("input#image").val() 
+				};
+
+	$.ajax('http://localhost:3000/addBook', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() { 
+        	window.location.reload();
+        	window.alert("Book is added.") },
+        error  : function(error) { 
+        	console.log(error)
+        	window.alert(error.responseText) }
+    });
+};

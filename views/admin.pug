@@ -80,7 +80,7 @@ block content
       <!-- Modal content -->
       div.modal-content
         span.close x
-        form#NewBookForm(method='POST')
+        form#NewBookForm(action="javascript:void(0);")
             br
             br
             div(class="form-group col-sm-6")
@@ -93,28 +93,31 @@ block content
                 label(for='authors') Authors:
                 input#authors.form-control(type='text', placeholder='Authors' name='authors')
             div(class="form-group col-sm-6")
-                label(for='tag') Tag:
-                input#tag.form-control(type='text', placeholder='Tags' name='tag')
-            div(class="form-group col-sm-6")
                 label(for='publisher') Publisher:
                 input#publisher.form-control(type='text', placeholder='Publisher' name='publisher')
             div(class="form-group col-sm-6")
                 label(for='year_pub') Year of Publication:
-                input#year_pub.form-control(type='text', placeholder='Year of Publication' name='year_pub')
+                input#year_pub.form-control(type='number', placeholder='Year of Publication' name='year_pub')
             div(class="form-group col-sm-6")
-                label(for='email') Copies:
-                input#email.form-control(type='number', placeholder='copies to be added' name='copies')
+                label(for='copies') Copies:
+                input#copies.form-control(type='number', placeholder='Copies to be added' name='copies')
             div(class="form-group col-sm-6")
-                label(for='favoriteBook') Price:
-                input#price.form-control(type='text', placeholder='price' name='price')
+                label(for='price') Price:
+                input#price.form-control(type='number', placeholder='Price' name='price')
+            div(class="form-group col-sm-6")
+                label(for='tag') Tag:
+                input#tag.form-control(type='text', placeholder='Tags' name='tag')
             div(class="form-group col-sm-6")
                 label(for='format') Format:
-                input#format.form-control(type='text', placeholder='hardcopy or softcopy' name='format')
+                input#format.form-control(type='text', placeholder='Hardcopy or Softcopy' name='format')
             div(class="form-group col-sm-6")
                 label(for='subject') Subject:
-                input#subject.form-control(type='text', placeholder='subject' name='subject')
+                input#subject.form-control(type='text', placeholder='E.g. Science, Computers, etc' name='subject')
+            div(class="form-group col-sm-6")
+                label(for='image') Image:
+                input#image.form-control(type='text', placeholder='Image URL' name='image')
             div(class="form-group col-sm-12" style="text-align:center;")
-                button.btn.btn-primary(type='submit' style="padding-left:60px;padding-right:60px;") Add Book
+                button.btn.btn-primary(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="addBook()") Add Book
 
 block scripts
     script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
