@@ -259,7 +259,7 @@ exports.feedback_recording = function(data, callback){
 
 exports.feedback_retrival = function(data, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT * FROM feedback WHERE ISBN = ?', [data.ISBN], function(err, rows){
+        connection.query('SELECT * FROM feedback WHERE ISBN = ?', [data], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
