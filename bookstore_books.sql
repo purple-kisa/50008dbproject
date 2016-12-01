@@ -146,6 +146,8 @@ insert into customer values("Samuel", "sabbath65", "password4", "30569309025904"
 insert into customer values("Jun Qi", "tjjsomethingq", "meow", "378282246310005", "17 Lame Street", 93234322);
 insert into customer values("Christabella", "bella", "meow", "5610591081018250", "18 Lame Street", 73278238);
 
+
+
 insert into invoice values('1', '2016-11-26', "ordered", "purple_kisa");
 insert into invoice values('2', '2016-11-27', "delivered", "Sulfish");
 

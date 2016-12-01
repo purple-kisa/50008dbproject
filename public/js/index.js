@@ -24,7 +24,9 @@ function submitDetails() {
         data: JSON.stringify(input),
         contentType: 'text/json',
         success: function() { if ( callback ) callback(true); },
-        error  : function() { if ( callback ) callback(false); }
+        error  : function() { 
+			document.getElementById("signupFailure").innerHTML = "Username taken"
+			if ( callback ) callback(false); }
     });
 }
 
@@ -38,7 +40,9 @@ function signIn() {
         data: JSON.stringify(input),
         contentType: 'text/json',
         success: function() { if ( callback ) callback(true); },
-        error  : function() { if ( callback ) callback(false); }
+        error  : function() { 
+			document.getElementById("signinFailure").innerHTML = "Wrong Login Details"
+			if ( callback ) callback(false); }
     });
 }
 

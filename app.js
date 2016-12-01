@@ -110,7 +110,6 @@ app.post('/register', function(request,response){
         console.log(post);
         db.registration('customer',post,function(result){
     	console.log(result)
-  	    });
         if (result=="Success") {//IF SUCCESSFUL REGISTER: 
             sess.user=post.user; 
             response.writeHead(200, {'content-type': 'text/plain' });
@@ -119,6 +118,7 @@ app.post('/register', function(request,response){
             response.writeHead(400, {'content-type': 'text/plain' });
             response.end()
         }
+  	    });
     });
 });
 

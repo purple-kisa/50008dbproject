@@ -44,20 +44,23 @@ div#navbar-full
                                         input(type="text" name="phoneno" id = "phone_number") 
                                         br
                                         br
-                                    li: input(type="submit" value="Register" onClick="submitDetails()")
+                                    li 
+                                        p(id="signupFailure" style="color:red")
+                                        input(style = "float:right;" type="submit" value="Register" onClick="submitDetails()")
                             li.dropdown
                                 a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") SIGN IN
                                     span.caret#sign_in_popup 
                                 ul.dropdown-menu
-                                    form
-                                        li Username: 
-                                            input(type="text" name="user_signin" id="username")
-                                            br
-                                        li Password: 
-                                            input(type="password" name="pw_signin" id="password") 
-                                            br
-                                            br
-                                        li: input(type="submit" value="Sign In" onClick="signIn()")
+                                    li Username: 
+                                        input(type="text" name="user_signin" id="username")
+                                        br
+                                    li Password: 
+                                        input(type="password" name="pw_signin" id="password") 
+                                        br
+                                        br
+                                    li 
+                                        p(id="signinFailure" style="color:red")
+                                        input(style = "float:right;" type="submit" value="Sign In" onClick="signIn()")
                         else
                             li: a(href="/signOut/") SIGN OUT 
                             li: button.btn: a(href="/cart"): img(src="/img/icon_cart.png" width="36px" height="36px")

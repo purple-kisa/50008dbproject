@@ -6,7 +6,7 @@ CREATE TABLE customer(
   name VARCHAR(100) NOT NULL, 
   user VARCHAR(20), 
   password VARCHAR(20) NOT NULL, 
-  card_no VARCHAR(16) NOT NULL, 
+  card_no VARCHAR(16) NOT NULL CHECK (LENGTHB(card_no) = 16), 
   address VARCHAR(100) NOT NULL, 
   phone_no INTEGER NOT NULL, 
   PRIMARY KEY(user)
