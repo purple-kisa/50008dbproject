@@ -1,17 +1,32 @@
 extends ./templates/layout.pug
 
+mixin History(data) 
+    li.list-group-item Title: #{data.title},
+        <br/> Number of Copies: #{data.copies},
+        <br/> Date: #{data.date},
+        <br/> Status: #{data.status}
+
+mixin Feedback(data) 
+    li.list-group-item Title: #{data.title},
+        <br/> Comment: #{data.comment}
+
+mixin Rating(data) 
+    li.list-group-item ISBN: #{data.ISBN},
+        <br/> Feedback By: #{data.user_feedback},
+        <br/> Your Rating: #{data.rate}
+
 block content 
     div.main
         div(class = "col-sm-4 ProfilePicDiv")
             img.ProfilePic(src="/img/test3.png" alt="Profile Picture")
         div(class = "col-sm-4 ProfileDiv")
-            h2.DbHeader Hello, #{data.name}
-            p Username: #{data.user}
-            p Phone: #{data.phone_no}
+            h2.DbHeader Hello, #{customerData.name}
+            p Username: #{customerData.user}
+            p Phone: #{customerData.phone_no}
         div(class = "col-sm-4 ProfileDiv")
             h2.DbHeader Billing Details
-            p Address: #{data.address}
-            p Card No: #{data.card_no}
+            p Address: #{customerData.address}
+            p Card No: #{customerData.card_no}
 
         div(class="panel-group col-sm-10" style="width:100%; margin-bottom:15px;")
           div(class="panel panel-default")
@@ -20,9 +35,11 @@ block content
                 a(data-toggle="collapse" href="#collapseHistory") Your History
             div(id="collapseHistory" class="panel-collapse collapse")
               ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                if orderData.length===0
+                    p There seems to be no orders by you.
+                else
+                    each val, index in orderData 
+                        +History(val)
 
         div(class="panel-group col-sm-6" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -31,9 +48,11 @@ block content
                 a(data-toggle="collapse" href="#collapseYourFeedback") Your Feedback
             div(id="collapseYourFeedback" class="panel-collapse collapse")
               ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                if feedbackData.length===0
+                    p There seems to be no feedbacks by you.
+                else
+                    each val, index in feedbackData 
+                        +Feedback(val)
         
         div(class="panel-group col-sm-6" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -42,13 +61,15 @@ block content
                 a(data-toggle="collapse" href="#collapseFeedbackRanked") Feedbacks you ranked
             div(id="collapseFeedbackRanked" class="panel-collapse collapse")
               ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                if ratingData.length===0
+                    p There seems to be no ratings by you.
+                else
+                    each val, index in ratingData 
+                        +Rating(val)
 
 block scripts
     script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
     script(src="/js/masonry.js")
     script(src="/js/get-shit-done.js")
     script(src="/js/index.js")
-    script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js")

@@ -247,15 +247,33 @@ app.post('/addBook', function(request,response){
 app.get('/account/:user', function (req, res) {
     var user = req.params.user;
     db.connect();
-    
-    var query_result; 
+    var customerData;
+    var orderData;
+    var feedbackData;
+    var ratingData;
 
-    db.query_account('customer',user,function(result){
-    query_result = result[0];
-    console.log(query_result)
-    
-    res.render('account.pug', {title:'Your Account', data: query_result, user: sess.user, cart:sess.cart});
+    db.query_order(user,function(result){
+        console.log('order');
+        console.log(result);
+        orderData = result;
+        db.query_feedback(user,function(result){
+            console.log('feedback');
+            console.log(result);
+            feedbackData = result;
+            db.query_rating(user,function(result){
+                console.log('rating');
+                console.log(result);
+                ratingData = result;
+                db.query_account('customer',user,function(result){
+                    customerData = result[0];
+                    console.log(customerData)
+                  
+                    res.render('account.pug', {title:'Your Account', customerData: customerData, orderData: orderData, feedbackData: feedbackData, ratingData: ratingData, user: sess.user, cart:sess.cart});
+                });
+            }); 
+        });
     });
+    
 });
 
 app.get('/admin', function(req,res) {
