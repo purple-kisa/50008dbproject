@@ -130,6 +130,20 @@ exports.content = function(table,data,callback){
   });
 }
 
+exports.book_decrease = function(copies,ISBN,callback){
+    state.pool.getConnection(function(err,connection){ 
+        var query = connection.query('UPDATE book SET copies = copies - ? WHERE ISBN = ?', [copies,ISBN], function(err, rows) {      
+           connection.release();
+            if(!err) {
+              return callback("Book count has been decremented: " + ISBN);
+            } 
+            else{
+              return callback("\nError: " + err);
+            } 
+        });
+  });
+}
+
 //Note: Check pending status for certain types of status? eg pending, done ....
 //Invoice number should be auto increment
 

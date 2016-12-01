@@ -160,6 +160,9 @@ app.post('/submitorder', function(req, res) {
             db.content('content', content_data, function(result1){
                 console.log(result1)
             });
+            db.book_decrease(data[i].copies,data[i].isbn,function(result){
+                console.log(result)
+            });  
         }
     sess.cart = null;
     console.log("sess.cart"); 
