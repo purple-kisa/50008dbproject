@@ -23,10 +23,12 @@ function submitDetails() {
         type: 'POST',
         data: JSON.stringify(input),
         contentType: 'text/json',
-        success: function() { if ( callback ) callback(true); },
+        success: function() { 
+			window.location.reload();
+			 },
         error  : function() { 
 			document.getElementById("signupFailure").innerHTML = "Username taken"
-			if ( callback ) callback(false); }
+			 }
     });
 }
 
@@ -39,10 +41,12 @@ function signIn() {
         type: 'POST',
         data: JSON.stringify(input),
         contentType: 'text/json',
-        success: function() { if ( callback ) callback(true); },
+        success: function() { 
+			window.location.reload();
+		 },
         error  : function() { 
 			document.getElementById("signinFailure").innerHTML = "Wrong Login Details"
-			if ( callback ) callback(false); }
+			 }
     });
 }
 
@@ -60,7 +64,7 @@ function search() {
         contentType: 'text/json',
         success: function() {
 			window.location.reload();
-			if ( callback ) callback(true); },
-        error  : function() { if ( callback ) callback(false); }
+			 },
+        error  : function() {  }
     });
 }

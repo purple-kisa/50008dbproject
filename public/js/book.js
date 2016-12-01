@@ -36,9 +36,8 @@ function addToCart() {
                     $("#added").show();
                     $("#enter_number").hide(); 
                     $("#not_enough_copies").hide();
-                    if ( callback ) callback(true); 
                 },
-                error  : function() { if ( callback ) callback(false); }
+                error  : function() {  }
             });
         }
     }
@@ -58,9 +57,8 @@ function submitReview() {
         contentType: 'text/json',
         success: function() {
             window.location.reload();
-            if ( callback ) callback(true); 
         },
-        error  : function() { if ( callback ) callback(false); }
+        error  : function() { }
     });
 }
 

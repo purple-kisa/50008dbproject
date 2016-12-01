@@ -12,8 +12,8 @@ function deleteRow(btndel, isbn) {
         type: 'POST',
         data: JSON.stringify(input),
         contentType: 'text/json',
-        success: function() { if ( callback ) callback(true); },
-        error  : function() { if ( callback ) callback(false); }
+        success: function() {  },
+        error  : function() { }
     });
 
 
@@ -28,9 +28,8 @@ function submitOrder() {
         contentType: 'text/json',
         success: function() {
             window.location.reload();
-            if ( callback ) callback(true); 
         },
-        error  : function() { if ( callback ) callback(false); }
+        error  : function() {  }
     });
 
 }
