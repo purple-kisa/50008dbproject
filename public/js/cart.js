@@ -18,3 +18,7 @@ function deleteRow(btndel, isbn) {
 
 
 }
+
+function submitOrder() {
+    console.log("submit order");
+}

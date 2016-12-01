@@ -20,6 +20,8 @@ block content
                             td #{order.isbn}
                             td #{order.copies}
                             td: span(onclick= "deleteRow(this,"+ order.isbn+")" class="w3-closebtn w3-margin-right w3-medium") &times;
+                br
+                button(class="w3-btn w3-dark-grey" onClick="submitOrder()") Place Order
             else 
                 p You have nothing in your cart!
 
