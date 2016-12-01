@@ -57,21 +57,6 @@ app.get('/', function (req, res) {
     //   } 
     // }); 
 
-
-    // Q2
-    // var data_invoice = {date: '1026-01-01', status:'grasdalls' , user:'Sulfish'}
-    // var data  = [{ISBN: '0071635262', copies: '6'},
-    //             {ISBN: '0072392657', copies: '1'}]; 
-    // db.order('invoice', data_invoice, function(result){
-    //         console.log(result)
-    //         for (i = 0; i < data.length; i++){
-    //             var content_data = {date: data_invoice.date, user: data_invoice.user, ISBN: data[i].ISBN, copies: data[i].copies}
-    //             db.content('content', content_data, function(result1){
-    //             console.log(result1)
-    //             });
-    //         }
-    // });
-
     //Q3
     // db.query_account('customer',"Sulfish",function(result){
     //     console.log(result)
@@ -157,6 +142,33 @@ app.post('/signIn', function(request,response){
         });
     });
 });
+
+app.post('/submitorder', function(req, res) {
+    sess = req.session;
+    var data_invoice = {date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').split(" ")[0], status:'Ordered' , user:sess.user}
+    var data  = sess.cart;  
+    console.log("invoice"); 
+    console.log(data_invoice);
+    console.log("data"); 
+    console.log(data);
+    db.order('invoice', data_invoice, function(result){
+        console.log(result)
+        for (i = 0; i < data.length; i++){
+            var content_data = {date: data_invoice.date, user: data_invoice.user, ISBN: data[i].isbn, copies: data[i].copies}
+            console.log("content data"); 
+            console.log(content_data);
+            db.content('content', content_data, function(result1){
+                console.log(result1)
+            });
+        }
+    sess.cart = null;
+    console.log("sess.cart"); 
+    console.log(sess.cart);
+    res.writeHead(200, {'content-type': 'text/plain' });
+    res.end()
+
+    });
+})
 
 app.post('/search', function(request,response){
     var data = '';
@@ -326,7 +338,10 @@ app.get('/book/:isbn', function(req,res){
       query_result = result[0];
       if(query_result!=undefined) {
         db.feedback_retrival(isbn,function(result){
-            console.log(result)
+            console.log("feedback");
+            console.log(result);
+            console.log(isbn)
+
             res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result})
         });  
       }

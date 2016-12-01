@@ -118,13 +118,13 @@ exports.order = function(table,data,callback){
 
 exports.content = function(table,data,callback){
     state.pool.getConnection(function(err,connection){ 
-        var query = connection.query('INSERT INTO ?? VALUES ((SELECT number FROM invoice WHERE date = ? AND user = ?),?,?)', [table,data.date,data.user,data.ISBN,data.copies], function(err, rows) {      
+        var query = connection.query('INSERT INTO ?? VALUES ((SELECT number FROM invoice WHERE date = ? AND user = ? ORDER BY number DESC LIMIT 1),?,?)', [table,data.date,data.user,data.ISBN,data.copies], function(err, rows) {      
            connection.release();
             if(!err) {
               return callback("Content has been indexed, ISBN: " + data.ISBN );
             } 
             else{
-              return callback("Duplicate exists, ISBN: " + data.ISBN + "\nError: " + err.code);
+              return callback("Duplicate exists, ISBN: " + data.ISBN + "\nError: " + err);
             } 
         });
   });

@@ -21,4 +21,16 @@ function deleteRow(btndel, isbn) {
 
 function submitOrder() {
     console.log("submit order");
+
+	$.ajax('http://localhost:3000/submitOrder', {
+        type: 'POST',
+        data: "",
+        contentType: 'text/json',
+        success: function() {
+            window.location.reload();
+            if ( callback ) callback(true); 
+        },
+        error  : function() { if ( callback ) callback(false); }
+    });
+
 }
