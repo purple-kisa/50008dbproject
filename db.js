@@ -82,6 +82,40 @@ exports.query_book = function(table,ISBN,callback){
         });
   });
 }
+
+//-----------------------------------------------------
+//-----  Admin Invoice Details  -----------------------
+//-----------------------------------------------------
+
+// returns all details grouped by invoice number and all the books under the invoice
+// function to allow admin to change status as well
+
+exports.admin_invoice_details = function(callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT * FROM invoice, content WHERE invoice.number = content.number', function(err, rows){
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err);
+            }
+        })
+    })
+}
+
+exports.update_invoice_status = function(data, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('UPDATE invoice SET status = ? WHERE number = ?', [data.status, data.number], function(err, rows){
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err);
+            }
+        })
+    })
+}
+
 //-----------------------------------------------------
 //-----  Q1: Registration  ----------------------------
 //-----------------------------------------------------
@@ -239,7 +273,7 @@ exports.update_book_copies = function(data, callback){
         connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows){
             connection.release();
             if(!err){
-                return callback(data.ISBN + " copies updated successfully");
+                return callback(data.ISBN + " copies updated successfully! \n" + rows);
             }
             else{
                 return callback("Error: " + err);

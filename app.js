@@ -57,6 +57,15 @@ app.get('/', function (req, res) {
     //   } 
     // }); 
 
+    //Admin invoice details retrieval
+    // db.admin_invoice_details(function(result){
+    //     console.log(result)
+    // });
+    // var data = {status: 'douche', number: '9'}
+    // db.update_invoice_status(data, function(result1){
+    //     console.log(result1)
+    // })
+
     //Q3
     // db.query_account('customer',"Sulfish",function(result){
     //     console.log(result)
