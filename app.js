@@ -90,13 +90,19 @@ app.get('/', function (req, res) {
     // })
 
     //Q7
-    var data7_1 = {ISBN: '1234567890'}
-    db.feedback_retrival(data7_1, function(result7_1){
-        console.log(result7_1)
-    })
+    // var data7_1 = {ISBN: '1234567890'}
+    // db.feedback_retrival(data7_1, function(result7_1){
+    //     console.log(result7_1)
+    // })
     // var data7_2 = {ISBN: '193659420X', user_feedback: 'Sulfish', user_rate: 'sabbath65', rate: '5'}
     // db.rating_recording(data7_2, function(result7_2){
     //     console.log(result7_2)
+    // })
+
+    //Q9
+    // var data9 = {ISBN: '193659420X', n: 1}
+    // db.useful_feedback_retrival(data9, function(result9){
+    //     console.log(result9)
     // })
 });
     // console.log("query result is " + query_result);    

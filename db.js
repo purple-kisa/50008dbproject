@@ -373,3 +373,24 @@ exports.book_browsing_avg_feedback = function(post, callback){
     })
 }
 
+//-----------------------------------------------------
+//-----  Q9: Useful Feedbacks  ------------------------
+//-----------------------------------------------------
+
+exports.useful_feedback_retrival = function(data, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT ISBN, user_feedback, AVG(rate) AS avg_rate FROM online_bookstore.rating WHERE ISBN = ? GROUP BY ISBN, user_feedback ORDER BY avg_rate DESC LIMIT ?', [data.ISBN, data.n], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback("Error: " + err);
+            }
+        })
+    })
+}
+
+//-----------------------------------------------------
+//-----  Q10: Book Recommendation  --------------------
+//-----------------------------------------------------
