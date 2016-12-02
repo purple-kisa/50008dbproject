@@ -62,10 +62,41 @@ function submitReview() {
     });
 }
 
-function plusOne() {
-    console.log("plus one");
+function plusOne(user) {
+    var isbn = $("#isbn").text().split(" ")[1];
+    var user_feedback_retrieve = user; 
+    var user_rate_retrieve = $("#user").text(); 
+    var input = {ISBN: isbn, user_feedback: user_feedback_retrieve, user_rate: user_rate_retrieve, rate: '1'};
+    console.log(input);
+    $.ajax('http://localhost:3000/rating', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() {
+            window.location.reload();
+        },
+        error  : function() { 
+            console.log("lol youre a failure");
+        }
+    });    
+
 }
 
-function minusOne() {
-    console.log("minus one");
+function minusOne(user) {
+    var isbn = $("#isbn").text().split(" ")[1];
+    var user_feedback_retrieve = user; 
+    var user_rate_retrieve = $("#user").text(); 
+    var input = {ISBN: isbn, user_feedback: user_feedback_retrieve, user_rate: user_rate_retrieve, rate: '-1'};
+    console.log(input);
+    $.ajax('http://localhost:3000/rating', {
+        type: 'POST',
+        data: JSON.stringify(input),
+        contentType: 'text/json',
+        success: function() {
+            window.location.reload();
+        },
+        error  : function() {
+            console.log("lol youre a failure");            
+        }
+    });
 }

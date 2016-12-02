@@ -83,18 +83,12 @@ app.get('/', function (req, res) {
     //     console.log(result5)
     // })
 
-    //Q6
-    // var data6 = {ISBN: '1234567890', user: 'sabbath65', comment: 'ok', date: '2016-12-01', score: '2'}
-    // db.feedback_recording(data6, function(result6){
-    //     console.log(result6)
-    // })
-
     //Q7
     // var data7_1 = {ISBN: '1234567890'}
     // db.feedback_retrival(data7_1, function(result7_1){
     //     console.log(result7_1)
     // })
-    // var data7_2 = {ISBN: '193659420X', user_feedback: 'Sulfish', user_rate: 'sabbath65', rate: '5'}
+    // var data7_2 = {ISBN: '193659420X', user_feedback: 'Sulfish', user_rate: 'sabbath65', rate: '1'}
     // db.rating_recording(data7_2, function(result7_2){
     //     console.log(result7_2)
     // })
@@ -411,6 +405,25 @@ app.post('/submitReview', function(req,res){
         res.writeHead(200, {'content-type': 'text/plain' });
         res.end();
     });
+});
+
+app.post('/rating', function(req,res) {
+    var data ='';
+    sess=req.session;
+    req.addListener('data', function(chunk) { data += chunk; });
+    req.addListener('end', function() {
+        console.log("entry");
+        post = JSON.parse(data);
+        db.rating_recording(data, function(result){
+            console.log("meow?");
+            console.log(result)
+
+        });
+
+    });    
+    res.writeHead(200, {'content-type': 'text/plain' });
+    res.end();
+
 });
 
 app.listen(3000, function() {
