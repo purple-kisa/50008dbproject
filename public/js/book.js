@@ -62,7 +62,9 @@ function submitReview() {
         success: function() {
             window.location.reload();
         },
-        error  : function() { }
+        error  : function() { 
+            document.getElementById("submitReviewFailure").innerHTML = "You can only submit one review per book"
+        }
     });
 }
 

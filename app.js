@@ -410,9 +410,14 @@ app.post('/submitReview', function(req,res){
         post = JSON.parse(data);
         db.feedback_recording(post,function(result){
             console.log(result)
+        if (result=="Feedback submitted successfully") {
+            res.writeHead(200, {'content-type': 'text/plain' });
+            res.end();
+        } else {
+            res.writeHead(400, {'content-type': 'text/plain' });
+            res.end();
+        }
         });
-        res.writeHead(200, {'content-type': 'text/plain' });
-        res.end();
     });
 });
 
