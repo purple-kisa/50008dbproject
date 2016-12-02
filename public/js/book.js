@@ -43,6 +43,10 @@ function addToCart() {
     }
 };
 
+function showEntries() {
+    console.log($("#feedback_filter").val());
+};
+
 function submitReview() {
     var user_isbn = $("#isbn").text().split(" ")[1];
     var user_name = $("#user").text();

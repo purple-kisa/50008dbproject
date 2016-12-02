@@ -51,9 +51,17 @@ block content
                 
 
                 h3 Feedback
+                    br
+                    div(style="display:inline-flex;top:2em;")
+                        select#feedback_filter(class="w3-select w3-medium")
+                            option(value="5") Show top 5 entries
+                            option(value="10") Show top 10 entries
+                            option(value="15") Show top 15 entries 
+                            option(value="20") Show top 20 entries
+                    button(class="w3-btn w3-dark-grey w3-medium" onClick="showEntries()") Submit
                     ul(class="w3-ul w3-card-4")
-                    each val in feedback_data
-                        li(class="w3-padding-16" style="list-style-type:none;")
+                    each val, index in feedback_data
+                        li(id="feedback"+index class="w3-padding-16" style="list-style-type:none;")
                             span(onclick="plusOne('"+val.user+"')" class="w3-closebtn w3-padding w3-margin-right w3-medium") + 
                             span(onclick="minusOne('"+val.user+"')" class="w3-closebtn w3-padding w3-margin-right w3-medium") - 
                             img(src="/img/icon_account.png" class="w3-left w3-circle w3-margin-right" style="width:60px")
