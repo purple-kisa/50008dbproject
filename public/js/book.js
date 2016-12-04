@@ -44,7 +44,21 @@ function addToCart() {
 };
 
 function showEntries() {
-    console.log($("#feedback_filter").val());
+    numberToShow = parseInt($("#feedback_filter").val(),10);
+    numberOfFeedback = parseInt($("#numberOfFeedback").text(),10);
+    console.log(numberToShow + ", " + numberOfFeedback);
+    if (numberToShow < numberOfFeedback) {
+        for(i=0; i<numberToShow; i++) {
+            $("#feedback"+i).show();
+        }
+        for(i = numberToShow; i<numberOfFeedback; i++) {
+            $("#feedback"+i).hide();
+        }
+    } else {
+        for(i=0; i<numberOfFeedback; i++) {
+            $("#feedback"+i).show();
+        }
+    }
 };
 
 function submitReview() {
@@ -63,7 +77,7 @@ function submitReview() {
             window.location.reload();
         },
         error  : function() { 
-            document.getElementById("submitReviewFailure").innerHTML = "You can only submit one review per book"
+            document.getElementById("submitReviewFailure").innerHTML = "You can only submit one review per book!";
         }
     });
 }
@@ -73,6 +87,7 @@ function plusOne(user) {
     var user_feedback_retrieve = user; 
     var user_rate_retrieve = $("#user").text(); 
     var input = {ISBN: isbn, user_feedback: user_feedback_retrieve, user_rate: user_rate_retrieve, rate: '1'};
+    console.log("plus one function")
     console.log(input);
     $.ajax('http://localhost:3000/rating', {
         type: 'POST',

@@ -432,12 +432,12 @@ app.post('/rating', function(req,res) {
     sess=req.session;
     req.addListener('data', function(chunk) { data += chunk; });
     req.addListener('end', function() {
-        console.log("entry");
         post = JSON.parse(data);
+        console.log("rating function")
+        console.log(post);
         db.rating_recording(data, function(result){
             console.log("meow?");
             console.log(result)
-
         });
 
     });    
