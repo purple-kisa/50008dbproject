@@ -56,10 +56,8 @@ block content
                     div(style="display:inline-flex;top:2em;")
                         select#feedback_filter(class="w3-select w3-medium")
                             option(value="0") Show no feedback 
-                            option(value="1") Show top 1 entries
-                            option(value="2") Show top 2 entries
-                            option(value="3") Show top 3 entries 
-                            option(value="4") Show top 4 entries
+                            each val, index in feedback_data
+                                option(value=(index+1)) Show top #{index+1} entries 
                     button(class="w3-btn w3-dark-grey w3-medium" onClick="showEntries()") Submit
                     ul(class="w3-ul w3-card-4")
                     each val, index in feedback_data
