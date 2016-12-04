@@ -435,7 +435,7 @@ app.post('/rating', function(req,res) {
         post = JSON.parse(data);
         console.log("rating function")
         console.log(post);
-        db.rating_recording(data, function(result){
+        db.rating_recording(post, function(result){
             if (result=="Rating submitted successfully") {
                 console.log("rating success")
                 res.writeHead(200, {'content-type': 'text/plain' });
