@@ -107,6 +107,12 @@ app.get('/', function (req, res) {
     // db.useful_feedback_retrival(data9, function(result9){
     //     console.log(result9)
     // })
+
+    //Q10
+    var data10 = '193659420X'
+    db.book_recommendation(data10, function(result10){
+        console.log(result10)
+    })
 });
     // console.log("query result is " + query_result);    
 
