@@ -87,6 +87,7 @@ function plusOne(user) {
     var user_feedback_retrieve = user; 
     var user_rate_retrieve = $("#user").text(); 
     var input = {ISBN: isbn, user_feedback: user_feedback_retrieve, user_rate: user_rate_retrieve, rate: '1'};
+    console.log("plus one function")
     console.log(input);
     $.ajax('http://localhost:3000/rating', {
         type: 'POST',

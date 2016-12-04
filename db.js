@@ -320,19 +320,17 @@ exports.feedback_retrival = function(data, callback){
 }
 
 exports.rating_recording = function(data, callback){
-    if (data.user_feedback != data.user_rate){
-        state.pool.getConnection(function(err, connection){
-            connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
-                connection.release();
-                if(!err){
-                    return callback("Rating submitted successfully")
-                }
-                else{
-                    return callback("Error: " + err)
-                }
-            })
+    state.pool.getConnection(function(err, connection){
+        connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback("Rating submitted successfully")
+            }
+            else{
+                return callback("Error: " + err)
+            }
         })
-    }
+    })
 }
 
 //-----------------------------------------------------
