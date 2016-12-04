@@ -436,14 +436,19 @@ app.post('/rating', function(req,res) {
         console.log("rating function")
         console.log(post);
         db.rating_recording(data, function(result){
-            console.log("meow?");
-            console.log(result)
+            if (result=="Rating submitted successfully") {
+                console.log("rating success")
+                res.writeHead(200, {'content-type': 'text/plain' });
+                res.end();
+            } else {
+                console.log("rating not success");
+                console.log(result);
+                res.writeHead(400, {'content-type': 'text/plain' });
+                res.end();
+            }    
         });
 
     });    
-    res.writeHead(200, {'content-type': 'text/plain' });
-    res.end();
-
 });
 
 app.listen(3000, function() {
