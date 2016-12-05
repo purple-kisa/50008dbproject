@@ -335,7 +335,7 @@ app.get('/admin', function(req,res) {
         outstandingInvoices = result[0];
         console.log(outstandingInvoices)
       
-        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data}) 
+        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data, outstandingInvoices: outstandingInvoices}) 
     });
 });
 

@@ -1673,8 +1673,12 @@ Can this be done with Masonry options? */
 
 .order {
     background: orange;
+    position: relative;
+    z-index: 1;
 }
 
 .delivered {
     background: green;
+    position: relative;
+    z-index: 1;
 }

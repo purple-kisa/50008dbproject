@@ -1,14 +1,24 @@
 extends ./templates/layout.pug
 
 mixin orders(data) 
-    div.col-sm-6(style="text-align:center;")
-        div.col-sm-6(style="text-align:center;")
-            p User
-            p Title
-            p ISBN
-            p Copies 
-        div.col-sm-6(style="text-align:center;")
-            button.order ordered
+    div.col-sm-6(style="text-align:center;padding:20px;")
+        div.col-sm-12(style="text-align:center;")
+            div.col-sm-6(style="text-align:center;")
+                p InvoiceNum
+                p User
+                p Date
+            div.col-sm-6(style="text-align:center;padding:40px;")
+                button.order ordered
+        div.col-sm-12(style="text-align:center;")
+            table(border="1" style="margin:auto;")
+                tr
+                    th Title
+                    th ISBN
+                    th Copies
+                tr
+                    td Title#1
+                    td ISBN#1
+                    td Copies#1
 
 block content 
     div.mainTop
