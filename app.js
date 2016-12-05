@@ -109,10 +109,10 @@ app.get('/', function (req, res) {
     // })
 
     //Q10
-    var data10 = '193659420X'
-    db.book_recommendation(data10, function(result10){
-        console.log(result10)
-    })
+    // var data10 = '193659420X'
+    // db.book_recommendation(data10, function(result10){
+    //     console.log(result10)
+    // })
 });
     // console.log("query result is " + query_result);    
 
@@ -329,7 +329,14 @@ app.get('/admin', function(req,res) {
       address: '15 Lame Street',
       phone_no: 89321109 };
 
-    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data})
+    // still testing
+    db.connect();
+    db.admin_invoice_details(function(result){
+        outstandingInvoices = result[0];
+        console.log(outstandingInvoices)
+      
+        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data}) 
+    });
 });
 
 app.post('/addToCart', function(req,res) {
