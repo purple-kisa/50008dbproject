@@ -58,9 +58,11 @@ app.get('/', function (req, res) {
     // }); 
 
     //Admin invoice details retrieval
-    // db.admin_invoice_details(function(result){
-    //     console.log(result)
-    // });
+    db.admin_invoice_details(function(result){
+        db.format_invoice_details(result, function(result1){
+            console.log(result1)
+        })
+    });
     // var data = {status: 'douche', number: '9'}
     // db.update_invoice_status(data, function(result1){
     //     console.log(result1)

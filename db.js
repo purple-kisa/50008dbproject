@@ -92,7 +92,7 @@ exports.query_book = function(table,ISBN,callback){
 
 exports.admin_invoice_details = function(callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT * FROM invoice, content WHERE invoice.number = content.number AND invoice.status != ?',['delivered'], function(err, rows){
+        connection.query('SELECT i.number, i.date, i.status, i.user, c.ISBN, c.copies, b.title FROM online_bookstore.invoice i , online_bookstore.content c, online_bookstore.book b WHERE i.number = c.number AND c.ISBN = b.ISBN AND i.status != ? ORDER BY c.number',['delivered'], function(err, rows){
             if(!err){
                 return callback(rows);
             }
@@ -101,6 +101,22 @@ exports.admin_invoice_details = function(callback){
             }
         })
     })
+}
+
+exports.format_invoice_details = function(data, callback){
+    var output = []
+    var exisiting = 0
+    for (row in data){
+        if (data[row].number != exisiting){
+            var invoice = {number: data[row].number, date: data[row].date, user: data[row].user, title:[], books: [], copies: []}
+            output.push(invoice)
+            exisiting = data[row].number
+        }
+        output[output.length-1].title.push(data[row].title)
+        output[output.length-1].books.push(data[row].ISBN)
+        output[output.length-1].copies.push(data[row].copies)
+    }
+    return callback(output)
 }
 
 exports.update_invoice_status = function(data, callback){
