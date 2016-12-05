@@ -361,7 +361,18 @@ app.post('/addToCart', function(req,res) {
         console.log("post");
         console.log(post);
         if (sess.cart!=undefined) {
-            sess.cart.push(post);
+            var changed = false
+            for (order in sess.cart) {
+                console.log(sess.cart[order].isbn)
+                console.log(post.isbn)
+                if (sess.cart[order].isbn == post.isbn) {
+                    sess.cart[order].copies = parseInt(sess.cart[order].copies) + parseInt(post.copies)
+                    changed = true
+                } 
+            }
+            if (!changed) {
+                sess.cart.push(post);
+            }
         } else {
             sess.cart=[post]
         }
@@ -395,7 +406,7 @@ app.post('/cart', function(req,res) {
 app.get('/cart', function(req, res) {
   sess=req.session;
   console.log(sess.cart);  
-  res.render('cart.pug', {title:'Cart', "splash":{"base":"/img/test2.png", "cover":"/img/cover_4_blur.jpg"}, user:sess.user, cart:sess.cart})
+  res.render('cart.pug', {title:'Cart', user:sess.user, cart:sess.cart})
 });
 
 app.get('/signOut', function(req,res){
