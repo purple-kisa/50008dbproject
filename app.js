@@ -58,11 +58,11 @@ app.get('/', function (req, res) {
     // }); 
 
     //Admin invoice details retrieval
-    db.admin_invoice_details(function(result){
-        db.format_invoice_details(result, function(result1){
-            console.log(result1)
-        })
-    });
+    // db.admin_invoice_details(function(result){
+    //     db.format_invoice_details(result, function(result1){
+    //         console.log(result1)
+    //     })
+    // });
     // var data = {status: 'douche', number: '9'}
     // db.update_invoice_status(data, function(result1){
     //     console.log(result1)
@@ -115,6 +115,17 @@ app.get('/', function (req, res) {
     // db.book_recommendation(data10, function(result10){
     //     console.log(result10)
     // })
+
+    //Q11
+    db.popular_authors(2, function(result11_1){
+        console.log(result11_1)
+    })
+    db.popular_books(2, function(result11_2){
+        console.log(result11_2)
+    })
+    db.popular_publishers(2, function(result11_3){
+        console.log(result11_3)
+    })
 });
     // console.log("query result is " + query_result);    
 

@@ -451,7 +451,53 @@ exports.book_recommendation = function(ISBN, callback){
                 return callback(rows);
             }
             else{
-                return call("Error: " + err);
+                return callback("Error: " + err);
+            }
+        })
+    })
+}
+
+//-----------------------------------------------------
+//-----  Q101: Statistics  ----------------------------
+//-----------------------------------------------------
+
+exports.popular_books = function(count, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT c.ISBN, SUM(c.copies) AS sum_cop, b.title FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY c.ISBN ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback('Error: ' + err)
+            }
+        })
+    })
+}
+
+exports.popular_authors = function(count, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback('Error: ' + err)
+            }
+        })
+    })
+}
+
+exports.popular_publishers = function(count, callback){
+    state.pool.getConnection(function(err, connection){
+        connection.query('SELECT b.publisher, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY b.publisher ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
+            connection.release();
+            if(!err){
+                return callback(rows);
+            }
+            else{
+                return callback('Error: ' + err)
             }
         })
     })
