@@ -25,10 +25,10 @@ function submitDetails() {
         contentType: 'text/json',
         success: function() { 
 			window.location.reload();
-			 },
+		},
         error  : function() { 
-			document.getElementById("signupFailure").innerHTML = "Username taken"
-			 }
+			document.getElementById("signupFailure").innerHTML = "Invalid Registration"
+		}
     });
 }
 
@@ -43,10 +43,10 @@ function signIn() {
         contentType: 'text/json',
         success: function() { 
 			window.location.reload();
-		 },
+		},
         error  : function() { 
 			document.getElementById("signinFailure").innerHTML = "Wrong Login Details"
-			 }
+		}
     });
 }
 
