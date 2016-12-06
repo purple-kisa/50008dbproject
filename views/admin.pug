@@ -1,6 +1,6 @@
 extends ./templates/layout.pug
 
-mixin orders(data) 
+mixin orders(outstandingInvoices) 
     div.col-sm-6(style="text-align:center;padding:20px;")
         div.col-sm-12(style="text-align:center;")
             div.col-sm-6(style="text-align:center;")
@@ -19,6 +19,22 @@ mixin orders(data)
                     td Title#1
                     td ISBN#1
                     td Copies#1
+
+mixin authors(authorsData)
+    tr(style="padding:5px;")
+        td.populartd #{authorsData.authors}
+        td.populartd #{authorsData.sum_cop}
+
+mixin books(booksData)
+    tr(style="padding:5px;")
+        td.populartd #{booksData.ISBN}
+        td.populartd #{booksData.title}
+        td.populartd #{booksData.sum_cop}
+
+mixin publishers(publishersData)
+    tr(style="padding:5px;")
+        td.populartd #{publishersData.publisher}
+        td.populartd #{publishersData.sum_cop}
 
 block content 
     div.mainTop
@@ -45,8 +61,8 @@ block content
     div.mainMiddle
         div.col-sm-12(style="text-align:center;")
             h2.DbHeader Orders
-        if data
-            each val, index in data 
+        if outstandingInvoices
+            each val, index in outstandingInvoices 
                 +orders(val)
         else
             h2 There seems to be no orders.
@@ -56,11 +72,11 @@ block content
             h2.DbHeader Statistics
         div#StatisticsFilter.col-sm-6(style="display:inline-flex;top:2em;")
             p Show
-            select(name="cars")
-                option(value="Top5") Top 5
-                option(value="Top10") Top 10
-                option(value="Top15") Top 15
-                option(value="Top20") Top 20
+            select#TopMPopular(name="cars")
+                option(value="5") Top 5
+                option(value="10") Top 10
+                option(value="15") Top 15
+                option(value="20") Top 20
             p entries
 
     div.mainBottom
@@ -70,10 +86,16 @@ block content
               h4.panel-title
                 a(data-toggle="collapse" href="#collapsePopularBooks") Most Popular Books
             div(id="collapsePopularBooks" class="panel-collapse collapse")
-              ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                table(style="margin:auto;")
+                    if booksData
+                        tr
+                            th.populartd ISBN
+                            th.populartd Title
+                            th.populartd Copies
+                        each val, index in booksData 
+                            +books(val)
+                    else
+                        p There seems to be not enough books.
 
         div(class="panel-group col-sm-4" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -81,10 +103,15 @@ block content
               h4.panel-title
                 a(data-toggle="collapse" href="#collapsePopularAuthors") Most Popular Authors
             div(id="collapsePopularAuthors" class="panel-collapse collapse")
-              ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                table(style="margin:auto;")
+                    if authorsData
+                        tr
+                            th.populartd Authors
+                            th.populartd Copies
+                        each val, index in authorsData 
+                            +authors(val)
+                    else
+                        p There seems to be not enough books.
         
         div(class="panel-group col-sm-4" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -92,10 +119,15 @@ block content
               h4.panel-title
                 a(data-toggle="collapse" href="#collapsePopularPublishers") Most Popular Publishers
             div(id="collapsePopularPublishers" class="panel-collapse collapse")
-              ul.list-group
-                li.list-group-item One
-                li.list-group-item Two
-                li.list-group-item Three
+                table(style="margin:auto;")
+                    if publishersData
+                        tr
+                            th.populartd Publishers
+                            th.populartd Copies
+                        each val, index in publishersData 
+                            +publishers(val)
+                    else
+                        p There seems to be not enough books.
 
     <!-- The Modal -->
     div(id="NewBookModal" class="modal")

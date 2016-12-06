@@ -333,22 +333,33 @@ app.get('/account/:user', function (req, res) {
 
 app.get('/admin', function(req,res) {
 
-    // random data for testing
-    var data = {
-      name: 'Jun Sheng',
-      user: 'bimaowangzi',
-      password: 'password3',
-      card_no: '3530111333300000',
-      address: '15 Lame Street',
-      phone_no: 89321109 };
-
     // still testing
     db.connect();
-    db.admin_invoice_details(function(result){
-        outstandingInvoices = result[0];
-        console.log(outstandingInvoices)
-      
-        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, data:data, outstandingInvoices: outstandingInvoices}) 
+    var authorsData;
+    var booksData;
+    var publishersData;
+    var outstandingInvoices;
+    db.popular_authors(5, function(result11_1){
+        console.log("popular authors");
+        console.log(result11_1);
+        authorsData = result11_1;
+        db.popular_books(5, function(result11_2){
+            console.log("popular books");
+            console.log(result11_2);
+            booksData = result11_2;
+            db.popular_publishers(5, function(result11_3){
+                console.log("popular publishers");
+                console.log(result11_3);
+                publishersData = result11_3;
+                db.admin_invoice_details(function(result){
+                    console.log("outstandingInvoices")
+                    console.log(outstandingInvoices)
+                    outstandingInvoices = result;
+                  
+                    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData}) 
+                });
+            });
+        });
     });
 });
 

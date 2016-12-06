@@ -24,6 +24,7 @@ window.onclick = function(event) {
     }
 }
 
+// set listeners for ordered/delivered buttons
 var OrderButtons = document.getElementsByClassName("order");
 
 for (var i = 0;i < OrderButtons.length;i++){
@@ -33,6 +34,11 @@ for (var i = 0;i < OrderButtons.length;i++){
 		this.className = "delivered";
 	};
 }
+
+// set listener for top m popular
+$('#TopMPopular').on('change', function() {
+    alert( this.value );
+})
 
 // When the user clicks on the Add book button, Add book into database 
 function addBook() {
