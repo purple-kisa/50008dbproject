@@ -283,6 +283,7 @@ exports.new_book = function(data, callback){
         return callback("Price invalid, Please enter a valid price")
     }
     else if (data.format !=  "softcopy" || data.format !=  "hardcopy"){
+        console.log(data.format)
         return callback("Format invalid, Please enter a format. E.g softcopy/hardcopy")
     }
     state.pool.getConnection(function(err, connection){
@@ -370,7 +371,7 @@ exports.feedback_retrival = function(data, callback){
 }
 
 exports.rating_recording = function(data, callback){
-    if (data.rate  < 0  || data.score > 2){
+    if (data.rate  < -1  || data.score > 1){
         return callback("Rating invalid, Please enter a rating of either 0,1,2")
     }
     state.pool.getConnection(function(err, connection){

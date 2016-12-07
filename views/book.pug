@@ -33,15 +33,18 @@ block content
                         br
                         table(style="table-layout:fixed;" width ="100%")
                             tbody
-                                tr
-                                    each val, index in book_rec 
-                                        td
-                                            a(href="/book/"+val.ISBN): img.ProfilePic(src=val.image)
-                                            br
-                                tr
-                                    each val in book_rec
-                                        td 
-                                            p #{val.title}
+                                if book_rec
+                                    tr
+                                        each val, index in book_rec 
+                                            td
+                                                a(href="/book/"+val.ISBN): img.ProfilePic(src=val.image)
+                                                br
+                                    tr
+                                        each val in book_rec
+                                            td 
+                                                p #{val.title}
+                                else 
+                                    p Oops, there seems to be no recommendations! 
 
                     h4#not_enough_copies(style="display:none;") Not enough copies available :(     
                     h4#enter_number(style="display:none;") Please enter a valid numeric!                 
