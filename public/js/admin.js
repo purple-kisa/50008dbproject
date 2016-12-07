@@ -102,20 +102,21 @@ function updateBookCount() {
 				copies:$("input#copiesToAdd").val()
 				};
 
-	if (ISBN === "" || copies === ""){
+	if (input.ISBN === "" || input.copies === ""){
 		alert("Please fill in all fields.")
-	}
+	} else {
 
-	$.ajax('http://localhost:3000/updateBookCount', {
-        type: 'PUT',
-        data: JSON.stringify(input),
-        contentType: 'text/json',
-        success: function(data) {
-        	console.log(data); 
-        	window.alert(data);
-        	window.location.reload(); },
-        error  : function(error) { 
-        	console.log(error);
-        	window.alert(error.responseText); }
-    });
+		$.ajax('http://localhost:3000/updateBookCount', {
+			type: 'PUT',
+			data: JSON.stringify(input),
+			contentType: 'text/json',
+			success: function(data) {
+				console.log(data); 
+				window.alert(data);
+				window.location.reload(); },
+			error  : function(error) { 
+				console.log(error);
+				window.alert(error.responseText); }
+		});
+	}
 };
