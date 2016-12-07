@@ -297,7 +297,6 @@ app.put('/updateBookCount', function(request,response){
         post = JSON.parse(data)
         db.update_book_copies(post,function(result){
             console.log(result);
-            sess.query_result = result;
             if (result.substring(0,5) !== 'Error') {
               console.log("Book copies added");
               response.writeHead(200, {'content-type': 'text/plain' });
@@ -492,6 +491,9 @@ app.get('/book/:isbn', function(req,res){
             db.book_recommendation(isbn, function(result10){
                 console.log("result10")
                 console.log(result10)
+                if (result10.length == 0) {
+                    result10 = false; 
+                }
                  res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result, book_rec: result10, admin: admin_status})
             })
         });  
