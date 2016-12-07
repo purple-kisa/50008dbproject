@@ -68,6 +68,13 @@ function ShowPopularCount(){
 
 // When the user clicks on the Add book button, Add book into database 
 function addBook() {
+	var imageSrc;
+	if ($("input#image").val() === ""){
+		imageSrc = "/img/default_book.jpg";
+	} else {
+		imageSrc = $("input#image").val();
+	}
+
 	var input = {
 				ISBN: $("input#ISBN").val(), 
 				title:$("input#Title").val(), 
@@ -77,9 +84,9 @@ function addBook() {
 				copies:$("input#copies").val(), 
 				price: $("input#price").val(), 
 				tag:$("input#tag").val(), 
-				format: $("input#format").val(), 
+				format: $("input#format").val().toLowerCase(), 
 				subject:$("input#subject").val(), 
-				image: $("input#image").val() 
+				image: imageSrc
 				};
 
 	$.ajax('http://localhost:3000/addBook', {

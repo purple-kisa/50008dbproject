@@ -282,7 +282,7 @@ exports.new_book = function(data, callback){
     else if (data.price < 0){
         return callback("Price invalid, Please enter a valid price")
     }
-    else if (data.format !=  "softcopy" || data.format !=  "hardcopy"){
+    else if (data.format !=  "softcopy" && data.format !=  "hardcopy"){
         return callback("Format invalid, Please enter a format. E.g softcopy/hardcopy")
     }
     state.pool.getConnection(function(err, connection){
