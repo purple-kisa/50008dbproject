@@ -467,7 +467,7 @@ exports.useful_feedback_retrival = function(data, callback){
         return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
     }
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT f.ISBN, f.user, f.comment, f.date, f.score, r3.avg_rate FROM online_bookstore.feedback f LEFT JOIN (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS r3 ON r3.ISBN = f.ISBN AND r3.user_feedback = f.user WHERE f.ISBN = ? ORDER BY r3.avg_rate DESC', [data.ISBN, data.ISBN], function(err, rows){
+        connection.query('SELECT f.ISBN, f.user, f.comment, f.date, f.score, IFNULL(r3.avg_rate, 0) FROM online_bookstore.feedback f LEFT JOIN (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS r3 ON r3.ISBN = f.ISBN AND r3.user_feedback = f.user WHERE f.ISBN = ? ORDER BY r3.avg_rate DESC', [data.ISBN, data.ISBN], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
