@@ -427,7 +427,7 @@ exports.book_browsing_avg_feedback = function(post, callback){
 
 exports.useful_feedback_retrival = function(data, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT ISBN, user_feedback, AVG(rate) AS avg_rate FROM online_bookstore.rating WHERE ISBN = ? GROUP BY ISBN, user_feedback ORDER BY avg_rate DESC LIMIT ?', [data.ISBN, data.n], function(err, rows){
+        connection.query('SELECT r.ISBN, r.user_feedback, f.comment, f.date, f.score, r.user_rate, r.rate, avg_table.avg_rate FROM online_bookstore.rating r, online_bookstore.feedback f, (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS avg_table WHERE r.ISBN = avg_table.ISBN AND r.ISBN = f.ISBN AND r.user_feedback = avg_table.user_feedback AND r.user_feedback = f.user ORDER BY avg_table.avg_rate DESC', [data.ISBN], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
