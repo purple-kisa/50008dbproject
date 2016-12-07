@@ -60,6 +60,10 @@ function ShowPopularCount(){
     	alert("You must enter valid number.");
     } else if (Count % 1 !== 0){
     	alert("You must enter a whole number.");
+    } else if (Count === ""){
+    	alert("Default filter is 5. Key in a number for desired filter.");
+    } else if (Count <= 0){
+    	alert("Filter must be at least 1.");
     } else {
     	// similar behavior as an HTTP redirect
     	window.location.replace("http://localhost:3000/admin/" + Count);
