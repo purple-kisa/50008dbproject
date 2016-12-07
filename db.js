@@ -68,6 +68,9 @@ exports.query_books = function(table,callback){
 }
 
 exports.query_book = function(table,ISBN,callback){
+    if(ISBN.length!=10){
+        return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
+    }
     state.pool.getConnection(function(err,connection){
         // console.log('Connected as id ' + connection.threadId);
         connection.query('SELECT * FROM ?? WHERE ISBN=?', [table,ISBN] ,function(err,rows){
@@ -136,6 +139,9 @@ exports.update_invoice_status = function(data, callback){
 //-----  Q1: Registration  ----------------------------
 //-----------------------------------------------------
 exports.registration = function(table,data,callback){
+    if (data.card_no.length != 16){
+        return callback("Card Number invalid, Please enter a valid 16-digit card number")
+    }
     state.pool.getConnection(function(err,connection){ 
         var query = connection.query('INSERT INTO ?? SET ?', [table,data], function(err, rows) {      
            connection.release();
@@ -167,6 +173,9 @@ exports.order = function(table,data,callback){
 }
 
 exports.content = function(table,data,callback){
+    if (data.copies < 1){
+        return callback("Number of copies invalid, Please insert more than 1 copy")
+    }
     state.pool.getConnection(function(err,connection){ 
         var query = connection.query('INSERT INTO ?? VALUES ((SELECT number FROM invoice WHERE date = ? AND user = ? ORDER BY number DESC LIMIT 1),?,?)', [table,data.date,data.user,data.ISBN,data.copies], function(err, rows) {      
            connection.release();
@@ -267,6 +276,15 @@ exports.query_rating = function(user, callback){
 //-----------------------------------------------------
 
 exports.new_book = function(data, callback){
+    if (data.copies < 0){
+        return callback("Copies invalid, Please enter a positive copy count")
+    }
+    else if (data.price < 0){
+        return callback("Price invalid, Please enter a valid price")
+    }
+    else if (data.format !=  "softcopy" || data.format !=  "hardcopy"){
+        return callback("Format invalid, Please enter a format. E.g softcopy/hardcopy")
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO `online_bookstore`.`book` (`ISBN`, `title`, `authors`, `publisher`, `year_pub`, `copies`, `price`, `tag`, `format`, `subject`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [data.ISBN, data.title, data.authors, data.publisher, data.year_pub, data.copies, data.price, data.tag, data.format, data.subject, data.image], function(err, rows){
             connection.release();
@@ -285,6 +303,9 @@ exports.new_book = function(data, callback){
 //-----------------------------------------------------
 
 exports.update_book_copies = function(data, callback){
+    if (data.copies < 0){
+        return callback("Copies invalid, Please enter a positive copy count")
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows){
             connection.release();
@@ -303,6 +324,9 @@ exports.update_book_copies = function(data, callback){
 //-----------------------------------------------------
 
 exports.feedback_recording = function(data, callback){
+    if (data.score < 1 || data.score > 10){
+        return callback("Score invalid, Please enter a score between 1 to 10")
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO feedback SET ?', [data], function(err, rows){
             connection.release();
@@ -336,6 +360,9 @@ exports.feedback_retrival = function(data, callback){
 }
 
 exports.rating_recording = function(data, callback){
+    if (data.rate  < 0  || data.score > 2){
+        return callback("Rating invalid, Please enter a rating of either 0,1,2)
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
             connection.release();
@@ -426,6 +453,9 @@ exports.book_browsing_avg_feedback = function(post, callback){
 //-----------------------------------------------------
 
 exports.useful_feedback_retrival = function(data, callback){
+    if(data.ISBN.length!=10){
+        return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('SELECT f.ISBN, f.user, f.comment, f.date, f.score, r3.avg_rate FROM online_bookstore.feedback f LEFT JOIN (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS r3 ON r3.ISBN = f.ISBN AND r3.user_feedback = f.user WHERE f.ISBN = ? ORDER BY r3.avg_rate DESC', [data.ISBN, data.ISBN], function(err, rows){
             connection.release();
@@ -444,6 +474,9 @@ exports.useful_feedback_retrival = function(data, callback){
 //-----------------------------------------------------
 
 exports.book_recommendation = function(ISBN, callback){
+    if(ISBN.length!=10){
+        return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('SELECT c1.ISBN, b.title, SUM(c1.copies) AS sum_cop, b.image FROM online_bookstore.invoice i1, online_bookstore.content c1, online_bookstore.book b WHERE i1.number = c1.number AND c1.ISBN = b.ISBN AND i1.user IN (SELECT i.user FROM online_bookstore.invoice i, online_bookstore.content c WHERE i.number = c.number AND c.ISBN = ?) AND c1.ISBN != ? GROUP BY c1.ISBN ORDER BY sum_cop DESC', [ISBN, ISBN], function(err, rows){
             connection.release();
@@ -462,6 +495,9 @@ exports.book_recommendation = function(ISBN, callback){
 //-----------------------------------------------------
 
 exports.popular_books = function(count, callback){
+    if(count<0){
+        return callback("Please insert a positive integer");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('SELECT c.ISBN, SUM(c.copies) AS sum_cop, b.title FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY c.ISBN ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
             connection.release();
@@ -476,6 +512,9 @@ exports.popular_books = function(count, callback){
 }
 
 exports.popular_authors = function(count, callback){
+    if(count<0){
+        return callback("Please insert a positive integer");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN AND b.authors IS NOT NULL GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
             connection.release();
@@ -490,6 +529,9 @@ exports.popular_authors = function(count, callback){
 }
 
 exports.popular_publishers = function(count, callback){
+    if(count<0){
+        return callback("Please insert a positive integer");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('SELECT b.publisher, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY b.publisher ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
             connection.release();
