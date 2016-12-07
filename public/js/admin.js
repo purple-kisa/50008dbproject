@@ -35,10 +35,18 @@ for (var i = 0;i < OrderButtons.length;i++){
 	};
 }
 
-// set listener for top m popular
-$('#TopMPopular').on('change', function() {
-    alert( this.value );
-})
+function ShowPopularCount(){
+    Count = $("#topPopularCount").val();
+    if (isNaN(Count) ){
+    	alert("You must enter valid number.");
+    } else if (Count % 1 !== 0){
+    	alert("You must enter a whole number.");
+    } else {
+    	$.ajax('http://localhost:3000/admin/' + Count, {
+        type: 'GET',
+        contentType: 'text/json'
+    }
+};
 
 // When the user clicks on the Add book button, Add book into database 
 function addBook() {
@@ -75,6 +83,10 @@ function updateBookCount() {
 				ISBN: $("input#ISBNUpdateCount").val(), 
 				copies:$("input#copiesToAdd").val()
 				};
+
+	if (ISBN === "" || copies === ""){
+		alert("Please fill in all fields.")
+	}
 
 	$.ajax('http://localhost:3000/updateBookCount', {
         type: 'PUT',

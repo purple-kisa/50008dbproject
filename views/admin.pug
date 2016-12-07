@@ -1,24 +1,24 @@
 extends ./templates/layout.pug
 
 mixin orders(outstandingInvoices) 
-    div.col-sm-6(style="text-align:center;padding:20px;")
-        div.col-sm-12(style="text-align:center;")
-            div.col-sm-6(style="text-align:center;")
-                p InvoiceNum
-                p User
-                p Date
-            div.col-sm-6(style="text-align:center;padding:40px;")
-                button.order ordered
+    div.col-sm-5(style="text-align:center;margin:10px; padding:10px; border: 2px solid black;border-radius: 5px;")
+        div.col-sm-12(style="text-align:center;float:left;")
+            p InvoiceNum: #{outstandingInvoices.number}
+            p User: #{outstandingInvoices.user}
+            p Date: #{outstandingInvoices.date}
+        div.col-sm-12(style="text-align:center;float:right;")
+            button.order ordered
         div.col-sm-12(style="text-align:center;")
             table(border="1" style="margin:auto;")
                 tr
                     th Title
                     th ISBN
                     th Copies
-                tr
-                    td Title#1
-                    td ISBN#1
-                    td Copies#1
+                each val, index in outstandingInvoices.title 
+                    tr
+                        td #{outstandingInvoices.title[index]}
+                        td #{outstandingInvoices.books[index]}
+                        td #{outstandingInvoices.copies[index]}
 
 mixin authors(authorsData)
     tr(style="padding:5px;")
@@ -39,7 +39,7 @@ mixin publishers(publishersData)
 block content 
     div.mainTop
         div(class = "col-sm-6 ProfilePicDiv")
-            img.ProfilePic(src="img/test2.png" alt="Admin Picture")
+            img.ProfilePic(src="/img/test2.png" alt="Admin Picture")
         div(class = "col-sm-6 ProfileDiv")
             h2.DbHeader Hello, Admin
             <!-- Trigger/Open The Modal -->
@@ -71,13 +71,12 @@ block content
         div.col-sm-6(style="text-align:center;")
             h2.DbHeader Statistics
         div#StatisticsFilter.col-sm-6(style="display:inline-flex;top:2em;")
-            p Show
-            select#TopMPopular(name="cars")
-                option(value="5") Top 5
-                option(value="10") Top 10
-                option(value="15") Top 15
-                option(value="20") Top 20
-            p entries
+            div(style="display:inline;margin:5px;")
+                p(style="display:inline;") Show Top
+                input#topPopularCount(style="display:inline;" type='number', placeholder='5' name='TopPopularCount')
+                p(style="display:inline;") entries
+            div(style="display:inline;")
+                button#topPopularCount.btn.btn-primary(style="padding-left:10px;padding-right:10px;display:inline;" onclick="ShowPopularCount()") Filter
 
     div.mainBottom
         div(class="panel-group col-sm-4" style="margin-bottom:15px;")
@@ -175,9 +174,9 @@ block content
                 button.btn.btn-primary(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="addBook()") Add Book
 
 block scripts
-    script(src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
-    script(src="js/masonry.js")
-    script(src="js/get-shit-done.js")
-    script(src="js/index.js")
+    script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")
+    script(src="/js/masonry.js")
+    script(src="/js/get-shit-done.js")
+    script(src="/js/index.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js") 
-    script(src="js/admin.js")
+    script(src="/js/admin.js")

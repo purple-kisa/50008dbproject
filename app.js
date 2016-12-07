@@ -57,12 +57,13 @@ app.get('/', function (req, res) {
     //   } 
     // }); 
 
-    //Admin invoice details retrieval
+    // Admin invoice details retrieval
     // db.admin_invoice_details(function(result){
     //     db.format_invoice_details(result, function(result1){
-    //         console.log(result1)
-    //     })
-    // });
+    //         console.log("invoice details");
+    //         console.log(result1);
+    //     });
+    // }); 
     // var data = {status: 'douche', number: '9'}
     // db.update_invoice_status(data, function(result1){
     //     console.log(result1)
@@ -331,32 +332,35 @@ app.get('/account/:user', function (req, res) {
     
 });
 
-app.get('/admin', function(req,res) {
+app.get('/admin/:popularCount', function(req,res) {
 
-    // still testing
     db.connect();
+    var popularCount = parseInt(req.params.popularCount);
+    console.log(popularCount);
     var authorsData;
     var booksData;
     var publishersData;
     var outstandingInvoices;
-    db.popular_authors(5, function(result11_1){
+    db.popular_authors(popularCount, function(result11_1){
         console.log("popular authors");
         console.log(result11_1);
         authorsData = result11_1;
-        db.popular_books(5, function(result11_2){
+        db.popular_books(popularCount, function(result11_2){
             console.log("popular books");
             console.log(result11_2);
             booksData = result11_2;
-            db.popular_publishers(5, function(result11_3){
+            db.popular_publishers(popularCount, function(result11_3){
                 console.log("popular publishers");
                 console.log(result11_3);
                 publishersData = result11_3;
                 db.admin_invoice_details(function(result){
-                    console.log("outstandingInvoices")
-                    console.log(outstandingInvoices)
-                    outstandingInvoices = result;
-                  
-                    res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData}) 
+                    db.format_invoice_details(result, function(result1){
+                        outstandingInvoices = result1;
+                        console.log("outstandingInvoices");
+                        console.log(outstandingInvoices);
+
+                        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, popularCount: popularCount});
+                    });
                 });
             });
         });

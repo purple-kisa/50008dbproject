@@ -1675,12 +1675,16 @@ Can this be done with Masonry options? */
     background: orange;
     position: relative;
     z-index: 1;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .delivered {
     background: green;
     position: relative;
     z-index: 1;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .populartd {
