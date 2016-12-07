@@ -62,6 +62,7 @@ block content
                     ul(class="w3-ul w3-card-4")
                     each val, index in feedback_data
                         li(id="feedback"+index class="w3-padding-16" style="list-style-type:none;")
+                            span(class="w3-padding w3-margin-right w3-medium" style="float:right;") #{val.avg_rate}
                             span(onclick="plusOne('"+val.user+"')" class="w3-closebtn w3-padding w3-margin-right w3-medium") + 
                             span(onclick="minusOne('"+val.user+"')" class="w3-closebtn w3-padding w3-margin-right w3-medium") - 
                             img(src="/img/icon_account.png" class="w3-left w3-circle w3-margin-right" style="width:60px")

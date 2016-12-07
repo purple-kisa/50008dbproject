@@ -443,7 +443,8 @@ app.get('/book/:isbn', function(req,res){
     db.query_book('book',isbn,function(result){
       query_result = result[0];
       if(query_result!=undefined) {
-        db.feedback_retrival(isbn,function(result){
+        var data = {ISBN: isbn}  
+        db.useful_feedback_retrival(data,function(result){
             console.log("feedback");
             console.log(result);
             console.log(isbn)
