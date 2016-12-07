@@ -427,7 +427,7 @@ exports.book_browsing_avg_feedback = function(post, callback){
 
 exports.useful_feedback_retrival = function(data, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT r.ISBN, r.user_feedback, f.comment, f.date, f.score, r.user_rate, r.rate, avg_table.avg_rate FROM online_bookstore.rating r, online_bookstore.feedback f, (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS avg_table WHERE r.ISBN = avg_table.ISBN AND r.ISBN = f.ISBN AND r.user_feedback = avg_table.user_feedback AND r.user_feedback = f.user ORDER BY avg_table.avg_rate DESC', [data.ISBN], function(err, rows){
+        connection.query('SELECT f.ISBN, f.user, f.comment, f.date, f.score, r3.user_rate, r3.rate, r3.avg_rate FROM online_bookstore.feedback f LEFT JOIN (SELECT r.ISBN, r.user_feedback, r.user_rate, r.rate, r2.avg_rate FROM online_bookstore.rating r, (SELECT r1.ISBN, r1.user_feedback, SUM(r1.rate) AS avg_rate FROM online_bookstore.rating r1 WHERE r1.ISBN = ? GROUP BY r1.ISBN, r1.user_feedback) AS r2 WHERE r.ISBN = r2.ISBN AND r.user_feedback = r2.user_feedback) AS r3 ON r3.ISBN = f.ISBN AND r3.user_feedback = f.user WHERE f.ISBN = ? ORDER BY r3.avg_rate DESC', [data.ISBN, data.ISBN], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
