@@ -33,7 +33,8 @@ app.get('/', function (req, res) {
     if (typeof sess.query_result==="undefined") {
         console.log("in if clause");
         db.query_books('book',function(result){
-            // console.log(result)
+            console.log("query_books")
+            console.log(result)
             query_result = result;
             // console.log(query_result)
             res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
@@ -252,7 +253,6 @@ app.post('/addBook', function(request,response){
         post = JSON.parse(data)
         db.new_book(post,function(result){
             console.log(result);
-            sess.query_result = result;
             if (typeof result !== 'string') {
               console.log("Book is added.");
               response.writeHead(200, {'content-type': 'text/plain' });
@@ -333,6 +333,10 @@ app.get('/account/:user', function (req, res) {
     var orderData;
     var feedbackData;
     var ratingData;
+    sess = req.session;
+    if (sess.user == 'admin') {
+            admin_status = true;
+        }
 
     db.query_order(user,function(result){
         console.log('order');
@@ -367,6 +371,10 @@ app.get('/admin/:popularCount', function(req,res) {
     var booksData;
     var publishersData;
     var outstandingInvoices;
+    sess = req.session;
+    if (sess.user == 'admin') {
+            admin_status = true;
+        }
     db.popular_authors(popularCount, function(result11_1){
         console.log("popular authors");
         console.log(result11_1);
@@ -446,6 +454,9 @@ app.post('/cart', function(req,res) {
 
 app.get('/cart', function(req, res) {
   sess=req.session;
+  if (sess.user == 'admin') {
+            admin_status = true;
+        }
   console.log(sess.cart);  
   res.render('cart.pug', {title:'Cart', user:sess.user, cart:sess.cart, admin: admin_status})
 });
@@ -465,6 +476,9 @@ app.get('/book/:isbn', function(req,res){
     var isbn = req.params.isbn;
     console.log(isbn);  
     sess=req.session;
+    if (sess.user == 'admin') {
+            admin_status = true;
+        }
     var query_result;
     db.connect();
     db.query_book('book',isbn,function(result){

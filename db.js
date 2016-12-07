@@ -310,14 +310,21 @@ exports.update_book_copies = function(data, callback){
         return callback("Error: ISBN is invalid, Please enter a valid 10 digit ISBN number");
     }
     state.pool.getConnection(function(err, connection){
-        connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows){
-            connection.release();
+        connection.query('SELECT IF(? IN (SELECT ISBN FROM book), "True", "False") AS test', [data.ISBN], function(err, rows){
             if(!err){
-                return callback(data.ISBN + " copies updated successfully! \n" + rows);
+                if (rows[0].test != "False"){
+                    connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows1){
+                        return callback(data.ISBN + "," + data.copies+ " copies updated successfully! \n" + rows);
+                    })
+                }
+                else{
+                    return callback("Book does not exist")
+                }
             }
             else{
                 return callback("Error: " + err);
             }
+            data.copies, data.ISBN
         })
     })
 }
