@@ -12,8 +12,14 @@ mixin Feedback(data)
 
 mixin Rating(data) 
     li.list-group-item ISBN: #{data.ISBN},
+        <br/> Title: #{data.title},
         <br/> Feedback By: #{data.user_feedback},
-        <br/> Your Rating: #{data.rate}
+        if data.rate === 1
+            <br/> Your Rating: 
+            span(style="color: green;font-weight: bold;") Useful
+        else
+            <br/> Your Rating: 
+            span(style="color: red;font-weight: bold;") Not Useful
 
 block content 
     div.main
