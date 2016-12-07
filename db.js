@@ -477,7 +477,7 @@ exports.popular_books = function(count, callback){
 
 exports.popular_authors = function(count, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
+        connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b WHERE c.ISBN = b.ISBN AND b.authors IS NOT NULL GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[count], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
