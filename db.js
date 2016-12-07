@@ -250,7 +250,7 @@ exports.query_feedback = function(user, callback){
 //Full history of feedbacks ranked with respect to usefulness
 exports.query_rating = function(user, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT * FROM rating WHERE user_rate = ? ORDER BY rate DESC', [user], function(err, rows){
+        connection.query('SELECT r.ISBN, b.title, r.user_feedback, r,user_rate, r.rate FROM rating r, book b WHERE r.user_rate = ? AND r.ISBN = b.ISBN ORDER BY r.rate DESC', [user], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
