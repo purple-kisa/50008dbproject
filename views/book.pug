@@ -27,6 +27,22 @@ block content
                     button(class="w3-btn w3-dark-grey" onClick="addToCart()") Add to Cart
 
                     h4#added(style="display:none;") Successfully Added to Cart!:)
+
+                    h3#recommendations(style="display:none;") Book Recommendations
+                        br
+                        br
+                        table(style="table-layout:fixed;" width ="100%")
+                            tbody
+                                tr
+                                    each val, index in book_rec 
+                                        td
+                                            a(href="/book/"+val.ISBN): img.ProfilePic(src=val.image)
+                                            br
+                                tr
+                                    each val in book_rec
+                                        td 
+                                            p #{val.title}
+
                     h4#not_enough_copies(style="display:none;") Not enough copies available :(     
                     h4#enter_number(style="display:none;") Please enter a valid numeric!                 
 
@@ -70,9 +86,21 @@ block content
                             br
                             span(class="w3-small"): i #{val.date}
                             br
-                            span(class="w3-large") #{val.score} 
+                            span(class="w3-large") 
+                                select.review(style="display:block;" score=val.score)
+                                    option(value="1") 1 
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="9") 9
+                                    option(value="10") 10       
                             br
                             span(class="w3-large") #{val.comment}
+
 
     div#user(style="display:none;") #{user}
     div#numberOfFeedback(style="display:none;") #{feedback_data.length}

@@ -2,6 +2,12 @@
 $(window).on('load', function () {
     console.log("MEOW");
     $('#rating').barrating({theme:'fontawesome-stars'});
+    // $("#review").barrating({theme:'fontawesome-stars'});
+    $('.review').each(function() {
+        $(this).barrating({theme:'fontawesome-stars', readonly:true});
+        var score = $(this).attr("score");
+        $(this).barrating('set', score);
+    });
 });
 
 function addToCart() {
@@ -36,6 +42,7 @@ function addToCart() {
                     $("#added").show();
                     $("#enter_number").hide(); 
                     $("#not_enough_copies").hide();
+                    $("#recommendations").show();
                 },
                 error  : function() {  }
             });
