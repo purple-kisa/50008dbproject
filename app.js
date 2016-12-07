@@ -10,7 +10,7 @@ app.use(express.static('public'));
 //Set view engine
 app.set('view engine', 'pug'); 
 
-app.use(session({ secret: 'ilovesamssamsamssams' })); // session secret 
+app.use(session({ secret: 'sessionsecret' })); // session secret 
 var sess;
 
 app.get('/', function (req, res) {
@@ -470,10 +470,14 @@ app.get('/book/:isbn', function(req,res){
             console.log("feedback");
             console.log(result);
             console.log(isbn)
-
-            res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result})
+            db.book_recommendation(isbn, function(result10){
+                console.log("result10")
+                console.log(result10)
+                 res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result, book_rec: result10})
+            })
         });  
       }
+      
     });    
 });
 
