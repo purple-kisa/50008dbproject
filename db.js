@@ -304,7 +304,10 @@ exports.new_book = function(data, callback){
 
 exports.update_book_copies = function(data, callback){
     if (data.copies < 0){
-        return callback("Copies invalid, Please enter a positive copy count")
+        return callback("Error: Copies invalid, Please enter a positive copy count")
+    }
+    else if(data.ISBN.length!=10){
+        return callback("Error: ISBN is invalid, Please enter a valid 10 digit ISBN number");
     }
     state.pool.getConnection(function(err, connection){
         connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows){
@@ -361,7 +364,7 @@ exports.feedback_retrival = function(data, callback){
 
 exports.rating_recording = function(data, callback){
     if (data.rate  < 0  || data.score > 2){
-        return callback("Rating invalid, Please enter a rating of either 0,1,2)
+        return callback("Rating invalid, Please enter a rating of either 0,1,2")
     }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
