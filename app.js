@@ -12,11 +12,15 @@ app.set('view engine', 'pug');
 
 app.use(session({ secret: 'sessionsecret' })); // session secret 
 var sess;
+var admin_status = false; 
 
 app.get('/', function (req, res) {
     sess= req.session;
     if (sess.user) { 
         console.log("signed in as "+sess.user); 
+        if (sess.user == 'admin') {
+            admin_status = true;
+        }
     } else { 
         console.log("not signed in"); 
     } 
@@ -32,15 +36,15 @@ app.get('/', function (req, res) {
             // console.log(result)
             query_result = result;
             // console.log(query_result)
-            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart});
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
         });
     } else {
         query_result = sess.query_result;
         console.log(query_result.length);
         if(query_result.length!=0) {
-            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart});
+            res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
         } else {
-            res.render('index.pug', {title:'Book Link', "search": {}, user: sess.user, cart:sess.cart});
+            res.render('index.pug', {title:'Book Link', "search": {}, user: sess.user, cart:sess.cart, admin: admin_status});
         }
     }
 
@@ -346,7 +350,7 @@ app.get('/account/:user', function (req, res) {
                     customerData = result[0];
                     console.log(customerData)
                   
-                    res.render('account.pug', {title:'Your Account', customerData: customerData, orderData: orderData, feedbackData: feedbackData, ratingData: ratingData, user: sess.user, cart:sess.cart});
+                    res.render('account.pug', {title:'Your Account', customerData: customerData, orderData: orderData, feedbackData: feedbackData, ratingData: ratingData, user: sess.user, cart:sess.cart, admin: admin_status});
                 });
             }); 
         });
@@ -381,7 +385,7 @@ app.get('/admin/:popularCount', function(req,res) {
                         console.log("outstandingInvoices");
                         console.log(outstandingInvoices);
 
-                        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, popularCount: popularCount});
+                        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, popularCount: popularCount, admin: admin_status});
                     });
                 });
             });
@@ -443,7 +447,7 @@ app.post('/cart', function(req,res) {
 app.get('/cart', function(req, res) {
   sess=req.session;
   console.log(sess.cart);  
-  res.render('cart.pug', {title:'Cart', user:sess.user, cart:sess.cart})
+  res.render('cart.pug', {title:'Cart', user:sess.user, cart:sess.cart, admin: admin_status})
 });
 
 app.get('/signOut', function(req,res){
@@ -451,6 +455,7 @@ app.get('/signOut', function(req,res){
       if(err) { 
         console.log(err); 
       } else { 
+        admin_status=false;
         res.redirect('/'); 
       } 
     });
@@ -473,7 +478,7 @@ app.get('/book/:isbn', function(req,res){
             db.book_recommendation(isbn, function(result10){
                 console.log("result10")
                 console.log(result10)
-                 res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result, book_rec: result10})
+                 res.render('book.pug',  {title: query_result.title, data: query_result, user: sess.user, cart:sess.cart, feedback_data: result, book_rec: result10, admin: admin_status})
             })
         });  
       }
