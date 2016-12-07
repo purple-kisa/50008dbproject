@@ -371,7 +371,7 @@ exports.feedback_retrival = function(data, callback){
 
 exports.rating_recording = function(data, callback){
     if (data.rate  < -1  || data.score > 1){
-        return callback("Rating invalid, Please enter a rating of either 0,1,2")
+        return callback("Rating invalid, Please enter a rating of either -1,0,1")
     }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO rating SET ?', [data], function(err, rows){
