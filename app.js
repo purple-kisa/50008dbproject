@@ -487,6 +487,7 @@ app.get('/book/:isbn', function(req,res){
         db.useful_feedback_retrival(data,function(result){
             console.log("feedback");
             console.log(result);
+            
             console.log(isbn)
             db.book_recommendation(isbn, function(result10){
                 console.log("result10")

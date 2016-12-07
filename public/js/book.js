@@ -72,9 +72,11 @@ function submitReview() {
     var user_isbn = $("#isbn").text().split(" ")[1];
     var user_name = $("#user").text();
     var review = $("#review_text").val();
-    var user_score = $("#rating").val();
-    var review_date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    var input = {ISBN: user_isbn, user: user_name, comment: review, date: review_date, score: user_score};
+    var user_score = $("#rating").val();    
+    console.log(new Date())
+    var review_date = (new Date()).toISOString().substring(0, 10);
+    console.log(review_date);
+    var input = {ISBN: user_isbn, user: user_name, comment: review, date: String(review_date), score: user_score};
     console.log(input);
     $.ajax('http://localhost:3000/submitReview', {
         type: 'POST',
