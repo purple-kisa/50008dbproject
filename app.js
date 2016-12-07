@@ -263,6 +263,28 @@ app.post('/addBook', function(request,response){
     });
 });
 
+app.put('/updateInvoice', function(request,response){
+    var data = '';
+    sess=request.session;
+    request.addListener('data', function(chunk) { data += chunk; });
+    request.addListener('end', function() {
+        put = JSON.parse(data)
+        db.update_invoice_status(put, function(result1){
+            console.log(result1)
+            if (typeof result1 !== 'string') {
+              console.log("Invoice is delivered");
+              response.writeHead(200, {'content-type': 'text/plain' });
+              response.write("Success");
+              response.end('\n');
+            } else {
+              response.writeHead(400, {'content-type': 'text/plain' });
+              response.write(result1);
+              response.end('\n');
+            }
+        });
+    });
+});
+
 app.put('/updateBookCount', function(request,response){
     var data = '';
     sess=request.session;

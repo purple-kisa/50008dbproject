@@ -30,8 +30,27 @@ var OrderButtons = document.getElementsByClassName("order");
 for (var i = 0;i < OrderButtons.length;i++){
 	var orderBtn = OrderButtons[i];
 	orderBtn.onclick=function(){
-		this.innerHTML = "Delivered";
-		this.className = "delivered";
+		var orderBtn = this;
+		var orderBtnId = this.id;
+		var invoiceNumber = orderBtnId.split(" ")[0];
+		
+		var input = {
+			number: invoiceNumber,
+			status: 'delivered'
+			};
+
+		$.ajax('http://localhost:3000/updateInvoice', {
+	        type: 'PUT',
+	        data: JSON.stringify(input),
+	        contentType: 'text/json',
+	        success: function(data) { 
+	        	console.log(data)
+	        	orderBtn.innerHTML = "Delivered";
+				orderBtn.className = "delivered";},
+	        error  : function(error) { 
+	        	console.log(error)
+	        	window.alert(error.responseText) }
+	    });
 	};
 }
 
@@ -42,9 +61,8 @@ function ShowPopularCount(){
     } else if (Count % 1 !== 0){
     	alert("You must enter a whole number.");
     } else {
-    	$.ajax('http://localhost:3000/admin/' + Count, {
-        type: 'GET',
-        contentType: 'text/json'
+    	// similar behavior as an HTTP redirect
+    	window.location.replace("http://localhost:3000/admin/" + Count);
     }
 };
 
