@@ -445,7 +445,7 @@ exports.useful_feedback_retrival = function(data, callback){
 
 exports.book_recommendation = function(ISBN, callback){
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT c1.ISBN, SUM(c1.copies) AS sum_cop FROM online_bookstore.invoice i1, online_bookstore.content c1 WHERE i1.number = c1.number AND i1.user IN (SELECT i.user FROM online_bookstore.invoice i, online_bookstore.content c WHERE i.number = c.number AND c.ISBN = ?) AND c1.ISBN != ? GROUP BY c1.ISBN ORDER BY sum_cop DESC', [ISBN, ISBN], function(err, rows){
+        connection.query('SELECT c1.ISBN, b.title, SUM(c1.copies) AS sum_cop, b.image FROM online_bookstore.invoice i1, online_bookstore.content c1, online_bookstore.book b WHERE i1.number = c1.number AND c1.ISBN = b.ISBN AND i1.user IN (SELECT i.user FROM online_bookstore.invoice i, online_bookstore.content c WHERE i.number = c.number AND c.ISBN = ?) AND c1.ISBN != ? GROUP BY c1.ISBN ORDER BY sum_cop DESC', [ISBN, ISBN], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
