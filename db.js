@@ -285,6 +285,12 @@ exports.new_book = function(data, callback){
     else if (data.format !=  "softcopy" && data.format !=  "hardcopy"){
         return callback("Format invalid, Please enter a format. E.g softcopy/hardcopy")
     }
+    else if (data.year_pub < 0){
+        return callback("Year invalid, Please enter a valid year.")
+    }
+    else if(ISBN.length!=10){
+        return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
+    }
     state.pool.getConnection(function(err, connection){
         connection.query('INSERT INTO `online_bookstore`.`book` (`ISBN`, `title`, `authors`, `publisher`, `year_pub`, `copies`, `price`, `tag`, `format`, `subject`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [data.ISBN, data.title, data.authors, data.publisher, data.year_pub, data.copies, data.price, data.tag, data.format, data.subject, data.image], function(err, rows){
             connection.release();
