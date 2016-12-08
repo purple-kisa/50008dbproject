@@ -519,7 +519,7 @@ exports.popular_books = function(data, callback){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT c.ISBN, SUM(c.copies) AS sum_cop, b.title FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} GROUP BY c.ISBN ORDER BY sum_cop DESC LIMIT ?',[data.month,data.count], function(err, rows){
+        connection.query('SELECT c.ISBN, SUM(c.copies) AS sum_cop, b.title FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} AND YEAR(i.date) = {YEAR(?)} GROUP BY c.ISBN ORDER BY sum_cop DESC LIMIT ?',[data.month,data.year,data.count], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
@@ -536,7 +536,7 @@ exports.popular_authors = function(data, callback){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} AND b.authors IS NOT NULL GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[data.month, data.count], function(err, rows){
+        connection.query('SELECT b.authors, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} AND YEAR(i.date) = {YEAR(?)} AND b.authors IS NOT NULL GROUP BY b.authors ORDER BY sum_cop DESC LIMIT ?',[data.month,data.year, data.count], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
@@ -553,7 +553,7 @@ exports.popular_publishers = function(data, callback){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){
-        connection.query('SELECT b.publisher, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} GROUP BY b.publisher ORDER BY sum_cop DESC LIMIT ?',[data.month, data.count], function(err, rows){
+        connection.query('SELECT b.publisher, SUM(c.copies) AS sum_cop FROM online_bookstore.content c, online_bookstore.book b, online_bookstore.invoice i WHERE c.ISBN = b.ISBN AND c.number = i.number AND MONTH(i.date) = {MONTH(?)} AND YEAR(i.date) = {YEAR(?)} GROUP BY b.publisher ORDER BY sum_cop DESC LIMIT ?',[data.month,data.year, data.count], function(err, rows){
             connection.release();
             if(!err){
                 return callback(rows);
