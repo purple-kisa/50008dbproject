@@ -320,11 +320,11 @@ exports.update_book_copies = function(data, callback){
             if(!err){
                 if (rows[0].test != "False"){
                     connection.query('UPDATE book SET copies = (copies + ?) WHERE ISBN = ?', [data.copies, data.ISBN], function(err, rows1){
-                        return callback(data.ISBN + "," + data.copies+ " copies updated successfully! \n" + rows);
+                        return callback(data.ISBN + "," + data.copies+ " copies updated successfully! \n");
                     })
                 }
                 else{
-                    return callback("Book does not exist")
+                    return callback("Error: Book does not exist")
                 }
             }
             else{
