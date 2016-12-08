@@ -1,5 +1,19 @@
 extends ./templates/layout.pug
 
+mixin selectForMonth()
+    option(value="1") Jan
+    option(value="2") Feb
+    option(value="3") Mar
+    option(value="4") Apr
+    option(value="5") May
+    option(value="6") Jun
+    option(value="7") Jul
+    option(value="8") Aug
+    option(value="9") Sep
+    option(value="10") Oct
+    option(value="11") Nov
+    option(value="12") Dec
+
 mixin orders(outstandingInvoices) 
     div.grid-item(style="text-align:center;margin:10px; padding:10px; border: 2px solid black;border-radius: 5px;display: inline-block;")
         div.col-sm-12(style="text-align:center;float:left;")
@@ -7,7 +21,7 @@ mixin orders(outstandingInvoices)
             p User: #{outstandingInvoices.user}
             p Date: #{outstandingInvoices.date}
         div.col-sm-12(style="text-align:center;float:right;")
-            button.order(id=outstandingInvoices.number + " orderBtn") ordered
+            button.w3-btn.w3-dark-grey(id=outstandingInvoices.number + " orderBtn") ordered
         div.col-sm-12(style="text-align:center;")
             table(border="1" style="margin:auto;")
                 tr
@@ -56,7 +70,7 @@ block content
                 label(for='copiesToAdd') Number of copies to be added:
                 input#copiesToAdd.form-control(type='text', placeholder='Number of copies to add' name='copiesToAdd')    
             div(class="form-group col-sm-12" style="text-align:center;")
-                button.btn.btn-primary(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="updateBookCount()") Update Book Copies
+                button.w3-btn.w3-dark-grey(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="updateBookCount()") Update Book Copies
               
     div.mainMiddle
         div.col-sm-12(style="text-align:center;")
@@ -71,11 +85,27 @@ block content
     div.mainMiddle
         div.col-sm-6(style="text-align:center;")
             h2.DbHeader Statistics
-        div#StatisticsFilter.col-sm-6(style="display:inline-flex;top:2em;")
+        div#StatisticsFilter.col-sm-6(style="display:inline-flex;top:2em;margin-bottom:30px")
             div(style="display:inline;margin:5px;")
-                p(style="display:inline;") Show Top
-                input#topPopularCount(style="display:inline;" type='number', placeholder="Number here" name='TopPopularCount')
-                p(style="display:inline;") entries
+                div
+                    p(style="display:inline;") Show for 
+                    if DbParamsData
+                        select#monthPopular(style="display:inline;" selected=DbParamsData.month)
+                            +selectForMonth()
+                    else
+                        select#monthPopular(style="display:inline;")
+                            +selectForMonth()
+                    if DbParamsData
+                        input#yearPopular(style="display:inline;" type='number', placeholder="Year here" name='yearPopular' value=DbParamsData.year)
+                    else
+                        input#yearPopular(style="display:inline;" type='number', placeholder="Year here" name='yearPopular')
+                div
+                    p(style="display:inline;") Top
+                    if DbParamsData
+                        input#topPopularCount(style="display:inline;" type='number', placeholder="Number here" name='TopPopularCount' value=DbParamsData.count)
+                    else
+                        input#topPopularCount(style="display:inline;" type='number', placeholder="Number here" name='TopPopularCount')
+                    p(style="display:inline;") entries
             div(style="display:inline;")
                 button#topPopularCount.btn.btn-primary(style="padding-left:10px;padding-right:10px;display:inline;" onclick="ShowPopularCount()") Filter
 
@@ -94,8 +124,12 @@ block content
                             th.populartd Copies
                         each val, index in booksData 
                             +books(val)
+                        if DbParamsData
+                            if booksData.length !== DbParamsData.count
+                                tr
+                                    td There are no more books
                     else
-                        p There seems to be not enough books.
+                        p Key in the filter parameters and filter
 
         div(class="panel-group col-sm-4" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -110,8 +144,12 @@ block content
                             th.populartd Copies
                         each val, index in authorsData 
                             +authors(val)
+                        if DbParamsData
+                            if authorsData.length !== DbParamsData.count
+                                tr
+                                    td There are no more authors
                     else
-                        p There seems to be not enough books.
+                        p Key in the filter parameters and filter
         
         div(class="panel-group col-sm-4" style="margin-bottom:15px;")
           div(class="panel panel-default")
@@ -126,8 +164,12 @@ block content
                             th.populartd Copies
                         each val, index in publishersData 
                             +publishers(val)
+                        if DbParamsData
+                            if publishersData.length !== DbParamsData.count
+                                tr
+                                    td There are no more publishers
                     else
-                        p There seems to be not enough books.
+                        p Key in the filter parameters and filter
 
     <!-- The Modal -->
     div(id="NewBookModal" class="modal")
@@ -172,7 +214,7 @@ block content
                 label(for='image') Image:
                 input#image.form-control(type='text', placeholder='Image URL' name='image')
             div(class="form-group col-sm-12" style="text-align:center;")
-                button.btn.btn-primary(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="addBook()") Add Book
+                button.w3-btn.w3-dark-grey(style="padding-left:60px;padding-right:60px;margin-top:30px;" onclick="addBook()") Add Book
 
 block scripts
     script(src="/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript")

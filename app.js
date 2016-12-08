@@ -123,15 +123,15 @@ app.get('/', function (req, res) {
     // })
 
     //Q11
-    db.popular_authors(2, function(result11_1){
-        console.log(result11_1)
-    })
-    db.popular_books(2, function(result11_2){
-        console.log(result11_2)
-    })
-    db.popular_publishers(2, function(result11_3){
-        console.log(result11_3)
-    })
+    // db.popular_authors(2, function(result11_1){
+    //     console.log(result11_1)
+    // })
+    // db.popular_books(2, function(result11_2){
+    //     console.log(result11_2)
+    // })
+    // db.popular_publishers(2, function(result11_3){
+    //     console.log(result11_3)
+    // })
 });
     // console.log("query result is " + query_result);    
 
@@ -361,11 +361,19 @@ app.get('/account/:user', function (req, res) {
     
 });
 
-app.get('/admin/:popularCount', function(req,res) {
+app.get('/admin/:Year/:Month/:popularCount', function(req,res) {
 
     db.connect();
     var popularCount = parseInt(req.params.popularCount);
-    console.log(popularCount);
+    var Year = parseInt(req.params.Year);
+    var Month = parseInt(req.params.Month);
+    var DbParamsData = {
+      year : Year,
+      month : Month,
+      count : popularCount 
+    }
+
+    console.log(DbParamsData);
     var authorsData;
     var booksData;
     var publishersData;
@@ -374,15 +382,15 @@ app.get('/admin/:popularCount', function(req,res) {
     if (sess.user == 'admin') {
             admin_status = true;
         }
-    db.popular_authors(popularCount, function(result11_1){
+    db.popular_authors(DbParamsData, function(result11_1){
         console.log("popular authors");
         console.log(result11_1);
         authorsData = result11_1;
-        db.popular_books(popularCount, function(result11_2){
+        db.popular_books(DbParamsData, function(result11_2){
             console.log("popular books");
             console.log(result11_2);
             booksData = result11_2;
-            db.popular_publishers(popularCount, function(result11_3){
+            db.popular_publishers(DbParamsData, function(result11_3){
                 console.log("popular publishers");
                 console.log(result11_3);
                 publishersData = result11_3;
@@ -392,10 +400,32 @@ app.get('/admin/:popularCount', function(req,res) {
                         console.log("outstandingInvoices");
                         console.log(outstandingInvoices);
 
-                        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, popularCount: popularCount, admin: admin_status});
+                        res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, admin: admin_status,DbParamsData : DbParamsData});
                     });
                 });
             });
+        });
+    });
+});
+
+app.get('/admin', function(req,res) {
+
+    db.connect();
+    var authorsData = null;
+    var booksData = null;
+    var publishersData = null;
+    var outstandingInvoices;
+    sess = req.session;
+    if (sess.user == 'admin') {
+            admin_status = true;
+        }
+    db.admin_invoice_details(function(result){
+        db.format_invoice_details(result, function(result1){
+            outstandingInvoices = result1;
+            console.log("outstandingInvoices");
+            console.log(outstandingInvoices);
+
+            res.render('admin.pug', {title:"Admin Account", user:sess.user, cart:sess.cart, outstandingInvoices: outstandingInvoices, authorsData: authorsData, booksData: booksData, publishersData: publishersData, admin: admin_status});
         });
     });
 });

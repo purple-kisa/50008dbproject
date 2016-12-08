@@ -515,7 +515,7 @@ exports.book_recommendation = function(ISBN, callback){
 //-----------------------------------------------------
 
 exports.popular_books = function(data, callback){
-    if(count<0){
+    if(data.count<0){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){
@@ -532,7 +532,7 @@ exports.popular_books = function(data, callback){
 }
 
 exports.popular_authors = function(data, callback){
-    if(count<0){
+    if(data.count<0){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){
@@ -549,7 +549,7 @@ exports.popular_authors = function(data, callback){
 }
 
 exports.popular_publishers = function(data, callback){
-    if(count<0){
+    if(data.count<0){
         return callback("Please insert a positive integer");
     }
     state.pool.getConnection(function(err, connection){

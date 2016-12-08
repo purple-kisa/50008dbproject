@@ -46,7 +46,7 @@ div#navbar-full
                                         br
                                     li 
                                         p(id="signupFailure" style="color:red")
-                                        input(style = "float:right;" type="submit" value="Register" onClick="submitDetails()")
+                                        input.w3-btn.w3-dark-grey(style = "float:right;" type="submit" value="Register" onClick="submitDetails()")
                             li.dropdown
                                 a.dropdown-toggle(href="#" data-toggle="dropdown" role="button") SIGN IN
                                     span.caret#sign_in_popup 
@@ -60,12 +60,12 @@ div#navbar-full
                                         br
                                     li 
                                         p(id="signinFailure" style="color:red")
-                                        input(style = "float:right;" type="submit" value="Sign In" onClick="signIn()")
+                                        input.w3-btn.w3-dark-grey(style = "float:right;" type="submit" value="Sign In" onClick="signIn()")
                         else
                             li: a(href="/signOut/") SIGN OUT 
                             li: button.btn: a(href="/cart"): img(src="/img/icon_cart.png" width="36px" height="36px")
                             if admin 
-                                li: button.btn: a(href="/admin/5"): img(src="/img/icon_admin.png" width="36px" height="36px")
+                                li: button.btn: a(href="/admin"): img(src="/img/icon_admin.png" width="36px" height="36px")
                             else
                                 li: button.btn: a(href="/account/"+user): img(src="/img/icon_account.png" width="36px" height="36px")
 

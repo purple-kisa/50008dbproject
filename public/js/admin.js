@@ -1,3 +1,18 @@
+$(window).on('load', function () {
+    var splitPath = window.location.pathname.split("/");
+    if (splitPath.length === 5){
+    	var Month = splitPath[3];
+    	console.log("month: " + Month);
+    	var Select = document.getElementById("monthPopular");
+    	var options = Select.getElementsByTagName("OPTION");
+    	for (var i=0;i<options.length;i++){
+    		if (options[i].value === Month){
+    			options[i].selected = true;
+    		}
+    	}
+    }
+});
+
 // Get the modal
 var modal = document.getElementById('NewBookModal');
 
@@ -56,17 +71,20 @@ for (var i = 0;i < OrderButtons.length;i++){
 
 function ShowPopularCount(){
     Count = $("#topPopularCount").val();
-    if (isNaN(Count) ){
+    Month = $("#monthPopular").val();
+    Year = $("#yearPopular").val();
+
+    if (isNaN(Count) || isNaN(Year) ){
     	alert("You must enter valid number.");
-    } else if (Count % 1 !== 0){
+    } else if (Count % 1 !== 0 || Year % 1 !== 0){
     	alert("You must enter a whole number.");
-    } else if (Count === ""){
+    } else if (Count === "" || Year === ""){
     	alert("Default filter is 5. Key in a number for desired filter.");
-    } else if (Count <= 0){
-    	alert("Filter must be at least 1.");
+    } else if (Count <= 0 || Year === ""){
+    	alert("Number must be at least 1.");
     } else {
     	// similar behavior as an HTTP redirect
-    	window.location.replace("http://localhost:3000/admin/" + Count);
+    	window.location.replace("http://localhost:3000/admin/" + Year + "/" + Month + "/" + Count);
     }
 };
 
