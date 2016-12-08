@@ -21,7 +21,7 @@ mixin orders(outstandingInvoices)
             p User: #{outstandingInvoices.user}
             p Date: #{outstandingInvoices.date}
         div.col-sm-12(style="text-align:center;float:right;")
-            button.w3-btn.w3-dark-grey(id=outstandingInvoices.number + " orderBtn") ordered
+            button.order(id=outstandingInvoices.number + " orderBtn") ordered
         div.col-sm-12(style="text-align:center;")
             table(border="1" style="margin:auto;")
                 tr
