@@ -398,13 +398,20 @@ exports.rating_recording = function(data, callback){
 
 exports.book_browsing = function(post, callback){
     state.pool.getConnection(function(err, connection){
-        var query = 'SELECT * FROM book WHERE '
+        var count = 0 
+        var query = 'SELECT * FROM book '
         for (var key in post) {
           if (post[key].length!=0 & key!='sort') {
+            if (count == 0){
+            query = query + 'WHERE '
+            }
             query = query + key + ' LIKE "%' + post[key] +'%" AND '
+            count = count + 1
           }
         }
-        query = query.substr(0,query.length-4)
+        if(count>0){
+            query = query.substr(0,query.length-4)
+        }
         console.log(query)
         connection.query(query, function(err, rows){
             connection.release();
@@ -420,14 +427,21 @@ exports.book_browsing = function(post, callback){
 
 exports.book_browsing_year = function(post, callback){
     state.pool.getConnection(function(err, connection){
-        var query = 'SELECT * FROM book WHERE '
+        var count = 0
+        var query = 'SELECT * FROM book '
         for (var key in post) {
           if (post[key].length!=0 & key!='sort') {
+            if (count == 0){
+                query = query + 'WHERE '
+            }
             query = query + key + ' LIKE "%' + post[key] +'%" AND '
+            count = count + 1
           }
         }
-        query = query.substr(0,query.length-4)
-        query = query + ' ORDER BY year_pub DESC'
+        if(count>0){
+            query = query.substr(0,query.length-4)
+        }
+        query = query + 'ORDER BY year_pub DESC'
         console.log(query)      
         connection.query(query, function(err, rows){
             connection.release();
@@ -443,13 +457,20 @@ exports.book_browsing_year = function(post, callback){
 
 exports.book_browsing_avg_feedback = function(post, callback){
     state.pool.getConnection(function(err, connection){
-        var query = 'SELECT * FROM book INNER JOIN(SELECT avg(score) average,ISBN FROM feedback GROUP BY ISBN)D ON D.ISBN = book.ISBN WHERE '
+        var count = 0
+        var query = 'SELECT * FROM book INNER JOIN(SELECT avg(score) average,ISBN FROM feedback GROUP BY ISBN)D ON D.ISBN = book.ISBN '
         for (var key in post) {
           if (post[key].length!=0 & key!='sort') {
+            if (count == 0){
+                query = query + 'WHERE '
+            }
             query = query + key + ' LIKE "%' + post[key] +'%" AND '
+            count = count + 1
           }
         }
-        query = query.substr(0,query.length-4)
+        if(count>0){
+            query = query.substr(0,query.length-4)
+        }
         query = query +  ' ORDER BY D.average DESC'
         console.log(query)         
         connection.query(query, function(err, rows){
