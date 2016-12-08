@@ -31,6 +31,13 @@ function addToCart() {
             $("#added").hide(); 
             $("#enter_number").hide();
         }
+        else if (parseInt(user_copies,10)<=0) {
+            $("#negative_order").show();
+        }
+        else if (user_copies%1 !== 0) {
+            console.log("JUNSHENGNGGNG")
+            $("#invalid_order").show();
+        } 
         else {
             var input = {isbn: user_isbn, copies:user_copies, title: user_title}
             console.log(input)
