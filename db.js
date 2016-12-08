@@ -288,7 +288,7 @@ exports.new_book = function(data, callback){
     else if (data.year_pub < 0){
         return callback("Year invalid, Please enter a valid year.")
     }
-    else if(ISBN.length!=10){
+    else if(data.ISBN.length!=10){
         return callback("ISBN is invalid, Please enter a valid 10 digit ISBN number");
     }
     state.pool.getConnection(function(err, connection){
