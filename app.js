@@ -33,8 +33,6 @@ app.get('/', function (req, res) {
     if (typeof sess.query_result==="undefined") {
         console.log("in if clause");
         db.query_books('book',function(result){
-            console.log("query_books")
-            console.log(result)
             query_result = result;
             // console.log(query_result)
             res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
@@ -234,8 +232,27 @@ app.post('/search', function(request,response){
             db.book_browsing_avg_feedback(post,function(result){
                 console.log("Sort by average feedback")
                 console.log(result)
-                sess.query_result = result;
-                response.redirect('/'); 
+                db.book_browsing(post, function(result2) {
+                    var to_remove = [];
+                    for(i=0; i<result2.length; i++) {
+                        for(j=0; j<result.length; j++) {
+                            if(result2[i].ISBN==result[j].ISBN) {
+                                to_remove.push(i);
+                            }
+                        }
+                    }
+                    console.log(to_remove);
+                    for(i=to_remove.length-1; i>=0; i--) {
+                        result2.splice(to_remove[i], 1);
+                    }
+                    for(i=0; i<result2.length;i++) {
+                        result.push(result2[i]); 
+                    }
+                    console.log(result)
+                    sess.query_result = result;
+                    response.redirect('/');
+
+                }) 
             });
         }
         console.log(sess.query_result);
