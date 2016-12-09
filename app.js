@@ -28,110 +28,21 @@ app.get('/', function (req, res) {
     db.connect();
     
     var query_result;
-    console.log(typeof sess.query_result=== "undefined");
 
     if (typeof sess.query_result==="undefined") {
-        console.log("in if clause");
         db.query_books('book',function(result){
             query_result = result;
-            // console.log(query_result)
             res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
         });
     } else {
         query_result = sess.query_result;
-        console.log(query_result.length);
         if(query_result.length!=0) {
             res.render('index.pug', {title:'Book Link', "search": {}, data: query_result, user: sess.user, cart:sess.cart, admin: admin_status});
         } else {
             res.render('index.pug', {title:'Book Link', "search": {}, user: sess.user, cart:sess.cart, admin: admin_status});
         }
     }
-
-
-    //TODO: PROPER SIGN IN AND SIGN OUT 
-    //IF PROPER SIGN IN: sess.user = <username> 
-    //IF SIGN OUT:  
-    //app.get('/logout',function(req,res){ 
-    // req.session.destroy(function(err) { 
-    //   if(err) { 
-    //     console.log(err); 
-    //   } else { 
-    //     res.redirect('/'); 
-    //   } 
-    // }); 
-
-    // Admin invoice details retrieval
-    // db.admin_invoice_details(function(result){
-    //     db.format_invoice_details(result, function(result1){
-    //         console.log("invoice details");
-    //         console.log(result1);
-    //     });
-    // }); 
-    // var data = {status: 'douche', number: '9'}
-    // db.update_invoice_status(data, function(result1){
-    //     console.log(result1)
-    // })
-
-    //Q3
-    // db.query_account('customer',"Sulfish",function(result){
-    //     console.log(result)
-    // });
-    // db.query_order('Sulfish',function(result){
-    //     console.log(result)
-    // });
-    // db.query_feedback('Sulfish',function(result){
-    //     console.log(result)
-    // });
-    // db.query_rating('Sulfish',function(result){
-    //     console.log(result)
-    // });
-
-    //Q4
-    // var data = {ISBN: '1234567890', title: 'Shaun the Sheep', authors: 'Shaun C.', publisher: 'SUTD', year_pub: '2016', copies: '189', price: '1.00', tag: 'homo', format: 'hardcopy', subject: 'sexuality', image: 'http://placekitten.com/400/500'};
-    // db.new_book(data, function(result){
-    //     console.log(result)
-    // });
-
-    //Q5
-    // var data5 = {ISBN: '1234567890', copies: 3}
-    // db.update_book_copies(data5, function(result5){
-    //     console.log(result5)
-    // })
-
-    //Q7
-    // var data7_1 = {ISBN: '1234567890'}
-    // db.feedback_retrival(data7_1, function(result7_1){
-    //     console.log(result7_1)
-    // })
-    // var data7_2 = {ISBN: '193659420X', user_feedback: 'Sulfish', user_rate: 'sabbath65', rate: '1'}
-    // db.rating_recording(data7_2, function(result7_2){
-    //     console.log(result7_2)
-    // })
-
-    //Q9
-    // var data9 = {ISBN: '193659420X', n: 1}
-    // db.useful_feedback_retrival(data9, function(result9){
-    //     console.log(result9)
-    // })
-
-    //Q10
-    // var data10 = '193659420X'
-    // db.book_recommendation(data10, function(result10){
-    //     console.log(result10)
-    // })
-
-    //Q11
-    // db.popular_authors(2, function(result11_1){
-    //     console.log(result11_1)
-    // })
-    // db.popular_books(2, function(result11_2){
-    //     console.log(result11_2)
-    // })
-    // db.popular_publishers(2, function(result11_3){
-    //     console.log(result11_3)
-    // })
 });
-    // console.log("query result is " + query_result);    
 
 app.post('/register', function(request,response){
     var data = '';
@@ -139,17 +50,17 @@ app.post('/register', function(request,response){
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
         post = JSON.parse(data)
-        console.log(post);
         db.registration('customer',post,function(result){
-    	console.log(result)
-        if (result.indexOf("Successfully Registered User: ")!==-1) {//IF SUCCESSFUL REGISTER: 
-            sess.user=post.user; 
-            response.writeHead(200, {'content-type': 'text/plain' });
-            response.end()
-        } else {
-            response.writeHead(400, {'content-type': 'text/plain' });
-            response.end()
-        }
+            console.log("registration");
+        	console.log(result)
+            if (result.indexOf("Successfully Registered User: ")!==-1) {//IF SUCCESSFUL REGISTER: 
+                sess.user=post.user; 
+                response.writeHead(200, {'content-type': 'text/plain' });
+                response.end()
+            } else {
+                response.writeHead(400, {'content-type': 'text/plain' });
+                response.end()
+            }
   	    });
     });
 });
@@ -160,17 +71,17 @@ app.post('/signIn', function(request,response){
     request.addListener('data', function(chunk) { data += chunk; });
     request.addListener('end', function() {
         post = JSON.parse(data)
-        console.log(post)
         db.sign_in(post.user,post.password,function(result){
-        console.log(result)
-        if (result=="Success") {//IF SUCCESSFUL REGISTER: 
-            sess.user=post.user; 
-            response.writeHead(200, {'content-type': 'text/plain' });
-            response.end()
-        } else {
-            response.writeHead(400, {'content-type': 'text/plain' });
-            response.end()
-        }
+            console.log("sign in");
+            console.log(result)
+            if (result=="Success") {//IF SUCCESSFUL REGISTER: 
+                sess.user=post.user; 
+                response.writeHead(200, {'content-type': 'text/plain' });
+                response.end()
+            } else {
+                response.writeHead(400, {'content-type': 'text/plain' });
+                response.end()
+            }
         });
     });
 });
@@ -179,26 +90,21 @@ app.post('/submitorder', function(req, res) {
     sess = req.session;
     var data_invoice = {date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').split(" ")[0], status:'Ordered' , user:sess.user}
     var data  = sess.cart;  
-    console.log("invoice"); 
-    console.log(data_invoice);
-    console.log("data"); 
-    console.log(data);
     db.order('invoice', data_invoice, function(result){
+        console.log("order")
         console.log(result)
         for (i = 0; i < data.length; i++){
             var content_data = {date: data_invoice.date, user: data_invoice.user, ISBN: data[i].isbn, copies: data[i].copies}
-            console.log("content data"); 
-            console.log(content_data);
             db.content('content', content_data, function(result1){
+                console.log("content")
                 console.log(result1)
             });
             db.book_decrease(data[i].copies,data[i].isbn,function(result){
+                console.log("book decrease")
                 console.log(result)
             });  
         }
     sess.cart = null;
-    console.log("sess.cart"); 
-    console.log(sess.cart);
     res.writeHead(200, {'content-type': 'text/plain' });
     res.end()
 
@@ -241,24 +147,18 @@ app.post('/search', function(request,response){
                             }
                         }
                     }
-                    console.log(to_remove);
                     for(i=to_remove.length-1; i>=0; i--) {
                         result2.splice(to_remove[i], 1);
                     }
                     for(i=0; i<result2.length;i++) {
                         result.push(result2[i]); 
                     }
-                    console.log(result)
                     sess.query_result = result;
                     response.redirect('/');
 
                 }) 
             });
         }
-        console.log(sess.query_result);
-        // response.redirect('/'); 
-        // response.writeHead(200, {'content-type': 'text/plain' });
-        // response.end()
     });
 });
 
@@ -269,6 +169,7 @@ app.post('/addBook', function(request,response){
     request.addListener('end', function() {
         post = JSON.parse(data)
         db.new_book(post,function(result){
+            console.log("new book");
             console.log(result);
             if (typeof result !== 'string') {
               console.log("Book is added.");
@@ -291,6 +192,7 @@ app.put('/updateInvoice', function(request,response){
     request.addListener('end', function() {
         put = JSON.parse(data)
         db.update_invoice_status(put, function(result1){
+            console.log("update invoice status");
             console.log(result1)
             if (typeof result1 !== 'string') {
               console.log("Invoice is delivered");
@@ -313,6 +215,7 @@ app.put('/updateBookCount', function(request,response){
     request.addListener('end', function() {
         post = JSON.parse(data)
         db.update_book_copies(post,function(result){
+            console.log("update book copies")
             console.log(result);
             if (result.substring(0,5) !== 'Error') {
               console.log("Book copies added");
@@ -328,19 +231,6 @@ app.put('/updateBookCount', function(request,response){
         });
     });
 });
-
-
-    //DB Examples
-    //This function is called in app.js which is the main entry point to the website
-  	// E.g Retrieving user database
-  	 // db.query_database_all('book',function(result){
-    //  	console.log(result)
-  	 // });
-    // E.g Registering a new user
-    //  var post  = {name: 'Shaun1', user: 'hazel1111123', password:'grasdalls' , card_no:'1', address:'Science Park', phone_no:99999999};
-  	 // db.registration('customer',post,function(result){
-    // 	 	console.log(result)
-  	 // });
 
 app.get('/account/:user', function (req, res) {
     var user = req.params.user;
@@ -368,6 +258,7 @@ app.get('/account/:user', function (req, res) {
                 ratingData = result;
                 db.query_account('customer',user,function(result){
                     customerData = result[0];
+                    console.log("query account");
                     console.log(customerData)
                   
                     res.render('account.pug', {title:'Your Account', customerData: customerData, orderData: orderData, feedbackData: feedbackData, ratingData: ratingData, user: sess.user, cart:sess.cart, admin: admin_status});
@@ -390,7 +281,6 @@ app.get('/admin/:Year/:Month/:popularCount', function(req,res) {
       count : popularCount 
     }
 
-    console.log(DbParamsData);
     var authorsData;
     var booksData;
     var publishersData;
@@ -453,13 +343,9 @@ app.post('/addToCart', function(req,res) {
     req.addListener('data', function(chunk) { data += chunk; });
     req.addListener('end', function() {
         post = JSON.parse(data);
-        console.log("post");
-        console.log(post);
         if (sess.cart!=undefined) {
             var changed = false
             for (order in sess.cart) {
-                console.log(sess.cart[order].isbn)
-                console.log(post.isbn)
                 if (sess.cart[order].isbn == post.isbn) {
                     sess.cart[order].copies = parseInt(sess.cart[order].copies) + parseInt(post.copies)
                     changed = true
@@ -486,8 +372,6 @@ app.post('/cart', function(req,res) {
     req.addListener('end', function() {
         post = JSON.parse(data);
         for (i=0; i<sess.cart.length;++i) {
-            console.log(sess.cart[i]);
-            console.log(post.book_isbn)
             if (sess.cart[i].isbn==post.book_isbn) {
                 sess.cart.splice(i,1)
             }
@@ -503,7 +387,6 @@ app.get('/cart', function(req, res) {
   if (sess.user == 'admin') {
             admin_status = true;
         }
-  console.log(sess.cart);  
   res.render('cart.pug', {title:'Cart', user:sess.user, cart:sess.cart, admin: admin_status})
 });
 
@@ -520,7 +403,6 @@ app.get('/signOut', function(req,res){
 
 app.get('/book/:isbn', function(req,res){
     var isbn = req.params.isbn;
-    console.log(isbn);  
     sess=req.session;
     if (sess.user == 'admin') {
             admin_status = true;
@@ -537,7 +419,7 @@ app.get('/book/:isbn', function(req,res){
             
             console.log(isbn)
             db.book_recommendation(isbn, function(result10){
-                console.log("result10")
+                console.log("recommendation")
                 console.log(result10)
                 if (result10.length == 0) {
                     result10 = false; 
@@ -557,6 +439,7 @@ app.post('/submitReview', function(req,res){
     req.addListener('end', function() {
         post = JSON.parse(data);
         db.feedback_recording(post,function(result){
+            console.log("feedback recording")
             console.log(result)
         if (result=="Feedback submitted successfully") {
             res.writeHead(200, {'content-type': 'text/plain' });

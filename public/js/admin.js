@@ -2,7 +2,6 @@ $(window).on('load', function () {
     var splitPath = window.location.pathname.split("/");
     if (splitPath.length === 5){
     	var Month = splitPath[3];
-    	console.log("month: " + Month);
     	var Select = document.getElementById("monthPopular");
     	var options = Select.getElementsByTagName("OPTION");
     	for (var i=0;i<options.length;i++){

@@ -4,7 +4,6 @@ function deleteRow(btndel, isbn) {
     } else {
         return false;
     }
-    console.log(isbn);
     var input = {
 				book_isbn: isbn
 				};
@@ -20,7 +19,6 @@ function deleteRow(btndel, isbn) {
 }
 
 function submitOrder() {
-    console.log("submit order");
 
 	$.ajax('http://localhost:3000/submitOrder', {
         type: 'POST',
